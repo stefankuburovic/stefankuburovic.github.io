@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stefan Kuburovic · Angular modernization</title>
+<meta name="description" content="I upgrade and modernize large Angular codebases: version upgrades, zoneless change detection, signals, standalone components, Vitest and strict typing. Start with a fixed-scope Angular Health Check.">
+<meta property="og:title" content="Stefan Kuburovic · Angular modernization">
+<meta property="og:description" content="Your Angular app, current again, without a feature freeze. Fixed-scope Angular Health Check and modernization work.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stefankuburovic.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233b5bdb'/%3E%3Cpath d='M9 17l5 5 9-12' stroke='white' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #f7f7f5; --surface: #ffffff; --text: #17191d; --muted: #5b616c; --border: #e3e3df; --code-bg: #f0f0ec;
+  --accent: #3b5bdb; --accent-strong: #2f4bc0; --accent-soft: #e8edff; --on-accent: #ffffff;
+  --good: #1f7a4d; --good-bg: #e3f3ea; --fair: #8a5a00; --fair-bg: #fbf0d9; --poor: #b42318; --poor-bg: #fde8e6;
+  --ring-track: #e7e7e3; --shadow: 0 1px 2px rgba(20, 22, 26, 0.04), 0 8px 24px rgba(20, 22, 26, 0.06);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111215; --surface: #1a1c20; --text: #ececec; --muted: #9aa0aa; --border: #2b2e34; --code-bg: #23262c;
+    --accent: #8ea6ff; --accent-strong: #a9bbff; --accent-soft: #1e2540; --on-accent: #0f1430;
+    --good: #5cc98f; --good-bg: #173326; --fair: #e8b54d; --fair-bg: #3a2d10; --poor: #f17a6e; --poor-bg: #3d1a17;
+    --ring-track: #2b2e34; --shadow: none;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111215; --surface: #1a1c20; --text: #ececec; --muted: #9aa0aa; --border: #2b2e34; --code-bg: #23262c;
+  --accent: #8ea6ff; --accent-strong: #a9bbff; --accent-soft: #1e2540; --on-accent: #0f1430;
+  --good: #5cc98f; --good-bg: #173326; --fair: #e8b54d; --fair-bg: #3a2d10; --poor: #f17a6e; --poor-bg: #3d1a17;
+  --ring-track: #2b2e34; --shadow: none;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+/* Navigation */
+.nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+.brand { font-weight: 700; text-decoration: none; letter-spacing: -0.01em; white-space: nowrap; }
+.nav-links { display: flex; align-items: center; gap: 22px; font-size: 14.5px; }
+.nav-links a { text-decoration: none; color: var(--muted); }
+.nav-links a:hover { color: var(--text); }
+.nav-links .button { color: var(--on-accent); }
+@media (max-width: 760px) { .nav-links a:not(.button) { display: none; } }
+
+/* Buttons */
+.button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 9px; background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid transparent; transition: background 0.15s; }
+.button:hover { background: var(--accent-strong); }
+.button.secondary { background: transparent; color: var(--text); border-color: var(--border); }
+.button.secondary:hover { border-color: var(--accent); background: transparent; }
+.button.small { padding: 7px 14px; font-size: 14px; }
+
+/* Hero */
+.hero { padding: 72px 0 56px; }
+.hero .wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
+@media (max-width: 900px) { .hero { padding-top: 44px; } .hero .wrap { grid-template-columns: 1fr; gap: 40px; } }
+.eyebrow { margin: 0 0 12px; color: var(--accent); font-size: 13px; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; }
+h1 { margin: 0 0 18px; font-size: clamp(34px, 5vw, 52px); line-height: 1.08; letter-spacing: -0.025em; }
+.lead { margin: 0 0 28px; font-size: 18.5px; color: var(--muted); max-width: 34em; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Report preview */
+.preview { margin: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; box-shadow: var(--shadow); }
+.preview-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.preview-title { margin: 0; font-size: 12px; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.preview-name { margin: 2px 0 0; font-weight: 700; font-size: 17px; }
+.preview-meta { margin: 2px 0 0; font-size: 12.5px; color: var(--muted); }
+.ring { position: relative; width: 74px; height: 74px; flex: none; }
+.ring svg { display: block; }
+.ring-track { fill: none; stroke: var(--ring-track); stroke-width: 9; }
+.ring-value { fill: none; stroke: var(--good); stroke-width: 9; stroke-linecap: round; }
+.ring span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 21px; font-variant-numeric: tabular-nums; }
+.rows { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 7px; }
+.rows li { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+.pill { display: inline-block; width: 46px; text-align: center; border-radius: 999px; font-size: 11.5px; font-weight: 650; padding: 1px 0; flex: none; }
+.pill.good { color: var(--good); background: var(--good-bg); } .pill.fair { color: var(--fair); background: var(--fair-bg); } .pill.poor { color: var(--poor); background: var(--poor-bg); }
+.rows .note { margin-left: auto; color: var(--muted); font-size: 12.5px; text-align: right; }
+.preview-caption { margin: 14px 0 0; font-size: 12.5px; color: var(--muted); }
+
+/* Sections */
+section { padding: 64px 0; border-top: 1px solid var(--border); scroll-margin-top: 60px; }
+h2 { margin: 0 0 12px; font-size: clamp(26px, 3.4vw, 34px); line-height: 1.15; letter-spacing: -0.02em; }
+.section-lead { margin: 0 0 36px; color: var(--muted); font-size: 17.5px; max-width: 40em; }
+
+/* Health check */
+.offer { display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 860px) { .offer { grid-template-columns: 1fr; } }
+.deliverables { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.deliverables li { display: grid; grid-template-columns: 32px 1fr; gap: 14px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+.num { width: 32px; height: 32px; border-radius: 8px; background: var(--accent-soft); color: var(--accent); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+.deliverables strong { display: block; margin-bottom: 2px; }
+.deliverables p { margin: 0; color: var(--muted); font-size: 15px; }
+.terms { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px; position: sticky; top: 84px; }
+.terms dl { margin: 0 0 20px; display: grid; gap: 14px; }
+.terms dt { font-size: 13px; color: var(--muted); }
+.terms dd { margin: 2px 0 0; font-weight: 600; }
+.terms dd span { display: block; font-weight: 400; color: var(--muted); font-size: 14px; }
+.terms .button { width: 100%; justify-content: center; }
+
+/* Services */
+.services { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+.service { padding: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+.service h3 { margin: 0 0 6px; font-size: 16.5px; letter-spacing: -0.005em; }
+.service p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+/* Case study */
+.case { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+.case-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; padding: 0; list-style: none; }
+.case-tags li { font-size: 13px; padding: 3px 11px; border-radius: 999px; background: var(--code-bg); color: var(--muted); }
+.case p { margin: 0 0 24px; max-width: 46em; }
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; margin: 0; }
+.stat { padding: 16px 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); }
+.stat dt { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.stat dd { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+
+/* Tool */
+.tool { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+@media (max-width: 860px) { .tool { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
+.tool > div, .offer > *, .about > * { min-width: 0; }
+.command { display: flex; align-items: center; gap: 10px; background: var(--code-bg); border: 1px solid var(--border); border-radius: 10px; padding: 12px 12px 12px 16px; }
+.command pre { margin: 0; overflow-x: auto; flex: 1; font-size: 14px; }
+.copy { flex: none; border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 7px; padding: 6px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+.copy:hover { border-color: var(--accent); }
+.checklist { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 8px; color: var(--muted); font-size: 15px; }
+.checklist li { padding-left: 26px; position: relative; }
+.checklist li::before { content: ""; position: absolute; left: 4px; top: 7px; width: 11px; height: 6px; border-left: 2px solid var(--good); border-bottom: 2px solid var(--good); transform: rotate(-45deg); }
+
+/* Steps */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: step; }
+@media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+.steps li { padding: 22px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; counter-increment: step; }
+.steps li::before { content: counter(step); display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-weight: 700; font-size: 14px; margin-bottom: 14px; }
+.steps h3 { margin: 0 0 6px; font-size: 16.5px; }
+.steps p { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* About and contact */
+.about { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; }
+@media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 24px; } }
+.about p { margin: 0 0 14px; max-width: 38em; }
+.contact { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+.contact h3 { margin: 0 0 6px; font-size: 18px; }
+.contact p { color: var(--muted); font-size: 15px; margin: 0 0 18px; }
+.contact-links { display: grid; gap: 10px; }
+.contact-links a { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; font-size: 15px; overflow-wrap: anywhere; }
+.contact-links a:hover { border-color: var(--accent); }
+.contact-links svg { flex: none; width: 18px; height: 18px; color: var(--accent); }
+
+footer { padding: 28px 0 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.theme-toggle { border: 1px solid var(--border); background: transparent; color: var(--muted); border-radius: 7px; padding: 4px 10px; font: inherit; font-size: 13px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Stefan Kuburovic</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#health-check">Health check</a>
+      <a href="#case-study">Case study</a>
+      <a href="#ng-checkup">ng-checkup</a>
+      <a class="button small" href="#contact">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Angular modernization</p>
+        <h1>Your Angular app, current again. Without a feature freeze.</h1>
+        <p class="lead">I upgrade and modernize large Angular codebases: version upgrades, zoneless change detection, signals, standalone components, Vitest and strict typing. In small, reviewed steps your team can keep shipping alongside.</p>
+        <div class="actions">
+          <a class="button" href="mailto:stefankuburovic1990@gmail.com?subject=Angular%20Health%20Check">Ask for a health check</a>
+          <a class="button secondary" href="#ng-checkup">Run the free checkup</a>
+        </div>
+      </div>
+
+      <figure class="preview" aria-label="Example ng-checkup report">
+        <div class="preview-head">
+          <div>
+            <p class="preview-title">Angular checkup</p>
+            <p class="preview-name">B2B SaaS platform</p>
+            <p class="preview-meta">Nx · Angular 22 · 1 622 files · 1.6 s</p>
+          </div>
+          <div class="ring" aria-hidden="true">
+            <svg viewBox="0 0 100 100" width="74" height="74"><circle cx="50" cy="50" r="42" class="ring-track"/><circle cx="50" cy="50" r="42" class="ring-value" stroke-dasharray="224.2 263.9" transform="rotate(-90 50 50)"/></svg>
+            <span>85</span>
+          </div>
+        </div>
+        <ul class="rows">
+          <li><span class="pill good">Good</span>Version &amp; tooling<span class="note">latest major</span></li>
+          <li><span class="pill poor">Poor</span>Deprecated APIs<span class="note">removal due in v23</span></li>
+          <li><span class="pill good">Good</span>Zoneless readiness<span class="note">100% OnPush</span></li>
+          <li><span class="pill good">Good</span>Components &amp; templates<span class="note">100% signal inputs</span></li>
+          <li><span class="pill fair">Fair</span>Testing<span class="note">29% with a spec</span></li>
+          <li><span class="pill good">Good</span>Circular dependencies<span class="note">none</span></li>
+        </ul>
+        <figcaption class="preview-caption">Real output of ng-checkup on the codebase from the case study below.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <section id="health-check">
+    <div class="wrap">
+      <p class="eyebrow">Where to start</p>
+      <h2>Angular Health Check</h2>
+      <p class="section-lead">A fixed-scope review that tells you what modernizing your app will take, before you commit to it. You get a plan you can execute with your own team, or with me.</p>
+      <div class="offer">
+        <ol class="deliverables">
+          <li><span class="num">1</span><div><strong>Full ng-checkup report</strong><p>Eight areas graded, every finding with the files it affects: version gap, deprecated APIs, zoneless readiness, signals and standalone adoption, tests, type safety, circular dependencies.</p></div></li>
+          <li><span class="num">2</span><div><strong>Manual architecture review</strong><p>What a tool cannot see: state management, change detection hot spots, module boundaries, the test setup and the CI pipeline.</p></div></li>
+          <li><span class="num">3</span><div><strong>A prioritized upgrade plan</strong><p>One Angular major at a time, with the migrations each step needs, the risks, and an effort estimate per step.</p></div></li>
+          <li><span class="num">4</span><div><strong>A walkthrough with your team</strong><p>A 60-minute call to go through the findings and the plan, and answer questions.</p></div></li>
+        </ol>
+        <aside class="terms" aria-label="Terms">
+          <dl>
+            <div><dt>Duration</dt><dd>2 to 3 days<span>Of focused work on your codebase</span></dd></div>
+            <div><dt>Price</dt><dd>On request<span>Fixed before we start, no hourly surprises</span></dd></div>
+            <div><dt>What I need</dt><dd>Read access to the repository<span>Or an ng-checkup JSON report, if code cannot leave your network</span></dd></div>
+          </dl>
+          <a class="button" href="mailto:stefankuburovic1990@gmail.com?subject=Angular%20Health%20Check">Ask for a health check</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <p class="eyebrow">After the plan</p>
+      <h2>What I modernize</h2>
+      <p class="section-lead">Every change lands as its own merge request, behind your CI, small enough to review in one sitting.</p>
+      <div class="services">
+        <article class="service"><h3>Version upgrades</h3><p>One major at a time with <code>ng update</code>, the follow-up migrations reviewed by hand, and the build green after every step.</p></article>
+        <article class="service"><h3>Zoneless change detection</h3><p>OnPush everywhere first, then zone.js out of the bundle and out of the tests.</p></article>
+        <article class="service"><h3>Signals and NgRx</h3><p>Classic NgRx and <code>BehaviorSubject</code> services moved to signals or the NgRx signal store, with RxJS bridges for legacy consumers.</p></article>
+        <article class="service"><h3>Standalone and control flow</h3><p>NgModules removed, <code>@if</code> and <code>@for</code> instead of <code>*ngIf</code>, signal inputs and outputs.</p></article>
+        <article class="service"><h3>Karma to Vitest</h3><p>Deprecated Karma and Jasmine replaced, specs kept green, zone-based test helpers rewritten.</p></article>
+        <article class="service"><h3>Strict typing</h3><p><code>strictNullChecks</code>, <code>strictTemplates</code> and <code>noImplicitAny</code> switched on, staged folder by folder.</p></article>
+        <article class="service"><h3>Circular dependencies and bundle size</h3><p>Import cycles cut, eager code made lazy, and the initial bundle measured so it stays small.</p></article>
+        <article class="service"><h3>CI quality gates</h3><p>Ratchets that let a count go down but never up, so the codebase does not slide back after I leave.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="case-study">
+    <div class="wrap">
+      <p class="eyebrow">Case study</p>
+      <h2>A German B2B SaaS platform, modernized in place</h2>
+      <div class="case">
+        <ul class="case-tags">
+          <li>Nx monorepo</li><li>1 600 TypeScript files</li><li>126 000 lines</li><li>Under active development</li>
+        </ul>
+        <p>A large Angular application with classic NgRx, Karma, zone.js and loose typing, under active development. I brought it to Angular 22 and zoneless change detection while the team kept shipping features. Every step landed as a reviewed merge request, and CI gates now stop the old patterns from coming back.</p>
+        <dl class="stats">
+          <div class="stat"><dt>133 → 0</dt><dd>circular imports</dd></div>
+          <div class="stat"><dt>3.7 → 3.0 MB</dt><dd>initial bundle</dd></div>
+          <div class="stat"><dt>313 specs</dt><dd>moved from Karma to Vitest, 3 887 tests</dd></div>
+          <div class="stat"><dt>0</dt><dd>classic NgRx left: all state on signal stores</dd></div>
+          <div class="stat"><dt>Zoneless</dt><dd>zone.js removed from the app and the tests</dd></div>
+          <div class="stat"><dt>Strict</dt><dd><code>strictTemplates</code>, <code>strictNullChecks</code> and <code>noImplicitAny</code> on</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="ng-checkup">
+    <div class="wrap tool">
+      <div>
+        <p class="eyebrow">Free and open source</p>
+        <h2>See where your app stands in one minute</h2>
+        <p class="section-lead" style="margin-bottom: 0">ng-checkup is the tool every health check starts from. Run it on your repository and you get the same graded report, as a page you can share with your team.</p>
+      </div>
+      <div>
+        <div class="command">
+          <pre><code id="command">npx github:stefankuburovic/ng-checkup --report checkup.html</code></pre>
+          <button class="copy" type="button" data-copy="command">Copy</button>
+        </div>
+        <ul class="checklist">
+          <li>Finishes in seconds, even on a large monorepo</li>
+          <li>Reads your code, never changes it; nothing leaves your machine</li>
+          <li>Deprecations come from your installed Angular version, not a stale list</li>
+          <li>MIT licensed, <a href="https://github.com/stefankuburovic/ng-checkup">source on GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2>Three steps, no long commitment</h2>
+      <p class="section-lead">You decide after each step whether to continue.</p>
+      <ol class="steps">
+        <li><h3>Send a report or grant access</h3><p>Run ng-checkup yourself and send the JSON, or give me read access to the repository.</p></li>
+        <li><h3>Get the health check</h3><p>The report, the review and a step-by-step plan with estimates, walked through with your team.</p></li>
+        <li><h3>Execute, together or alone</h3><p>Your team follows the plan, or I do the work in small merge requests alongside them.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap about">
+      <div>
+        <p class="eyebrow">About</p>
+        <h2>Hi, I'm Stefan</h2>
+        <p>I'm a frontend engineer from Serbia, working remotely with teams in Germany on Central European time. Most of my work happens inside large Angular codebases: the upgrades nobody has time for, and the tooling that keeps a codebase from sliding back afterwards.</p>
+        <p>I write down why every decision was made, so your team owns the result when I am gone.</p>
+      </div>
+      <div class="contact">
+        <h3>Get in touch</h3>
+        <p>Tell me which Angular version you are on and roughly how big the app is.</p>
+        <div class="contact-links">
+          <a href="mailto:stefankuburovic1990@gmail.com?subject=Angular%20Health%20Check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            stefankuburovic1990@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/stefankuburovic/">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm7 0h3.8v1.6h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75V21h-4v-5.4c0-1.29-.02-2.95-1.9-2.95-1.9 0-2.2 1.4-2.2 2.85V21h-4V9.5Z"/></svg>
+            linkedin.com/in/stefankuburovic
+          </a>
+          <a href="https://github.com/stefankuburovic">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+            github.com/stefankuburovic
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Stefan Kuburovic</span>
+    <button class="theme-toggle" type="button" id="theme-toggle">Switch theme</button>
+  </div>
+</footer>
+
+<script>
+  // Copy buttons: copy the text of the element named in data-copy.
+  document.querySelectorAll('[data-copy]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var source = document.getElementById(button.getAttribute('data-copy'));
+      if (!source || !navigator.clipboard) return;
+      navigator.clipboard.writeText(source.textContent).then(function () {
+        button.textContent = 'Copied';
+        setTimeout(function () { button.textContent = 'Copy'; }, 1600);
+      });
+    });
+  });
+
+  // Theme toggle: overrides the system preference for this visitor only.
+  (function () {
+    var root = document.documentElement;
+    var stored = null;
+    try { stored = localStorage.getItem('theme'); } catch (e) {}
+    if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
+    document.getElementById('theme-toggle').addEventListener('click', function () {
+      var current = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>

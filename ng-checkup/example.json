@@ -1,9 +1,9 @@
 {
   "tool": {
     "name": "ng-checkup",
-    "version": "0.1.0"
+    "version": "0.4.0"
   },
-  "generatedAt": "2026-10-20T06:59:42.585Z",
+  "generatedAt": "2026-10-20T09:23:49.791Z",
   "root": "github.com/gothinkster/angular-realworld-example-app @ 57eeb6a (Angular 12)",
   "project": {
     "name": "ang2-conduit",
@@ -65,6 +65,23 @@
           "message": "`codelyzer` is end of life",
           "detail": "A set of TSLint rules, so it died with TSLint. Replaced by `angular-eslint`."
         }
+      ],
+      "measures": [
+        {
+          "id": "end-of-life-packages",
+          "label": "End-of-life packages",
+          "value": 3
+        },
+        {
+          "id": "webpack-builders",
+          "label": "Projects on the webpack builder",
+          "value": 1
+        },
+        {
+          "id": "mismatched-angular-packages",
+          "label": "Angular packages on another major",
+          "value": 0
+        }
       ]
     },
     {
@@ -87,7 +104,19 @@
           "hint": "not deprecated in this version"
         }
       ],
-      "findings": []
+      "findings": [],
+      "measures": [
+        {
+          "id": "deprecated-usages",
+          "label": "Deprecated API uses (symbol \u00d7 file)",
+          "value": 0
+        },
+        {
+          "id": "legacy-template-directives",
+          "label": "*ngIf / *ngFor / [ngSwitch] uses",
+          "value": 13
+        }
+      ]
     },
     {
       "id": "change-detection",
@@ -146,6 +175,23 @@
             }
           ],
           "count": 18
+        }
+      ],
+      "measures": [
+        {
+          "id": "eager-components",
+          "label": "Components with eager change detection",
+          "value": 18
+        },
+        {
+          "id": "ngzone-files",
+          "label": "Files injecting NgZone",
+          "value": 0
+        },
+        {
+          "id": "zone-test-helpers",
+          "label": "Zone-based test helper calls",
+          "value": 0
         }
       ]
     },
@@ -225,6 +271,23 @@
           "detail": "Built-in control flow (`@if`, `@for`, `@switch`) is available from Angular 17. `ng generate @angular/core:control-flow` migrates most templates automatically.",
           "count": 13
         }
+      ],
+      "measures": [
+        {
+          "id": "module-components",
+          "label": "Components declared in NgModules",
+          "value": 18
+        },
+        {
+          "id": "decorator-inputs-outputs",
+          "label": "@Input() / @Output() decorators",
+          "value": 12
+        },
+        {
+          "id": "legacy-control-flow",
+          "label": "*ngIf / *ngFor / [ngSwitch] uses",
+          "value": 13
+        }
       ]
     },
     {
@@ -263,6 +326,23 @@
             }
           ],
           "count": 1
+        }
+      ],
+      "measures": [
+        {
+          "id": "classic-ngrx-files",
+          "label": "Files on classic NgRx",
+          "value": 0
+        },
+        {
+          "id": "behaviorsubject-services",
+          "label": "Services holding state in a BehaviorSubject",
+          "value": 1
+        },
+        {
+          "id": "effect-decorators",
+          "label": "Removed @Effect() decorators",
+          "value": 0
         }
       ]
     },
@@ -306,6 +386,13 @@
           "message": "End-to-end tests use Protractor, which is end of life",
           "detail": "Protractor reached end of life in 2023 and gets no fixes, including for new browser versions. Playwright and Cypress are the usual replacements."
         }
+      ],
+      "measures": [
+        {
+          "id": "untested-files",
+          "label": "Components and services without a spec",
+          "value": 32
+        }
       ]
     },
     {
@@ -316,15 +403,18 @@
       "metrics": [
         {
           "label": "strictNullChecks",
-          "value": "off"
+          "value": "off",
+          "hint": "default in TypeScript 4"
         },
         {
           "label": "strictTemplates",
-          "value": "off"
+          "value": "off",
+          "hint": "default in Angular 12"
         },
         {
           "label": "noImplicitAny",
-          "value": "off"
+          "value": "off",
+          "hint": "default in TypeScript 4"
         },
         {
           "label": "Explicit any",
@@ -385,6 +475,38 @@
           "message": "1 `@ts-ignore` / `@ts-expect-error` comment",
           "detail": "Each switches off checking for the next line, including errors nobody has seen yet."
         }
+      ],
+      "measures": [
+        {
+          "id": "strict-flags-off",
+          "label": "strictNullChecks / strictTemplates / noImplicitAny off",
+          "value": 3
+        },
+        {
+          "id": "explicit-any",
+          "label": "Explicit any in application code",
+          "value": 13
+        },
+        {
+          "id": "non-null-assertions",
+          "label": "Non-null assertions (x!)",
+          "value": 0
+        },
+        {
+          "id": "ts-suppressions",
+          "label": "@ts-ignore / @ts-expect-error comments",
+          "value": 1
+        },
+        {
+          "id": "template-any-casts",
+          "label": "$any() casts in templates",
+          "value": 0
+        },
+        {
+          "id": "untyped-form-files",
+          "label": "Files importing UntypedForm*",
+          "value": 0
+        }
       ]
     },
     {
@@ -408,8 +530,333 @@
           "hint": "files"
         }
       ],
-      "findings": []
+      "findings": [],
+      "measures": [
+        {
+          "id": "files-in-cycles",
+          "label": "Files in import cycles",
+          "value": 0
+        }
+      ]
     }
   ],
-  "durationMs": 525
+  "durationMs": 594,
+  "plan": {
+    "from": 12,
+    "to": 22,
+    "before": [
+      {
+        "title": "Move from TSLint to ESLint",
+        "command": "ng add @angular-eslint/schematics",
+        "detail": "TSLint is deprecated and later versions of the Angular CLI no longer support it."
+      }
+    ],
+    "steps": [
+      {
+        "to": 13,
+        "version": "13.4.0",
+        "command": "ng update @angular/core@13 @angular/cli@13",
+        "requirements": [
+          {
+            "name": "Node.js",
+            "range": "^12.20.0 || ^14.15.0 || >=16.10.0"
+          },
+          {
+            "name": "TypeScript",
+            "range": ">=4.4.2 <4.7",
+            "current": "4.3.5",
+            "satisfied": false
+          },
+          {
+            "name": "RxJS",
+            "range": "^6.5.3 || ^7.4.0",
+            "current": "6.6.7",
+            "satisfied": true
+          },
+          {
+            "name": "zone.js",
+            "range": "~0.11.4",
+            "current": "0.11.8",
+            "satisfied": true
+          }
+        ],
+        "items": []
+      },
+      {
+        "to": 14,
+        "version": "14.3.0",
+        "command": "ng update @angular/core@14 @angular/cli@14",
+        "requirements": [
+          {
+            "name": "Node.js",
+            "range": "^14.15.0 || >=16.10.0"
+          },
+          {
+            "name": "TypeScript",
+            "range": ">=4.6.2 <4.9"
+          },
+          {
+            "name": "RxJS",
+            "range": "^6.5.3 || ^7.4.0",
+            "current": "6.6.7",
+            "satisfied": true
+          },
+          {
+            "name": "zone.js",
+            "range": "~0.11.4 || ~0.12.0",
+            "current": "0.11.8",
+            "satisfied": true
+          }
+        ],
+        "items": []
+      },
+      {
+        "to": 15,
+        "version": "15.2.10",
+        "command": "ng update @angular/core@15 @angular/cli@15",
+        "requirements": [
+          {
+            "name": "Node.js",
+            "range": "^14.20.0 || ^16.13.0 || >=18.10.0"
+          },
+          {
+            "name": "TypeScript",
+            "range": ">=4.8.2 <5.0"
+          },
+          {
+            "name": "RxJS",
+            "range": "^6.5.3 || ^7.4.0",
+            "current": "6.6.7",
+            "satisfied": true
+          },
+          {
+            "name": "zone.js",
+            "range": "~0.11.4 || ~0.12.0 || ~0.13.0",
+            "current": "0.11.8",
+            "satisfied": true
+          }
+        ],
+        "items": []
+      },
+      {
+        "to": 16,
+        "version": "16.2.12",
+        "command": "ng update @angular/core@16 @angular/cli@16",
+        "requirements": [
+          {
+            "name": "Node.js",
+            "range": "^16.14.0 || >=18.10.0"
+          },
+          {
+            "name": "TypeScript",
+            "range": ">=4.9.3 <5.2"
+          },
+          {
+            "name": "RxJS",
+            "range": "^6.5.3 || ^7.4.0",
+            "current": "6.6.7",
+            "satisfied": true
+          },
+          {
+            "name": "zone.js",
+            "range": "~0.13.0",
+            "current": "0.11.8",
+            "satisfied": false
+          }
+        ],
+        "items": [
+          {
+            "title": "Convert NgModule components to standalone",
+            "command": "ng generate @angular/core:standalone",
+            "detail": "Three passes: convert declarations, remove unneeded NgModules, switch to standalone bootstrap.",
+            "count": 18
+          }
+        ]
+      },
+      {
+        "to": 17,
+        "version": "17.3.12",
+        "command": "ng update @angular/core@17 @angular/cli@17",
+        "requirements": [
+          {
+            "name": "Node.js",
+            "range": "^18.13.0 || >=20.9.0"
+          },
+          {
+            "name": "TypeScript",
+            "range": ">=5.2 <5.5"
+          },
+          {
+            "name": "RxJS",
+            "range": "^6.5.3 || ^7.4.0",
+            "current": "6.6.7",
+            "satisfied": true
+          },
+          {
+            "name": "zone.js",
+            "range": "~0.14.0"
+          }
+        ],
+        "items": [
+          {
+            "title": "Move templates to built-in control flow",
+            "command": "ng generate @angular/core:control-flow",
+            "count": 13
+          }
+        ]
+      },
+      {
+        "to": 18,
+        "version": "18.2.14",
+        "command": "ng update @angular/core@18 @angular/cli@18",
+        "requirements": [
+          {
+            "name": "Node.js",
+            "range": "^18.19.1 || ^20.11.1 || >=22.0.0"
+          },
+          {
+            "name": "TypeScript",
+            "range": ">=5.4 <5.6"
+          },
+          {
+            "name": "RxJS",
+            "range": "^6.5.3 || ^7.4.0",
+            "current": "6.6.7",
+            "satisfied": true
+          },
+          {
+            "name": "zone.js",
+            "range": "~0.14.10"
+          }
+        ],
+        "items": [
+          {
+            "title": "Switch to the esbuild application builder",
+            "command": "ng update @angular/cli --name use-application-builder",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "to": 19,
+        "version": "19.2.25",
+        "command": "ng update @angular/core@19 @angular/cli@19",
+        "requirements": [
+          {
+            "name": "Node.js",
+            "range": "^18.19.1 || ^20.11.1 || >=22.0.0"
+          },
+          {
+            "name": "TypeScript",
+            "range": ">=5.5 <5.9"
+          },
+          {
+            "name": "RxJS",
+            "range": "^6.5.3 || ^7.4.0",
+            "current": "6.6.7",
+            "satisfied": true
+          },
+          {
+            "name": "zone.js",
+            "range": "~0.15.0"
+          }
+        ],
+        "items": [
+          {
+            "title": "Convert @Input() and @Output() to signal inputs and outputs",
+            "command": "ng generate @angular/core:signal-input-migration && ng generate @angular/core:output-migration",
+            "count": 12
+          }
+        ]
+      },
+      {
+        "to": 20,
+        "version": "20.3.34",
+        "command": "ng update @angular/core@20 @angular/cli@20",
+        "requirements": [
+          {
+            "name": "Node.js",
+            "range": "^20.19.0 || ^22.12.0 || >=24.0.0"
+          },
+          {
+            "name": "TypeScript",
+            "range": ">=5.8 <6.0"
+          },
+          {
+            "name": "RxJS",
+            "range": "^6.5.3 || ^7.4.0",
+            "current": "6.6.7",
+            "satisfied": true
+          },
+          {
+            "name": "zone.js",
+            "range": "~0.15.0"
+          }
+        ],
+        "items": []
+      },
+      {
+        "to": 21,
+        "version": "21.2.25",
+        "command": "ng update @angular/core@21 @angular/cli@21",
+        "requirements": [
+          {
+            "name": "Node.js",
+            "range": "^20.19.0 || ^22.12.0 || >=24.0.0"
+          },
+          {
+            "name": "TypeScript",
+            "range": ">=5.9 <6.1"
+          },
+          {
+            "name": "RxJS",
+            "range": "^6.5.3 || ^7.4.0",
+            "current": "6.6.7",
+            "satisfied": true
+          },
+          {
+            "name": "zone.js",
+            "range": "~0.15.0 || ~0.16.0"
+          }
+        ],
+        "items": [
+          {
+            "title": "Move unit tests from Karma to Vitest",
+            "detail": "Vitest is the Angular CLI default from 21 (@angular/build:unit-test). Jasmine-specific calls (spyOn, jasmine.*) need rewriting."
+          },
+          {
+            "title": "Prepare for zoneless: move components to OnPush, then drop zone.js",
+            "detail": "Upgraded apps keep zone.js through provideZoneChangeDetection() until it is removed.",
+            "count": 18
+          }
+        ]
+      },
+      {
+        "to": 22,
+        "version": "22.2.3",
+        "command": "ng update @angular/core@22 @angular/cli@22",
+        "requirements": [
+          {
+            "name": "Node.js",
+            "range": "^22.22.3 || ^24.15.0 || >=26.0.0"
+          },
+          {
+            "name": "TypeScript",
+            "range": ">=6.0 <6.1"
+          },
+          {
+            "name": "RxJS",
+            "range": "^6.5.3 || ^7.4.0",
+            "current": "6.6.7",
+            "satisfied": true
+          },
+          {
+            "name": "zone.js",
+            "range": "~0.15.0 || ~0.16.0"
+          }
+        ],
+        "items": []
+      }
+    ]
+  }
 }

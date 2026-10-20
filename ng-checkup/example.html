@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="ng-checkup 0.1.0">
+<meta name="generator" content="ng-checkup 0.4.0">
 <title>Angular checkup: example report</title>
 <style>
 :root {
@@ -50,6 +50,17 @@ h1 { margin: 0 0 8px; font-size: 32px; line-height: 1.15; letter-spacing: -0.01e
 .chip { flex: none; padding: 1px 8px; font-size: 11.5px; }
 .sev-high { color: var(--poor); background: var(--poor-bg); } .sev-medium { color: var(--fair); background: var(--fair-bg); }
 .sev-low, .sev-info { color: var(--info); background: var(--info-bg); }
+.sev-good { color: var(--good); background: var(--good-bg); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.step.before { margin-bottom: 10px; }
+.step code.command { display: block; margin: 8px 0 0; padding: 6px 10px; border-radius: 6px; background: var(--code-bg); overflow-x: auto; white-space: nowrap; }
+.requirements { display: flex; flex-wrap: wrap; gap: 6px; }
+.req { font-size: 12.5px; padding: 2px 8px; border-radius: 999px; background: var(--info-bg); color: var(--info); }
+.req-move { background: var(--fair-bg); color: var(--fair); }
+.plan-items { margin: 8px 0 0; padding-left: 18px; color: var(--text); font-size: 14px; }
+.plan-items li { margin: 6px 0; }
+.plan-items p { margin: 2px 0 0; }
+.plan-items .count { color: var(--muted); font-size: 13px; }
 .priorities { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; counter-reset: priority; }
 .priorities li { display: flex; gap: 10px; align-items: baseline; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
 .priorities .area { color: var(--muted); font-size: 13px; margin-left: 6px; white-space: nowrap; }
@@ -93,7 +104,7 @@ footer p { margin: 4px 0; }
 </head>
 <body>
 <main>
-<div style="margin:0 0 24px;padding:12px 16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);font-size:14px;color:var(--muted)"><strong style="color:var(--text)">Example report.</strong> ng-checkup run on the Angular 12 version of the <a href="https://github.com/gothinkster/angular-realworld-example-app/tree/57eeb6a">RealWorld example app</a> (MIT). Run it on your own repository: <code>npx ng-checkup --report checkup.html</code> &middot; <a href="https://github.com/stefankuburovic/ng-checkup">ng-checkup on GitHub</a></div>
+<div style="margin:0 0 24px;padding:12px 16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);font-size:14px;color:var(--muted)"><strong style="color:var(--text)">Example report.</strong> ng-checkup run with <code>--plan</code> on the Angular 12 version of the <a href="https://github.com/gothinkster/angular-realworld-example-app/tree/57eeb6a">RealWorld example app</a> (MIT). Run it on your own repository: <code>npx ng-checkup --plan --report checkup.html</code> &middot; <a href="https://github.com/stefankuburovic/ng-checkup">ng-checkup on GitHub</a></div>
   <header class="masthead">
     <div>
       <p class="eyebrow">Angular checkup</p>
@@ -132,6 +143,76 @@ footer p { margin: 4px 0; }
       <li><span class="chip sev-high">High</span><span><strong>No unit tests found</strong> <a href="#testing" class="area">Testing</a></span></li>
       <li><span class="chip sev-high">High</span><span><strong>End-to-end tests use Protractor, which is end of life</strong> <a href="#testing" class="area">Testing</a></span></li>
       <li><span class="chip sev-high">High</span><span><strong><code>strictNullChecks</code> is off</strong> <a href="#type-safety" class="area">Type safety</a></span></li>
+    </ol>
+  </section>
+
+  
+
+  <section aria-labelledby="plan-title">
+    <h2 id="plan-title" class="section-title">Upgrade plan: Angular 12 → 22</h2>
+    <p class="check-summary">10 steps, one major at a time, as <code>ng update</code> requires. Requirements come from each version's published package metadata.</p>
+    <div class="finding step before"><div class="finding-head"><span class="chip sev-medium">First</span><strong>Before you start</strong></div><ul class="plan-items"><li><strong>Move from TSLint to ESLint</strong><code class="command">ng add @angular-eslint/schematics</code><p>TSLint is deprecated and later versions of the Angular CLI no longer support it.</p></li></ul></div>
+    <ol class="steps">
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 13</span><strong>Angular 13.4.0</strong></div>
+        <code class="command">ng update @angular/core@13 @angular/cli@13</code>
+        <p class="requirements"><span class="req">Node.js ^12.20.0 || ^14.15.0 || &gt;=16.10.0</span><span class="req req-move">TypeScript &gt;=4.4.2 &lt;4.7 (now 4.3.5)</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.11.4</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 14</span><strong>Angular 14.3.0</strong></div>
+        <code class="command">ng update @angular/core@14 @angular/cli@14</code>
+        <p class="requirements"><span class="req">Node.js ^14.15.0 || &gt;=16.10.0</span><span class="req">TypeScript &gt;=4.6.2 &lt;4.9</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.11.4 || ~0.12.0</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 15</span><strong>Angular 15.2.10</strong></div>
+        <code class="command">ng update @angular/core@15 @angular/cli@15</code>
+        <p class="requirements"><span class="req">Node.js ^14.20.0 || ^16.13.0 || &gt;=18.10.0</span><span class="req">TypeScript &gt;=4.8.2 &lt;5.0</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.11.4 || ~0.12.0 || ~0.13.0</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 16</span><strong>Angular 16.2.12</strong></div>
+        <code class="command">ng update @angular/core@16 @angular/cli@16</code>
+        <p class="requirements"><span class="req">Node.js ^16.14.0 || &gt;=18.10.0</span><span class="req">TypeScript &gt;=4.9.3 &lt;5.2</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req req-move">zone.js ~0.13.0 (now 0.11.8)</span></p>
+        <ul class="plan-items"><li><strong>Convert NgModule components to standalone</strong> <span class="count">18</span><code class="command">ng generate @angular/core:standalone</code><p>Three passes: convert declarations, remove unneeded NgModules, switch to standalone bootstrap.</p></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 17</span><strong>Angular 17.3.12</strong></div>
+        <code class="command">ng update @angular/core@17 @angular/cli@17</code>
+        <p class="requirements"><span class="req">Node.js ^18.13.0 || &gt;=20.9.0</span><span class="req">TypeScript &gt;=5.2 &lt;5.5</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.14.0</span></p>
+        <ul class="plan-items"><li><strong>Move templates to built-in control flow</strong> <span class="count">13</span><code class="command">ng generate @angular/core:control-flow</code></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 18</span><strong>Angular 18.2.14</strong></div>
+        <code class="command">ng update @angular/core@18 @angular/cli@18</code>
+        <p class="requirements"><span class="req">Node.js ^18.19.1 || ^20.11.1 || &gt;=22.0.0</span><span class="req">TypeScript &gt;=5.4 &lt;5.6</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.14.10</span></p>
+        <ul class="plan-items"><li><strong>Switch to the esbuild application builder</strong> <span class="count">1</span><code class="command">ng update @angular/cli --name use-application-builder</code></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 19</span><strong>Angular 19.2.25</strong></div>
+        <code class="command">ng update @angular/core@19 @angular/cli@19</code>
+        <p class="requirements"><span class="req">Node.js ^18.19.1 || ^20.11.1 || &gt;=22.0.0</span><span class="req">TypeScript &gt;=5.5 &lt;5.9</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0</span></p>
+        <ul class="plan-items"><li><strong>Convert @Input() and @Output() to signal inputs and outputs</strong> <span class="count">12</span><code class="command">ng generate @angular/core:signal-input-migration &amp;&amp; ng generate @angular/core:output-migration</code></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 20</span><strong>Angular 20.3.34</strong></div>
+        <code class="command">ng update @angular/core@20 @angular/cli@20</code>
+        <p class="requirements"><span class="req">Node.js ^20.19.0 || ^22.12.0 || &gt;=24.0.0</span><span class="req">TypeScript &gt;=5.8 &lt;6.0</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 21</span><strong>Angular 21.2.25</strong></div>
+        <code class="command">ng update @angular/core@21 @angular/cli@21</code>
+        <p class="requirements"><span class="req">Node.js ^20.19.0 || ^22.12.0 || &gt;=24.0.0</span><span class="req">TypeScript &gt;=5.9 &lt;6.1</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0 || ~0.16.0</span></p>
+        <ul class="plan-items"><li><strong>Move unit tests from Karma to Vitest</strong><p>Vitest is the Angular CLI default from 21 (@angular/build:unit-test). Jasmine-specific calls (spyOn, jasmine.*) need rewriting.</p></li><li><strong>Prepare for zoneless: move components to OnPush, then drop zone.js</strong> <span class="count">18</span><p>Upgraded apps keep zone.js through provideZoneChangeDetection() until it is removed.</p></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 22</span><strong>Angular 22.2.3</strong></div>
+        <code class="command">ng update @angular/core@22 @angular/cli@22</code>
+        <p class="requirements"><span class="req">Node.js ^22.22.3 || ^24.15.0 || &gt;=26.0.0</span><span class="req">TypeScript &gt;=6.0 &lt;6.1</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0 || ~0.16.0</span></p>
+        
+      </li>
     </ol>
   </section>
 
@@ -302,9 +383,9 @@ footer p { margin: 4px 0; }
     </div>
     <p class="check-summary">strictNullChecks off, strictTemplates off, 13 explicit any.</p>
     <dl class="metrics">
-      <div class="metric"><dt>strictNullChecks</dt><dd>off</dd></div>
-      <div class="metric"><dt>strictTemplates</dt><dd>off</dd></div>
-      <div class="metric"><dt>noImplicitAny</dt><dd>off</dd></div>
+      <div class="metric"><dt>strictNullChecks</dt><dd>off</dd><dd class="hint">default in TypeScript 4</dd></div>
+      <div class="metric"><dt>strictTemplates</dt><dd>off</dd><dd class="hint">default in Angular 12</dd></div>
+      <div class="metric"><dt>noImplicitAny</dt><dd>off</dd><dd class="hint">default in TypeScript 4</dd></div>
       <div class="metric"><dt>Explicit any</dt><dd>13</dd><dd class="hint">8.1 per 1 000 lines</dd></div>
       <div class="metric"><dt>Non-null assertions</dt><dd>0</dd></div>
     </dl>
@@ -352,7 +433,7 @@ footer p { margin: 4px 0; }
 
   <footer>
     <p>Score: Average of the graded areas: good counts 100, fair 60, poor 20. Areas marked info are not counted. File counts are static and need no build; deprecations come from the installed packages' own <code>@deprecated</code> tags.</p>
-    <p>Generated by ng-checkup 0.1.0 in 525 ms.</p>
+    <p>Generated by ng-checkup 0.4.0 in 594 ms.</p>
   </footer>
 </main>
 </body>

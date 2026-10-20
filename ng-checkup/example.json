@@ -1,0 +1,415 @@
+{
+  "tool": {
+    "name": "ng-checkup",
+    "version": "0.1.0"
+  },
+  "generatedAt": "2026-10-20T06:59:42.585Z",
+  "root": "github.com/gothinkster/angular-realworld-example-app @ 57eeb6a (Angular 12)",
+  "project": {
+    "name": "ang2-conduit",
+    "kind": "angular-cli",
+    "angularVersion": "12.2.17",
+    "sourceFiles": 71,
+    "templateFiles": 19,
+    "linesOfCode": 1609
+  },
+  "checks": [
+    {
+      "id": "version",
+      "title": "Angular version & tooling",
+      "grade": "poor",
+      "summary": "Angular 12.2.17, 10 majors behind 22.",
+      "metrics": [
+        {
+          "label": "Installed",
+          "value": "12.2.17",
+          "hint": "node_modules"
+        },
+        {
+          "label": "Latest",
+          "value": 22,
+          "hint": "npm registry"
+        },
+        {
+          "label": "Majors behind",
+          "value": 10
+        },
+        {
+          "label": "Build system",
+          "value": "webpack"
+        }
+      ],
+      "findings": [
+        {
+          "severity": "high",
+          "message": "Angular 12 is 10 majors behind 22 and out of support",
+          "detail": "Angular supports each major for 18 months, so only the newest three get fixes; 12 receives no security patches. `ng update` moves one major at a time, which makes this 10 sequential upgrade steps, each with its own migrations to review."
+        },
+        {
+          "severity": "medium",
+          "message": "1 project still built with the webpack builder",
+          "detail": "The esbuild-based `application` builder has been the default since Angular 17 and builds several times faster. `ng update @angular/cli --name use-application-builder` migrates the configuration. Projects: ang2-conduit."
+        },
+        {
+          "severity": "medium",
+          "message": "`protractor` is end of life",
+          "detail": "End of life since 2023. Replaced by Playwright or Cypress."
+        },
+        {
+          "severity": "medium",
+          "message": "`tslint` is end of life",
+          "detail": "Deprecated since 2019. Replaced by ESLint with `angular-eslint`."
+        },
+        {
+          "severity": "medium",
+          "message": "`codelyzer` is end of life",
+          "detail": "A set of TSLint rules, so it died with TSLint. Replaced by `angular-eslint`."
+        }
+      ]
+    },
+    {
+      "id": "deprecated-apis",
+      "title": "Deprecated APIs",
+      "grade": "good",
+      "summary": "Nothing deprecated as of Angular 12 is in use; APIs deprecated in later versions surface at each upgrade step.",
+      "metrics": [
+        {
+          "label": "Deprecated symbols",
+          "value": 0
+        },
+        {
+          "label": "Files affected",
+          "value": "0"
+        },
+        {
+          "label": "Legacy template directives",
+          "value": "13",
+          "hint": "not deprecated in this version"
+        }
+      ],
+      "findings": []
+    },
+    {
+      "id": "change-detection",
+      "title": "Change detection & zoneless readiness",
+      "grade": "poor",
+      "summary": "Runs on zone.js; 0% of 18 components use OnPush.",
+      "metrics": [
+        {
+          "label": "Mode",
+          "value": "zone.js"
+        },
+        {
+          "label": "OnPush",
+          "value": "0%",
+          "hint": "0 of 18 components"
+        },
+        {
+          "label": "Files injecting NgZone",
+          "value": "0"
+        },
+        {
+          "label": "Zone test helpers",
+          "value": "0"
+        }
+      ],
+      "findings": [
+        {
+          "severity": "info",
+          "message": "Zoneless change detection needs Angular 20.2 or newer",
+          "detail": "Upgrade first; OnPush coverage is the preparation that pays off now."
+        },
+        {
+          "severity": "medium",
+          "message": "18 components use eager change detection (100%)",
+          "detail": "Without `changeDetection: ChangeDetectionStrategy.OnPush` a component is checked on every change detection cycle and usually relies on zone.js to notice mutations. These are the components to review before going zoneless.",
+          "files": [
+            {
+              "path": "src/app/app.component.ts",
+              "line": 5
+            },
+            {
+              "path": "src/app/article/article-comment.component.ts",
+              "line": 6
+            },
+            {
+              "path": "src/app/article/article.component.ts",
+              "line": 14
+            },
+            {
+              "path": "src/app/auth/auth.component.ts",
+              "line": 7
+            },
+            {
+              "path": "src/app/editor/editor.component.ts",
+              "line": 7
+            }
+          ],
+          "count": 18
+        }
+      ]
+    },
+    {
+      "id": "components",
+      "title": "Components & templates",
+      "grade": "poor",
+      "summary": "18 components: 0% standalone, 0% signal inputs, 0% built-in control flow.",
+      "metrics": [
+        {
+          "label": "Components",
+          "value": "18"
+        },
+        {
+          "label": "Standalone",
+          "value": "0%",
+          "hint": "16 NgModules"
+        },
+        {
+          "label": "Signal inputs",
+          "value": "0%",
+          "hint": "0 of 9"
+        },
+        {
+          "label": "Signal outputs",
+          "value": "0%",
+          "hint": "0 of 3"
+        },
+        {
+          "label": "Built-in control flow",
+          "value": "0%",
+          "hint": "0 of 13 blocks"
+        },
+        {
+          "label": "@defer blocks",
+          "value": "0"
+        }
+      ],
+      "findings": [
+        {
+          "severity": "medium",
+          "message": "18 components still declared in NgModules (16 NgModules in total)",
+          "detail": "Standalone components are the default since Angular 19 and what every new API assumes. `ng generate @angular/core:standalone` converts declarations, removes the emptied NgModules and switches bootstrapping, in three passes that can be reviewed one at a time.",
+          "files": [
+            {
+              "path": "src/app/app.component.ts",
+              "line": 5
+            },
+            {
+              "path": "src/app/article/article-comment.component.ts",
+              "line": 6
+            },
+            {
+              "path": "src/app/article/article.component.ts",
+              "line": 14
+            },
+            {
+              "path": "src/app/auth/auth.component.ts",
+              "line": 7
+            },
+            {
+              "path": "src/app/editor/editor.component.ts",
+              "line": 7
+            }
+          ],
+          "count": 18
+        },
+        {
+          "severity": "medium",
+          "message": "9 `@Input()` decorators and 3 `@Output()` decorators left",
+          "detail": "Signal inputs (`input()`) make inputs readable in `computed()` and effects without `ngOnChanges`, and are what zoneless change detection tracks. `ng generate @angular/core:signal-input-migration` and `ng generate @angular/core:output-migration` convert most of them; the rest are usually inputs written to from inside the component.",
+          "count": 12
+        },
+        {
+          "severity": "low",
+          "message": "13 uses of `*ngIf`, `*ngFor` and `[ngSwitch]`",
+          "detail": "Built-in control flow (`@if`, `@for`, `@switch`) is available from Angular 17. `ng generate @angular/core:control-flow` migrates most templates automatically.",
+          "count": 13
+        }
+      ]
+    },
+    {
+      "id": "state",
+      "title": "State management",
+      "grade": "fair",
+      "summary": "No classic NgRx, 0 signal()/computed() calls, 0 signal-store files.",
+      "metrics": [
+        {
+          "label": "Classic NgRx files",
+          "value": "0"
+        },
+        {
+          "label": "Signal store files",
+          "value": "0"
+        },
+        {
+          "label": "signal() / computed()",
+          "value": "0",
+          "hint": "0 toSignal()"
+        },
+        {
+          "label": "BehaviorSubject services",
+          "value": "1"
+        }
+      ],
+      "findings": [
+        {
+          "severity": "low",
+          "message": "1 service holds state in a `BehaviorSubject`",
+          "detail": "Each is a candidate for a `signal()`-based service: templates read it without the async pipe, `computed()` replaces `combineLatest` chains, and zoneless change detection tracks it automatically. `toObservable()` keeps existing RxJS consumers working during the move.",
+          "files": [
+            {
+              "path": "src/app/core/services/user.service.ts",
+              "line": 12
+            }
+          ],
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "testing",
+      "title": "Testing",
+      "grade": "poor",
+      "summary": "Karma, 0 spec files, 0% of components and services with a spec.",
+      "metrics": [
+        {
+          "label": "Unit-test runner",
+          "value": "Karma"
+        },
+        {
+          "label": "Spec files",
+          "value": "0"
+        },
+        {
+          "label": "With a spec",
+          "value": "0%",
+          "hint": "0 of 32 component/service files"
+        },
+        {
+          "label": "End-to-end",
+          "value": "Protractor"
+        }
+      ],
+      "findings": [
+        {
+          "severity": "high",
+          "message": "Unit tests run on Karma, which is deprecated",
+          "detail": "Karma was deprecated in 2023 and receives no further development. Vitest is the Angular CLI's default runner since v21 (`@angular/build:unit-test`). With no specs written yet, moving costs only the configuration, and the first specs can be written for Vitest directly."
+        },
+        {
+          "severity": "high",
+          "message": "No unit tests found",
+          "detail": "32 component and service files without a single spec. Every refactoring and upgrade step is verified by hand."
+        },
+        {
+          "severity": "high",
+          "message": "End-to-end tests use Protractor, which is end of life",
+          "detail": "Protractor reached end of life in 2023 and gets no fixes, including for new browser versions. Playwright and Cypress are the usual replacements."
+        }
+      ]
+    },
+    {
+      "id": "type-safety",
+      "title": "Type safety",
+      "grade": "poor",
+      "summary": "strictNullChecks off, strictTemplates off, 13 explicit any.",
+      "metrics": [
+        {
+          "label": "strictNullChecks",
+          "value": "off"
+        },
+        {
+          "label": "strictTemplates",
+          "value": "off"
+        },
+        {
+          "label": "noImplicitAny",
+          "value": "off"
+        },
+        {
+          "label": "Explicit any",
+          "value": "13",
+          "hint": "8.1 per 1 000 lines"
+        },
+        {
+          "label": "Non-null assertions",
+          "value": "0"
+        }
+      ],
+      "findings": [
+        {
+          "severity": "high",
+          "message": "`strictNullChecks` is off",
+          "detail": "Every value that may be `null` or `undefined` is typed as if it never is, so the most common runtime error in an Angular app is invisible to the compiler. In a large codebase switching it on is staged: a separate tsconfig that checks one folder at a time, with a count that may only go down."
+        },
+        {
+          "severity": "high",
+          "message": "`strictTemplates` is off",
+          "detail": "Template bindings are only loosely type-checked: a wrong input type, a misspelled output payload or a possibly-undefined value passed to a component compiles and fails at runtime. Turning it on typically surfaces a batch of real bugs alongside the type noise."
+        },
+        {
+          "severity": "medium",
+          "message": "`noImplicitAny` is off",
+          "detail": "An unannotated parameter silently becomes `any`, and no lint rule that counts the word `any` can see it."
+        },
+        {
+          "severity": "medium",
+          "message": "13 explicit `any` in application code (8.1 per 1 000 lines)",
+          "detail": "Files with the most are listed first. Each `any` switches type checking off for everything that flows through it.",
+          "files": [
+            {
+              "path": "src/app/core/services/api.service.ts",
+              "line": 14
+            },
+            {
+              "path": "src/app/core/interceptors/http.token.interceptor.ts",
+              "line": 11
+            },
+            {
+              "path": "src/test.ts",
+              "line": 16
+            },
+            {
+              "path": "src/app/article/article-resolver.service.ts",
+              "line": 18
+            },
+            {
+              "path": "src/app/editor/editable-article-resolver.service.ts",
+              "line": 19
+            }
+          ],
+          "count": 7
+        },
+        {
+          "severity": "low",
+          "message": "1 `@ts-ignore` / `@ts-expect-error` comment",
+          "detail": "Each switches off checking for the next line, including errors nobody has seen yet."
+        }
+      ]
+    },
+    {
+      "id": "circular-deps",
+      "title": "Circular dependencies",
+      "grade": "good",
+      "summary": "No import cycles between application files.",
+      "metrics": [
+        {
+          "label": "Tangles",
+          "value": "0",
+          "hint": "groups of files in a loop"
+        },
+        {
+          "label": "Files involved",
+          "value": "0"
+        },
+        {
+          "label": "Largest tangle",
+          "value": "0",
+          "hint": "files"
+        }
+      ],
+      "findings": []
+    }
+  ],
+  "durationMs": 525
+}

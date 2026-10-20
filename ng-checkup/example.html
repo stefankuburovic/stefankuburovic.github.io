@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="ng-checkup 0.4.0">
-<title>Angular checkup: example report</title>
+<meta name="generator" content="ng-checkup 0.5.1">
+<title>Angular checkup: ang2-conduit</title>
 <style>
 :root {
   --bg: #f7f7f5; --surface: #ffffff; --text: #1b1d21; --muted: #5d636e; --border: #e3e3df; --code-bg: #f0f0ec;
@@ -38,6 +38,14 @@ h1 { margin: 0 0 8px; font-size: 32px; line-height: 1.15; letter-spacing: -0.01e
 .score figcaption { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
 .score-value { font-size: 30px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .score-unit { color: var(--muted); font-size: 13px; margin-left: 1px; padding-top: 10px; }
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+.projects { width: 100%; border-collapse: collapse; font-size: 14px; }
+.projects th, .projects td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.projects tbody tr:last-child td { border-bottom: 0; }
+.projects th { color: var(--muted); font-weight: 600; font-size: 12.5px; }
+.projects .num { text-align: right; white-space: nowrap; }
+.projects code { color: var(--muted); font-size: 12.5px; }
+.projects .pill { margin: 0 4px 4px 0; }
 .section-title { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 36px 0 12px; }
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
 .card { display: flex; flex-direction: column; gap: 6px; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; transition: border-color 0.15s; }
@@ -104,7 +112,6 @@ footer p { margin: 4px 0; }
 </head>
 <body>
 <main>
-<div style="margin:0 0 24px;padding:12px 16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);font-size:14px;color:var(--muted)"><strong style="color:var(--text)">Example report.</strong> ng-checkup run with <code>--plan</code> on the Angular 12 version of the <a href="https://github.com/gothinkster/angular-realworld-example-app/tree/57eeb6a">RealWorld example app</a> (MIT). Run it on your own repository: <code>npx ng-checkup --plan --report checkup.html</code> &middot; <a href="https://github.com/stefankuburovic/ng-checkup">ng-checkup on GitHub</a></div>
   <header class="masthead">
     <div>
       <p class="eyebrow">Angular checkup</p>
@@ -112,12 +119,12 @@ footer p { margin: 4px 0; }
       <p class="meta">Angular CLI · Angular 12.2.17 · 71 TypeScript files · 19 templates · 1 609 lines of code</p>
       <p class="meta">Generated 2026-10-20</p>
     </div>
-    <figure class="score" aria-label="Score 45 out of 100">
+    <figure class="score" aria-label="Score 60 out of 100">
       <svg viewBox="0 0 100 100" width="112" height="112" aria-hidden="true">
         <circle cx="50" cy="50" r="42" class="ring-track"/>
-        <circle cx="50" cy="50" r="42" class="ring-value grade-poor" stroke-dasharray="118.8 263.9" transform="rotate(-90 50 50)"/>
+        <circle cx="50" cy="50" r="42" class="ring-value grade-fair" stroke-dasharray="158.3 263.9" transform="rotate(-90 50 50)"/>
       </svg>
-      <figcaption><span class="score-value">45</span><span class="score-unit">/100</span></figcaption>
+      <figcaption><span class="score-value">60</span><span class="score-unit">/100</span></figcaption>
     </figure>
   </header>
 
@@ -126,12 +133,16 @@ footer p { margin: 4px 0; }
     <div class="cards">
       <a class="card" href="#version"><span class="pill grade-poor">Poor</span><strong>Angular version &amp; tooling</strong><span class="card-summary">Angular 12.2.17, 10 majors behind 22.</span></a>
       <a class="card" href="#deprecated-apis"><span class="pill grade-good">Good</span><strong>Deprecated APIs</strong><span class="card-summary">Nothing deprecated as of Angular 12 is in use; APIs deprecated in later versions surface at each upgrade step.</span></a>
+      <a class="card" href="#dependencies"><span class="pill grade-good">Good</span><strong>Third-party compatibility</strong><span class="card-summary">No third-party package depends on Angular.</span></a>
       <a class="card" href="#change-detection"><span class="pill grade-poor">Poor</span><strong>Change detection &amp; zoneless readiness</strong><span class="card-summary">Runs on zone.js; 0% of 18 components use OnPush.</span></a>
       <a class="card" href="#components"><span class="pill grade-poor">Poor</span><strong>Components &amp; templates</strong><span class="card-summary">18 components: 0% standalone, 0% signal inputs, 0% built-in control flow.</span></a>
       <a class="card" href="#state"><span class="pill grade-fair">Fair</span><strong>State management</strong><span class="card-summary">No classic NgRx, 0 signal()/computed() calls, 0 signal-store files.</span></a>
+      <a class="card" href="#architecture"><span class="pill grade-good">Good</span><strong>Architecture</strong><span class="card-summary">79% of 14 routes lazy, 0 files over 500 lines, 28 classes with constructor injection.</span></a>
       <a class="card" href="#testing"><span class="pill grade-poor">Poor</span><strong>Testing</strong><span class="card-summary">Karma, 0 spec files, 0% of components and services with a spec.</span></a>
       <a class="card" href="#type-safety"><span class="pill grade-poor">Poor</span><strong>Type safety</strong><span class="card-summary">strictNullChecks off, strictTemplates off, 13 explicit any.</span></a>
+      <a class="card" href="#security"><span class="pill grade-good">Good</span><strong>Security</strong><span class="card-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 71 files; 1 sanitized [innerHTML] binding.</span></a>
       <a class="card" href="#circular-deps"><span class="pill grade-good">Good</span><strong>Circular dependencies</strong><span class="card-summary">No import cycles between application files.</span></a>
+      <a class="card" href="#bundle"><span class="pill grade-info">Info</span><strong>Bundle size</strong><span class="card-summary">No build stats found, so the bundle size is not part of this report.</span></a>
     </div>
   </section>
 
@@ -145,6 +156,8 @@ footer p { margin: 4px 0; }
       <li><span class="chip sev-high">High</span><span><strong><code>strictNullChecks</code> is off</strong> <a href="#type-safety" class="area">Type safety</a></span></li>
     </ol>
   </section>
+
+  
 
   
 
@@ -269,6 +282,20 @@ footer p { margin: 4px 0; }
     </dl>
     
   </section>
+  <section class="check" id="dependencies" aria-labelledby="dependencies-title">
+    <div class="check-head">
+      <h2 id="dependencies-title">Third-party compatibility</h2>
+      <span class="pill grade-good">Good</span>
+    </div>
+    <p class="check-summary">No third-party package depends on Angular.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Depend on Angular</dt><dd>0</dd><dd class="hint">third-party packages</dd></div>
+      <div class="metric"><dt>Block the upgrade</dt><dd>0</dd><dd class="hint">to Angular 22</dd></div>
+      <div class="metric"><dt>Peer mismatches</dt><dd>0</dd><dd class="hint">with Angular 12</dd></div>
+      <div class="metric"><dt>Deprecated on npm</dt><dd>0</dd></div>
+    </dl>
+    
+  </section>
   <section class="check" id="change-detection" aria-labelledby="change-detection-title">
     <div class="check-head">
       <h2 id="change-detection-title">Change detection &amp; zoneless readiness</h2>
@@ -346,6 +373,31 @@ footer p { margin: 4px 0; }
       </li>
     </ul>
   </section>
+  <section class="check" id="architecture" aria-labelledby="architecture-title">
+    <div class="check-head">
+      <h2 id="architecture-title">Architecture</h2>
+      <span class="pill grade-good">Good</span>
+    </div>
+    <p class="check-summary">79% of 14 routes lazy, 0 files over 500 lines, 28 classes with constructor injection.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Lazy routes</dt><dd>79%</dd><dd class="hint">11 of 14</dd></div>
+      <div class="metric"><dt>Large files</dt><dd>0</dd><dd class="hint">over 500 lines</dd></div>
+      <div class="metric"><dt>Constructor injection</dt><dd>28</dd><dd class="hint">classes; 0 inject() calls</dd></div>
+      <div class="metric"><dt>Class guards</dt><dd>7</dd><dd class="hint">and interceptors</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>7 class-based guards and interceptors</strong></div>
+        <p>Resolve, CanActivate, HttpInterceptor. Functional guards (<code>CanActivateFn</code>, <code>ResolveFn</code>) and interceptors (<code>HttpInterceptorFn</code> with <code>withInterceptors</code>) are the current style: a function with <code>inject()</code> inside, no class, no provider. Class interceptors also need <code>withInterceptorsFromDi()</code> to keep working with <code>provideHttpClient</code>.</p>
+        <ul class="files"><li>src/app/article/article-resolver.service.ts:8</li><li>src/app/auth/no-auth-guard.service.ts:8</li><li>src/app/core/interceptors/http.token.interceptor.ts:7</li><li>src/app/core/services/auth-guard.service.ts:8</li><li>src/app/editor/editable-article-resolver.service.ts:8</li><li class="more">and 2 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>28 classes inject through the constructor</strong></div>
+        <p><code>inject()</code> is the current default (0 calls already in the code). It works in field initialisers and functions, and it is what signal-based code expects. <code>ng generate @angular/core:inject</code> migrates constructors automatically.</p>
+        <ul class="files"><li>src/app/app.component.ts:10</li><li>src/app/article/article-comment.component.ts:11</li><li>src/app/article/article-resolver.service.ts:10</li><li>src/app/article/article.component.ts:28</li><li>src/app/auth/auth.component.ts:18</li><li class="more">and 23 more</li></ul>
+      </li>
+    </ul>
+  </section>
   <section class="check" id="testing" aria-labelledby="testing-title">
     <div class="check-head">
       <h2 id="testing-title">Testing</h2>
@@ -417,6 +469,26 @@ footer p { margin: 4px 0; }
       </li>
     </ul>
   </section>
+  <section class="check" id="security" aria-labelledby="security-title">
+    <div class="check-head">
+      <h2 id="security-title">Security</h2>
+      <span class="pill grade-good">Good</span>
+    </div>
+    <p class="check-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 71 files; 1 sanitized [innerHTML] binding.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Direct DOM HTML writes</dt><dd>0</dd><dd class="hint">innerHTML =, insertAdjacentHTML</dd></div>
+      <div class="metric"><dt>Sanitizer bypasses</dt><dd>0</dd><dd class="hint">bypassSecurityTrust*</dd></div>
+      <div class="metric"><dt>eval / new Function</dt><dd>0</dd></div>
+      <div class="metric"><dt>[innerHTML] bindings</dt><dd>1</dd><dd class="hint">sanitized by Angular</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>1 <code>[innerHTML]</code> binding in 1 template</strong></div>
+        <p>Angular sanitizes these, so they are safe on their own: scripts and event handlers are stripped. They become a hole only when the bound value went through <code>bypassSecurityTrustHtml</code>, which is worth checking for each one.</p>
+        <ul class="files"><li>src/app/article/article.component.html</li></ul>
+      </li>
+    </ul>
+  </section>
   <section class="check" id="circular-deps" aria-labelledby="circular-deps-title">
     <div class="check-head">
       <h2 id="circular-deps-title">Circular dependencies</h2>
@@ -430,10 +502,25 @@ footer p { margin: 4px 0; }
     </dl>
     
   </section>
+  <section class="check" id="bundle" aria-labelledby="bundle-title">
+    <div class="check-head">
+      <h2 id="bundle-title">Bundle size</h2>
+      <span class="pill grade-info">Info</span>
+    </div>
+    <p class="check-summary">No build stats found, so the bundle size is not part of this report.</p>
+    
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-info">Note</span><strong>Run <code>ng build --stats-json</code> (or <code>nx build &lt;app&gt; --stats-json</code>) and re-run to include the bundle size</strong></div>
+        
+        
+      </li>
+    </ul>
+  </section>
 
   <footer>
     <p>Score: Average of the graded areas: good counts 100, fair 60, poor 20. Areas marked info are not counted. File counts are static and need no build; deprecations come from the installed packages' own <code>@deprecated</code> tags.</p>
-    <p>Generated by ng-checkup 0.4.0 in 594 ms.</p>
+    <p>Generated by ng-checkup 0.5.1 in 567 ms.</p>
   </footer>
 </main>
 </body>

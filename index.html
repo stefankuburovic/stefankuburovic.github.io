@@ -116,6 +116,8 @@ h2 { margin: 0 0 12px; font-size: clamp(26px, 3.4vw, 34px); line-height: 1.15; l
 .service { padding: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
 .service h3 { margin: 0 0 6px; font-size: 16.5px; letter-spacing: -0.005em; }
 .service p { margin: 0; color: var(--muted); font-size: 14.5px; }
+.service.wide { grid-column: 1 / -1; border-color: var(--accent); }
+.service.wide p + p { margin-top: 8px; }
 
 /* Case study */
 .case { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
@@ -184,7 +186,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <div>
         <p class="eyebrow">Angular modernization</p>
         <h1>Your Angular app, current again. Without a feature freeze.</h1>
-        <p class="lead">I upgrade and modernize large Angular codebases: version upgrades, zoneless change detection, signals, standalone components, Vitest and strict typing. In small, reviewed steps your team can keep shipping alongside.</p>
+        <p class="lead">I upgrade and modernize large Angular codebases, and move AngularJS apps to Angular: version upgrades, zoneless change detection, signals, standalone components, Vitest and strict typing. In small, reviewed steps your team can keep shipping alongside.</p>
         <div class="actions">
           <a class="button" href="mailto:stefankuburovic1990@gmail.com?subject=Angular%20Health%20Check">Ask for a health check</a>
           <a class="button secondary" href="#ng-checkup">Run the free checkup</a>
@@ -223,9 +225,9 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <p class="section-lead">A fixed-scope review that tells you what modernizing your app will take, before you commit to it. You get a plan you can execute with your own team, or with me.</p>
       <div class="offer">
         <ol class="deliverables">
-          <li><span class="num">1</span><div><strong>Full ng-checkup report</strong><p>Twelve areas graded, every finding with the files it affects: version gap, deprecated APIs, third-party packages that block the upgrade, zoneless readiness, signals and standalone adoption, architecture and lazy loading, tests, type safety, security, circular dependencies, bundle size. Per project in a monorepo.</p></div></li>
+          <li><span class="num">1</span><div><strong>Full ng-checkup report</strong><p>Twelve areas graded, every finding with the files it affects: version gap, deprecated APIs, third-party packages that block the upgrade, zoneless readiness, signals and standalone adoption, architecture and lazy loading, tests, type safety, security, circular dependencies, bundle size. Per project in a monorepo. For an AngularJS or hybrid app, what is left to migrate and what makes each piece hard to move.</p></div></li>
           <li><span class="num">2</span><div><strong>Manual architecture review</strong><p>What a tool cannot see: state management, change detection hot spots, module boundaries, the test setup and the CI pipeline.</p></div></li>
-          <li><span class="num">3</span><div><strong>A prioritized upgrade plan</strong><p>One Angular major at a time, with the migrations each step needs, the risks, and an effort estimate per step.</p></div></li>
+          <li><span class="num">3</span><div><strong>A prioritized upgrade plan</strong><p>One Angular major at a time, with the migrations each step needs, the risks, and an effort estimate per step. Coming from AngularJS, the migration in phases instead.</p></div></li>
           <li><span class="num">4</span><div><strong>A walkthrough with your team</strong><p>A 60-minute call to go through the findings and the plan, and answer questions.</p></div></li>
         </ol>
         <aside class="terms" aria-label="Terms">
@@ -246,6 +248,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <h2>What I modernize</h2>
       <p class="section-lead">Every change lands as its own merge request, behind your CI, small enough to review in one sitting.</p>
       <div class="services">
+        <article class="service wide"><h3>AngularJS to Angular</h3><p>AngularJS has had no security fixes since January 2022. I move it to Angular without a rewrite and without a freeze: controllers turned into components while the app still runs on AngularJS, then both frameworks side by side with ngUpgrade, services and components moved bottom up, and AngularJS removed at the end. New features can be written in Angular from the second step on.</p><p>ng-checkup counts what is left at every step, and a CI gate keeps the AngularJS part from growing back.</p></article>
         <article class="service"><h3>Version upgrades</h3><p>One major at a time with <code>ng update</code>, the follow-up migrations reviewed by hand, and the build green after every step.</p></article>
         <article class="service"><h3>Zoneless change detection</h3><p>OnPush everywhere first, then zone.js out of the bundle and out of the tests.</p></article>
         <article class="service"><h3>Signals and NgRx</h3><p>Classic NgRx and <code>BehaviorSubject</code> services moved to signals or the NgRx signal store, with RxJS bridges for legacy consumers.</p></article>
@@ -295,6 +298,8 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <li>Finishes in seconds, even on a large monorepo</li>
           <li>Reads your code, never changes it; nothing leaves your machine</li>
           <li>Deprecations come from your installed Angular version, not a stale list</li>
+          <li>Recognises AngularJS and hybrid apps, with a migration plan in phases</li>
+          <li>On every pull request: the <a href="https://github.com/marketplace/actions/ng-checkup">GitHub Action on the Marketplace</a>, or the GitLab template</li>
           <li>MIT licensed, <a href="https://github.com/stefankuburovic/ng-checkup">source on GitHub</a></li>
         </ul>
       </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="ng-checkup 0.5.1">
+<meta name="generator" content="ng-checkup 1.0.0">
 <title>Angular checkup: ang2-conduit</title>
 <style>
 :root {
@@ -116,15 +116,15 @@ footer p { margin: 4px 0; }
     <div>
       <p class="eyebrow">Angular checkup</p>
       <h1>ang2-conduit</h1>
-      <p class="meta">Angular CLI · Angular 12.2.17 · 71 TypeScript files · 19 templates · 1 609 lines of code</p>
-      <p class="meta">Generated 2026-10-20</p>
+      <p class="meta">Angular CLI · Angular 12.2.17 · 71 TypeScript files · 19 templates · 1 589 lines of code</p>
+      <p class="meta">Generated 2026-10-23</p>
     </div>
-    <figure class="score" aria-label="Score 60 out of 100">
+    <figure class="score" aria-label="Score 53 out of 100">
       <svg viewBox="0 0 100 100" width="112" height="112" aria-hidden="true">
         <circle cx="50" cy="50" r="42" class="ring-track"/>
-        <circle cx="50" cy="50" r="42" class="ring-value grade-fair" stroke-dasharray="158.3 263.9" transform="rotate(-90 50 50)"/>
+        <circle cx="50" cy="50" r="42" class="ring-value grade-fair" stroke-dasharray="139.9 263.9" transform="rotate(-90 50 50)"/>
       </svg>
-      <figcaption><span class="score-value">60</span><span class="score-unit">/100</span></figcaption>
+      <figcaption><span class="score-value">53</span><span class="score-unit">/100</span></figcaption>
     </figure>
   </header>
 
@@ -140,7 +140,7 @@ footer p { margin: 4px 0; }
       <a class="card" href="#architecture"><span class="pill grade-good">Good</span><strong>Architecture</strong><span class="card-summary">79% of 14 routes lazy, 0 files over 500 lines, 28 classes with constructor injection.</span></a>
       <a class="card" href="#testing"><span class="pill grade-poor">Poor</span><strong>Testing</strong><span class="card-summary">Karma, 0 spec files, 0% of components and services with a spec.</span></a>
       <a class="card" href="#type-safety"><span class="pill grade-poor">Poor</span><strong>Type safety</strong><span class="card-summary">strictNullChecks off, strictTemplates off, 13 explicit any.</span></a>
-      <a class="card" href="#security"><span class="pill grade-good">Good</span><strong>Security</strong><span class="card-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 71 files; 1 sanitized [innerHTML] binding.</span></a>
+      <a class="card" href="#security"><span class="pill grade-poor">Poor</span><strong>Security</strong><span class="card-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 69 files; 1 sanitized [innerHTML] binding; 23 known vulnerabilities in dependencies.</span></a>
       <a class="card" href="#circular-deps"><span class="pill grade-good">Good</span><strong>Circular dependencies</strong><span class="card-summary">No import cycles between application files.</span></a>
       <a class="card" href="#bundle"><span class="pill grade-info">Info</span><strong>Bundle size</strong><span class="card-summary">No build stats found, so the bundle size is not part of this report.</span></a>
     </div>
@@ -156,6 +156,8 @@ footer p { margin: 4px 0; }
       <li><span class="chip sev-high">High</span><span><strong><code>strictNullChecks</code> is off</strong> <a href="#type-safety" class="area">Type safety</a></span></li>
     </ol>
   </section>
+
+  
 
   
 
@@ -236,7 +238,7 @@ footer p { margin: 4px 0; }
     </div>
     <p class="check-summary">Angular 12.2.17, 10 majors behind 22.</p>
     <dl class="metrics">
-      <div class="metric"><dt>Installed</dt><dd>12.2.17</dd><dd class="hint">node_modules</dd></div>
+      <div class="metric"><dt>Installed</dt><dd>12.2.17</dd><dd class="hint">package-lock.json</dd></div>
       <div class="metric"><dt>Latest</dt><dd>22</dd><dd class="hint">npm registry</dd></div>
       <div class="metric"><dt>Majors behind</dt><dd>10</dd></div>
       <div class="metric"><dt>Build system</dt><dd>webpack</dd></div>
@@ -384,6 +386,7 @@ footer p { margin: 4px 0; }
       <div class="metric"><dt>Large files</dt><dd>0</dd><dd class="hint">over 500 lines</dd></div>
       <div class="metric"><dt>Constructor injection</dt><dd>28</dd><dd class="hint">classes; 0 inject() calls</dd></div>
       <div class="metric"><dt>Class guards</dt><dd>7</dd><dd class="hint">and interceptors</dd></div>
+      <div class="metric"><dt>Hotspots</dt><dd>-</dd><dd class="hint">shallow clone: no history (fetch-depth: 0)</dd></div>
     </dl>
     <ul class="findings">
       <li class="finding">
@@ -438,7 +441,7 @@ footer p { margin: 4px 0; }
       <div class="metric"><dt>strictNullChecks</dt><dd>off</dd><dd class="hint">default in TypeScript 4</dd></div>
       <div class="metric"><dt>strictTemplates</dt><dd>off</dd><dd class="hint">default in Angular 12</dd></div>
       <div class="metric"><dt>noImplicitAny</dt><dd>off</dd><dd class="hint">default in TypeScript 4</dd></div>
-      <div class="metric"><dt>Explicit any</dt><dd>13</dd><dd class="hint">8.1 per 1 000 lines</dd></div>
+      <div class="metric"><dt>Explicit any</dt><dd>13</dd><dd class="hint">8.2 per 1 000 lines</dd></div>
       <div class="metric"><dt>Non-null assertions</dt><dd>0</dd></div>
     </dl>
     <ul class="findings">
@@ -458,7 +461,7 @@ footer p { margin: 4px 0; }
         
       </li>
       <li class="finding">
-        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>13 explicit <code>any</code> in application code (8.1 per 1 000 lines)</strong></div>
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>13 explicit <code>any</code> in application code (8.2 per 1 000 lines)</strong></div>
         <p>Files with the most are listed first. Each <code>any</code> switches type checking off for everything that flows through it.</p>
         <ul class="files"><li>src/app/core/services/api.service.ts:14</li><li>src/app/core/interceptors/http.token.interceptor.ts:11</li><li>src/test.ts:16</li><li>src/app/article/article-resolver.service.ts:18</li><li>src/app/editor/editable-article-resolver.service.ts:19</li><li class="more">and 2 more</li></ul>
       </li>
@@ -472,16 +475,22 @@ footer p { margin: 4px 0; }
   <section class="check" id="security" aria-labelledby="security-title">
     <div class="check-head">
       <h2 id="security-title">Security</h2>
-      <span class="pill grade-good">Good</span>
+      <span class="pill grade-poor">Poor</span>
     </div>
-    <p class="check-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 71 files; 1 sanitized [innerHTML] binding.</p>
+    <p class="check-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 69 files; 1 sanitized [innerHTML] binding; 23 known vulnerabilities in dependencies.</p>
     <dl class="metrics">
       <div class="metric"><dt>Direct DOM HTML writes</dt><dd>0</dd><dd class="hint">innerHTML =, insertAdjacentHTML</dd></div>
       <div class="metric"><dt>Sanitizer bypasses</dt><dd>0</dd><dd class="hint">bypassSecurityTrust*</dd></div>
       <div class="metric"><dt>eval / new Function</dt><dd>0</dd></div>
       <div class="metric"><dt>[innerHTML] bindings</dt><dd>1</dd><dd class="hint">sanitized by Angular</dd></div>
+      <div class="metric"><dt>Known vulnerabilities</dt><dd>23</dd><dd class="hint">in 35 direct dependencies checked</dd></div>
     </dl>
     <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong>23 known vulnerabilities in 4 dependencies (15 high or critical)</strong></div>
+        <p><code>@angular/common</code> 12.2.17: 8 advisories (CVE-2026-54266, CVE-2026-54268, CVE-2025-66035, …), all fixed by 20.3.34; <code>@angular/compiler</code> 12.2.17: 6 advisories (CVE-2026-54265, CVE-2026-50557, CVE-2026-88057, …), all fixed by 20.3.28; <code>@angular/core</code> 12.2.17: 7 advisories (CVE-2026-52725, CVE-2026-50557, CVE-2026-88057, …), all fixed by 20.3.28; <code>@angular/router</code> 12.2.17: 2 advisories (CVE-2026-111752, CVE-2026-101896), all fixed by 20.3.33. Direct dependencies at their exact versions, from the advisories in osv.dev; the full dependency tree is <code>npm audit</code>&#39;s job.</p>
+        
+      </li>
       <li class="finding">
         <div class="finding-head"><span class="chip sev-low">Low</span><strong>1 <code>[innerHTML]</code> binding in 1 template</strong></div>
         <p>Angular sanitizes these, so they are safe on their own: scripts and event handlers are stripped. They become a hole only when the bound value went through <code>bypassSecurityTrustHtml</code>, which is worth checking for each one.</p>
@@ -520,7 +529,7 @@ footer p { margin: 4px 0; }
 
   <footer>
     <p>Score: Average of the graded areas: good counts 100, fair 60, poor 20. Areas marked info are not counted. File counts are static and need no build; deprecations come from the installed packages' own <code>@deprecated</code> tags.</p>
-    <p>Generated by ng-checkup 0.5.1 in 567 ms.</p>
+    <p>Generated by ng-checkup 1.0.0 in 2.9 s.</p>
   </footer>
 </main>
 </body>

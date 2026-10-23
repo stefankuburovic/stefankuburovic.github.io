@@ -141,6 +141,30 @@ h2 { margin: 0 0 12px; font-size: clamp(26px, 3.4vw, 34px); line-height: 1.15; l
 .checklist li { padding-left: 26px; position: relative; }
 .checklist li::before { content: ""; position: absolute; left: 4px; top: 7px; width: 11px; height: 6px; border-left: 2px solid var(--good); border-bottom: 2px solid var(--good); transform: rotate(-45deg); }
 
+/* Example reports */
+.examples { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+.example { display: flex; flex-direction: column; padding: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; transition: border-color 0.15s; }
+.example:hover { border-color: var(--accent); }
+.example-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+.example-kind { font-size: 12px; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+.score { font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+.score.good { color: var(--good); background: var(--good-bg); } .score.fair { color: var(--fair); background: var(--fair-bg); } .score.poor { color: var(--poor); background: var(--poor-bg); }
+.example h3 { margin: 0 0 6px; font-size: 16.5px; letter-spacing: -0.005em; }
+.example p { margin: 0 0 14px; color: var(--muted); font-size: 14.5px; }
+.example .source { margin-top: auto; margin-bottom: 0; font-size: 13px; overflow-wrap: anywhere; }
+.example .open { margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--accent); }
+
+/* More commands */
+.commands { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+@media (max-width: 860px) { .commands { grid-template-columns: minmax(0, 1fr); } }
+.commands > div { min-width: 0; }
+.commands h3 { margin: 0 0 6px; font-size: 18px; }
+.commands p { margin: 0 0 14px; color: var(--muted); font-size: 15px; }
+.terminal { margin: 12px 0 0; padding: 14px 16px; background: var(--code-bg); border: 1px solid var(--border); border-radius: 10px; font-size: 12.5px; line-height: 1.55; overflow-x: auto; }
+.terminal .high { color: var(--poor); font-weight: 650; }
+.terminal .dim { color: var(--muted); }
+.terminal .down { color: var(--good); }
+
 /* Steps */
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: step; }
 @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
@@ -174,6 +198,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
     <nav class="nav-links" aria-label="Sections">
       <a href="#health-check">Health check</a>
       <a href="#case-study">Case study</a>
+      <a href="#examples">Examples</a>
       <a href="#ng-checkup">ng-checkup</a>
       <a class="button small" href="#contact">Get in touch</a>
     </nav>
@@ -225,7 +250,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <p class="section-lead">A fixed-scope review that tells you what modernizing your app will take, before you commit to it. You get a plan you can execute with your own team, or with me.</p>
       <div class="offer">
         <ol class="deliverables">
-          <li><span class="num">1</span><div><strong>Full ng-checkup report</strong><p>Twelve areas graded, every finding with the files it affects: version gap, deprecated APIs, third-party packages that block the upgrade, zoneless readiness, signals and standalone adoption, architecture and lazy loading, tests, type safety, security, circular dependencies, bundle size. Per project in a monorepo. For an AngularJS or hybrid app, what is left to migrate and what makes each piece hard to move.</p></div></li>
+          <li><span class="num">1</span><div><strong>Full ng-checkup report</strong><p>Twelve areas graded, every finding with the files it affects: version gap, deprecated APIs, third-party packages that block the upgrade, zoneless readiness, signals and standalone adoption, architecture and lazy loading, tests, type safety, security with the known vulnerabilities of your dependencies, circular dependencies, bundle size, and the large files your team changes most often. Per project in a monorepo, and how the numbers moved over the last year. For an AngularJS or hybrid app, what is left to migrate and what makes each piece hard to move.</p></div></li>
           <li><span class="num">2</span><div><strong>Manual architecture review</strong><p>What a tool cannot see: state management, change detection hot spots, module boundaries, the test setup and the CI pipeline.</p></div></li>
           <li><span class="num">3</span><div><strong>A prioritized upgrade plan</strong><p>One Angular major at a time, with the migrations each step needs, the risks, and an effort estimate per step. Coming from AngularJS, the migration in phases instead.</p></div></li>
           <li><span class="num">4</span><div><strong>A walkthrough with your team</strong><p>A 60-minute call to go through the findings and the plan, and answer questions.</p></div></li>
@@ -249,6 +274,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <p class="section-lead">Every change lands as its own merge request, behind your CI, small enough to review in one sitting.</p>
       <div class="services">
         <article class="service wide"><h3>AngularJS to Angular</h3><p>AngularJS has had no security fixes since January 2022. I move it to Angular without a rewrite and without a freeze: controllers turned into components while the app still runs on AngularJS, then both frameworks side by side with ngUpgrade, services and components moved bottom up, and AngularJS removed at the end. New features can be written in Angular from the second step on.</p><p>ng-checkup counts what is left at every step, and a CI gate keeps the AngularJS part from growing back.</p></article>
+        <article class="service"><h3>Primo VE to NDE</h3><p>For libraries on Ex Libris Primo: the AngularJS customization package rebuilt as an Angular module for the New Discovery Experience, view by view, before VE goes away.</p></article>
         <article class="service"><h3>Version upgrades</h3><p>One major at a time with <code>ng update</code>, the follow-up migrations reviewed by hand, and the build green after every step.</p></article>
         <article class="service"><h3>Zoneless change detection</h3><p>OnPush everywhere first, then zone.js out of the bundle and out of the tests.</p></article>
         <article class="service"><h3>Signals and NgRx</h3><p>Classic NgRx and <code>BehaviorSubject</code> services moved to signals or the NgRx signal store, with RxJS bridges for legacy consumers.</p></article>
@@ -282,6 +308,44 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
     </div>
   </section>
 
+  <section id="examples">
+    <div class="wrap">
+      <p class="eyebrow">Example reports</p>
+      <h2>What the report looks like on real code</h2>
+      <p class="section-lead">Generated by ng-checkup 1.0.0 on public open-source repositories, unedited. Each one is a single page you can open, scroll and print.</p>
+      <div class="examples">
+        <a class="example" href="ng-checkup/example.html">
+          <div class="example-head"><span class="example-kind">Angular 12</span><span class="score poor">53</span></div>
+          <h3>An app ten majors behind</h3>
+          <p>The upgrade plan one major at a time, the packages that block it, and 23 known vulnerabilities in its dependencies, 15 of them high or critical.</p>
+          <p class="source">RealWorld example app, Angular 12.2</p>
+          <span class="open">Open the report →</span>
+        </a>
+        <a class="example" href="ng-checkup/hybrid.html">
+          <div class="example-head"><span class="example-kind">AngularJS hybrid</span><span class="score poor">38</span></div>
+          <h3>AngularJS and Angular side by side</h3>
+          <p>A hybrid on ngUpgrade with 35% of its components on Angular: what is left, what makes each piece hard to move, and the migration in four phases.</p>
+          <p class="source">OrientDB Studio, AngularJS 1.5 and Angular 4</p>
+          <span class="open">Open the report →</span>
+        </a>
+        <a class="example" href="ng-checkup/primo.html">
+          <div class="example-head"><span class="example-kind">Primo VE</span><span class="score poor">20</span></div>
+          <h3>A library's Primo customization</h3>
+          <p>The hooks to rebuild for the New Discovery Experience, view by view, the <code>parentCtrl</code> reads that will not carry over, and the plan to move.</p>
+          <p class="source">A university library's Primo VE package</p>
+          <span class="open">Open the report →</span>
+        </a>
+        <a class="example" href="ng-checkup/history.html">
+          <div class="example-head"><span class="example-kind">History</span><span class="score good">60 → 91</span></div>
+          <h3>Three years of modernization</h3>
+          <p>One checkup per month from git: Angular 16 to 21, the legacy <code>*ngIf</code> gone, every component on OnPush. The chart for "what did the refactoring buy us".</p>
+          <p class="source">RealWorld example app, 2023 to 2026</p>
+          <span class="open">Open the history →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section id="ng-checkup">
     <div class="wrap tool">
       <div>
@@ -296,12 +360,45 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
         </div>
         <ul class="checklist">
           <li>Finishes in seconds, even on a large monorepo</li>
-          <li>Reads your code, never changes it; nothing leaves your machine</li>
+          <li>Reads your code, never changes it; only package names and versions go online</li>
+          <li>Known vulnerabilities from osv.dev, hotspots from your git history</li>
           <li>Deprecations come from your installed Angular version, not a stale list</li>
           <li>Recognises AngularJS and hybrid apps, with a migration plan in phases</li>
-          <li>On every pull request: the <a href="https://github.com/marketplace/actions/ng-checkup">GitHub Action on the Marketplace</a>, or the GitLab template</li>
+          <li>On every pull request: the <a href="https://github.com/marketplace/actions/ng-checkup">GitHub Action on the Marketplace</a>, or the <a href="https://gitlab.com/explore/catalog/stefankuburovic/ng-checkup">GitLab CI/CD component</a></li>
           <li>MIT licensed, <a href="https://github.com/stefankuburovic/ng-checkup">source on GitHub</a></li>
         </ul>
+      </div>
+    </div>
+    <div class="wrap commands">
+      <div>
+        <h3>Which framework runs on a site</h3>
+        <p>No repository needed: <code>ng-checkup url</code> reads what any browser downloads from a public web app and names AngularJS or Angular with the version, zone.js, React, Vue, Next.js and Nuxt.</p>
+        <div class="command">
+          <pre><code id="command-url">npx ng-checkup url https://angularjs.org</code></pre>
+          <button class="copy" type="button" data-copy="command-url">Copy</button>
+        </div>
+<pre class="terminal" aria-label="Example output of ng-checkup url"><code>Read the page and 9 scripts (0.3 MB) from angularjs.org
+
+  AngularJS 1.8.2        <span class="dim">seen in the page</span>
+
+  <span class="high">high</span>   AngularJS 1.8.2 is end of life since January 2022
+         <span class="dim">No security fixes since 31 December 2021.</span></code></pre>
+      </div>
+      <div>
+        <h3>How the code moved over time</h3>
+        <p><code>ng-checkup history</code> runs the checkup on one commit per month from git and draws the score and the measures that moved most. Your checkout is never touched.</p>
+        <div class="command">
+          <pre><code id="command-history">npx ng-checkup history --report history.html</code></pre>
+          <button class="copy" type="button" data-copy="command-history">Copy</button>
+        </div>
+<pre class="terminal" aria-label="Example output of ng-checkup history"><code><span class="dim">date        Angular   score</span>
+2023-10-30  16.2.11      60
+2024-05-24  18.0.0       68
+2025-11-10  20.3.9       76
+now         21.2.12      91
+
+<span class="down">    -27</span>  *ngIf / *ngFor / [ngSwitch] uses
+<span class="down">    -16</span>  Components with eager change detection</code></pre>
       </div>
     </div>
   </section>

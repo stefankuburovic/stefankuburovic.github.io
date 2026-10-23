@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="ng-checkup 1.0.0">
+<title>Angular checkup: orientdbstudio</title>
+<style>
+:root {
+  --bg: #f7f7f5; --surface: #ffffff; --text: #1b1d21; --muted: #5d636e; --border: #e3e3df; --code-bg: #f0f0ec;
+  --good: #1f7a4d; --good-bg: #e3f3ea; --fair: #8a5a00; --fair-bg: #fbf0d9; --poor: #b42318; --poor-bg: #fde8e6; --info: #5d636e; --info-bg: #ececea;
+  --accent: #3b5bdb; --ring-track: #e7e7e3;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121316; --surface: #1b1d21; --text: #ececec; --muted: #9aa0aa; --border: #2c2f35; --code-bg: #25282e;
+    --good: #5cc98f; --good-bg: #173326; --fair: #e8b54d; --fair-bg: #3a2d10; --poor: #f17a6e; --poor-bg: #3d1a17; --info: #9aa0aa; --info-bg: #2a2c31;
+    --accent: #8ea6ff; --ring-track: #2c2f35;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+main { max-width: 960px; margin: 0 auto; padding: 40px 16px 56px; }
+code, .files { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+a { color: inherit; }
+.masthead { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.eyebrow { margin: 0 0 4px; color: var(--accent); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+h1 { margin: 0 0 8px; font-size: 32px; line-height: 1.15; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.meta { margin: 0; color: var(--muted); font-size: 14px; }
+.score { margin: 0; position: relative; width: 112px; height: 112px; flex: none; }
+.score svg { display: block; }
+.ring-track { fill: none; stroke: var(--ring-track); stroke-width: 9; }
+.ring-value { fill: none; stroke-width: 9; stroke-linecap: round; }
+.ring-value.grade-good { stroke: var(--good); } .ring-value.grade-fair { stroke: var(--fair); } .ring-value.grade-poor { stroke: var(--poor); }
+.score figcaption { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.score-value { font-size: 30px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.score-unit { color: var(--muted); font-size: 13px; margin-left: 1px; padding-top: 10px; }
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+.projects { width: 100%; border-collapse: collapse; font-size: 14px; }
+.projects th, .projects td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.projects tbody tr:last-child td { border-bottom: 0; }
+.projects th { color: var(--muted); font-weight: 600; font-size: 12.5px; }
+.projects .num { text-align: right; white-space: nowrap; }
+.projects code { color: var(--muted); font-size: 12.5px; }
+.projects .pill { margin: 0 4px 4px 0; }
+.section-title { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 36px 0 12px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.card { display: flex; flex-direction: column; gap: 6px; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; transition: border-color 0.15s; }
+.card:hover { border-color: var(--accent); }
+.card strong { font-size: 15px; }
+.card-summary { color: var(--muted); font-size: 13.5px; }
+.pill, .chip { display: inline-block; width: fit-content; border-radius: 999px; font-size: 12px; font-weight: 600; padding: 2px 10px; }
+.grade-good.pill { color: var(--good); background: var(--good-bg); } .grade-fair.pill { color: var(--fair); background: var(--fair-bg); }
+.grade-poor.pill { color: var(--poor); background: var(--poor-bg); } .grade-info.pill { color: var(--info); background: var(--info-bg); }
+.chip { flex: none; padding: 1px 8px; font-size: 11.5px; }
+.sev-high { color: var(--poor); background: var(--poor-bg); } .sev-medium { color: var(--fair); background: var(--fair-bg); }
+.sev-low, .sev-info { color: var(--info); background: var(--info-bg); }
+.sev-good { color: var(--good); background: var(--good-bg); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.step.before { margin-bottom: 10px; }
+.step code.command { display: block; margin: 8px 0 0; padding: 6px 10px; border-radius: 6px; background: var(--code-bg); overflow-x: auto; white-space: nowrap; }
+.requirements { display: flex; flex-wrap: wrap; gap: 6px; }
+.req { font-size: 12.5px; padding: 2px 8px; border-radius: 999px; background: var(--info-bg); color: var(--info); }
+.req-move { background: var(--fair-bg); color: var(--fair); }
+.plan-items { margin: 8px 0 0; padding-left: 18px; color: var(--text); font-size: 14px; }
+.plan-items li { margin: 6px 0; }
+.plan-items p { margin: 2px 0 0; }
+.plan-items .count { color: var(--muted); font-size: 13px; }
+.priorities { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; counter-reset: priority; }
+.priorities li { display: flex; gap: 10px; align-items: baseline; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+.priorities .area { color: var(--muted); font-size: 13px; margin-left: 6px; white-space: nowrap; }
+.check { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--border); }
+.check-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.check-head h2 { margin: 0; font-size: 22px; letter-spacing: -0.005em; }
+.check-summary { margin: 8px 0 16px; color: var(--muted); }
+.metrics { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 0 0 18px; }
+.metric { padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+.metric dt { color: var(--muted); font-size: 12.5px; }
+.metric dd { margin: 2px 0 0; font-size: 20px; font-weight: 650; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.metric dd.hint { font-size: 12.5px; font-weight: 400; color: var(--muted); }
+.findings { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.finding { min-width: 0; padding: 14px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; break-inside: avoid; }
+.finding-head { display: flex; gap: 10px; align-items: baseline; }
+.finding p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+.files { margin: 8px 0 0; padding: 8px 12px; list-style: none; background: var(--code-bg); border-radius: 6px; color: var(--muted); overflow-x: auto; }
+.files li { white-space: nowrap; line-height: 1.7; }
+.files .more { font-family: inherit; font-style: italic; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+footer p { margin: 4px 0; }
+@media (max-width: 600px) {
+  main { padding-top: 24px; }
+  .masthead { flex-direction: column-reverse; align-items: flex-start; }
+  h1 { font-size: 26px; }
+  .priorities li, .finding-head { flex-direction: column; gap: 6px; }
+  .priorities .area { margin-left: 0; }
+}
+@media print {
+  /* Printing from a dark-mode browser must still give black on white. */
+  :root {
+    --bg: #fff; --surface: #fff; --text: #1b1d21; --muted: #5d636e; --border: #e3e3df; --code-bg: #f0f0ec;
+    --good: #1f7a4d; --good-bg: #e3f3ea; --fair: #8a5a00; --fair-bg: #fbf0d9; --poor: #b42318; --poor-bg: #fde8e6; --info: #5d636e; --info-bg: #ececea;
+    --accent: #3b5bdb; --ring-track: #e7e7e3; color-scheme: light;
+  }
+  main { padding: 0; max-width: none; }
+  .card:hover { border-color: var(--border); }
+  .check { break-before: auto; }
+}
+</style>
+</head>
+<body>
+<main>
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">Angular checkup</p>
+      <h1>orientdbstudio</h1>
+      <p class="meta">unknown workspace · Angular 4.4.6 · 141 TypeScript files, 35 JavaScript files · 254 templates · 22 992 lines of code</p>
+      <p class="meta">Generated 2026-10-23</p>
+    </div>
+    <figure class="score" aria-label="Score 38 out of 100">
+      <svg viewBox="0 0 100 100" width="112" height="112" aria-hidden="true">
+        <circle cx="50" cy="50" r="42" class="ring-track"/>
+        <circle cx="50" cy="50" r="42" class="ring-value grade-poor" stroke-dasharray="100.3 263.9" transform="rotate(-90 50 50)"/>
+      </svg>
+      <figcaption><span class="score-value">38</span><span class="score-unit">/100</span></figcaption>
+    </figure>
+  </header>
+
+  <section aria-labelledby="overview">
+    <h2 id="overview" class="section-title">Overview</h2>
+    <div class="cards">
+      <a class="card" href="#angularjs"><span class="pill grade-poor">Poor</span><strong>AngularJS migration</strong><span class="card-summary">Hybrid AngularJS 1.5.9 and Angular 4: 35% of components on Angular, 115 AngularJS components left.</span></a>
+      <a class="card" href="#version"><span class="pill grade-poor">Poor</span><strong>Angular version &amp; tooling</strong><span class="card-summary">Angular 4.4.6, 18 majors behind 22.</span></a>
+      <a class="card" href="#deprecated-apis"><span class="pill grade-good">Good</span><strong>Deprecated APIs</strong><span class="card-summary">Nothing deprecated as of Angular 4 is in use; APIs deprecated in later versions surface at each upgrade step.</span></a>
+      <a class="card" href="#dependencies"><span class="pill grade-poor">Poor</span><strong>Third-party compatibility</strong><span class="card-summary">6 packages depend on Angular: 1 blocking the upgrade to 22, 4 not accepting the current version.</span></a>
+      <a class="card" href="#change-detection"><span class="pill grade-poor">Poor</span><strong>Change detection &amp; zoneless readiness</strong><span class="card-summary">Runs on zone.js; 0% of 61 components use OnPush.</span></a>
+      <a class="card" href="#components"><span class="pill grade-poor">Poor</span><strong>Components &amp; templates</strong><span class="card-summary">61 components: 0% standalone, 0% signal inputs, 0% built-in control flow.</span></a>
+      <a class="card" href="#state"><span class="pill grade-info">Info</span><strong>State management</strong><span class="card-summary">No state-management library or signal usage found.</span></a>
+      <a class="card" href="#architecture"><span class="pill grade-fair">Fair</span><strong>Architecture</strong><span class="card-summary">No routes found, 3 files over 500 lines, 66 classes with constructor injection.</span></a>
+      <a class="card" href="#testing"><span class="pill grade-poor">Poor</span><strong>Testing</strong><span class="card-summary">Karma, 0 spec files, 0% of components and services with a spec.</span></a>
+      <a class="card" href="#type-safety"><span class="pill grade-poor">Poor</span><strong>Type safety</strong><span class="card-summary">strictNullChecks off, strictTemplates off, 201 explicit any.</span></a>
+      <a class="card" href="#security"><span class="pill grade-poor">Poor</span><strong>Security</strong><span class="card-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 141 files; 3 sanitized [innerHTML] bindings; 62 known vulnerabilities in dependencies.</span></a>
+      <a class="card" href="#circular-deps"><span class="pill grade-good">Good</span><strong>Circular dependencies</strong><span class="card-summary">No import cycles between application files.</span></a>
+      <a class="card" href="#bundle"><span class="pill grade-info">Info</span><strong>Bundle size</strong><span class="card-summary">No build stats found, so the bundle size is not part of this report.</span></a>
+    </div>
+  </section>
+
+  <section aria-labelledby="priorities">
+    <h2 id="priorities" class="section-title">Top priorities</h2>
+    <ol class="priorities">
+      <li><span class="chip sev-high">High</span><span><strong>AngularJS 1.5.9 is end of life since January 2022</strong> <a href="#angularjs" class="area">AngularJS migration</a></span></li>
+      <li><span class="chip sev-high">High</span><span><strong>Angular 4 is 18 majors behind 22 and out of support</strong> <a href="#version" class="area">Angular version &amp; tooling</a></span></li>
+      <li><span class="chip sev-high">High</span><span><strong><code>@angular/http</code> is end of life</strong> <a href="#version" class="area">Angular version &amp; tooling</a></span></li>
+      <li><span class="chip sev-high">High</span><span><strong><code>angular2-tag-input</code> 1.2.3 does not accept Angular 4</strong> <a href="#dependencies" class="area">Third-party compatibility</a></span></li>
+      <li><span class="chip sev-high">High</span><span><strong><code>ng2-bs3-modal</code> 0.10.4 does not accept Angular 4</strong> <a href="#dependencies" class="area">Third-party compatibility</a></span></li>
+    </ol>
+  </section>
+
+  
+
+  
+
+  <section aria-labelledby="migration-title">
+    <h2 id="migration-title" class="section-title">Migration plan: AngularJS 1.5.9 → Angular 22</h2>
+    <p class="check-summary">4 phases, each shipping on its own, in the order of the Angular upgrade guide: prepare on AngularJS, run both frameworks side by side, move the code bottom up, remove AngularJS.</p>
+    <ol class="steps">
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">1</span><strong>Prepare on AngularJS</strong></div>
+        <p class="requirements">The AngularJS code is made of components and services, written the way Angular expects them; it still ships on AngularJS alone.</p>
+        <ul class="plan-items"><li><strong>Upgrade AngularJS to 1.8.3</strong><code class="command">npm install angular@1.8.3 angular-animate@1.8.3 angular-resource@1.8.3 angular-route@1.8.3 angular-sanitize@1.8.3</code><p>The last release; read the migration notes of each minor on the way.</p></li><li><strong>Bring TypeScript into the AngularJS code</strong> <span class="count">35</span><p>Rename the files to <code>.ts</code>, add <code>@types/angular</code>, and tighten types file by file. Services written in TypeScript move to Angular almost unchanged.</p></li><li><strong>Turn controllers into components</strong> <span class="count">88</span><p>Explicit bindings instead of an inherited scope, and no more <code>ng-controller</code> in templates (83). Only components cross the border between the two frameworks.</p></li><li><strong>Reshape directives that use <code>compile</code>, <code>replace</code> or <code>terminal</code></strong> <span class="count">5</span><p><code>UpgradeComponent</code> cannot wrap them.</p></li><li><strong>Move state off <code>$scope</code></strong> <span class="count">20</span><p><code>controllerAs</code> and <code>bindToController</code>, so the controller is the component class it will become.</p></li><li><strong>Replace scope events with services</strong> <span class="count">64</span><p>A service with an RxJS <code>Subject</code> instead of <code>$broadcast</code>/<code>$emit</code>; it later carries the messages across the border.</p></li><li><strong>Turn <code>ng-include</code> templates into components</strong> <span class="count">27</span></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">2</span><strong>Hybrid setup</strong></div>
+        <p class="requirements">Both frameworks run on one page, and new features are written in Angular.</p>
+        <ul class="plan-items"><li><strong>Bring the Angular side up to 22</strong> <span class="count">18</span><p>New code should be written on a current Angular. The upgrade plan below lists each <code>ng update</code> step; <code>@angular/upgrade</code> moves with <code>@angular/core</code>.</p></li><li><strong>Let the two routers share the URL</strong> <span class="count">25</span><p>ngRoute keeps the AngularJS routes, the Angular Router takes over route by route; <code>setUpLocationSync</code> from <code>@angular/router/upgrade</code> keeps both in step.</p></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">3</span><strong>Move piece by piece, bottom up</strong></div>
+        <p class="requirements">Every service, component and template is Angular code; each step ships on its own.</p>
+        <ul class="plan-items"><li><strong>Move services to Angular, oldest dependencies first</strong> <span class="count">33</span><p>Each becomes an <code>@Injectable</code> and stays available to AngularJS through <code>downgradeInjectable</code> until its last AngularJS user is gone.</p></li><li><strong>Turn filters into pipes</strong> <span class="count">16</span></li><li><strong>Move components and directives, leaves first</strong> <span class="count">115</span><p>A rewritten component is used from AngularJS through <code>downgradeComponent</code>; an AngularJS component still needed inside Angular is wrapped with <code>UpgradeComponent</code> for the time being.</p></li><li><strong>Rewrite the templates in Angular syntax</strong> <span class="count">178</span><p><code>ng-repeat</code> becomes <code>@for</code>, <code>ng-if</code> becomes <code>@if</code>, <code>ng-model</code> becomes a form control or a model input, <code>ng-click</code> an event binding.</p></li><li><strong>Replace runtime <code>$compile</code> with dynamic components</strong> <span class="count">4</span></li><li><strong>Replace <code>$watch</code> with signals</strong> <span class="count">85</span><p><code>computed</code> for derived values, <code>effect</code> or an input for reactions.</p></li><li><strong>Replace <code>angular-route</code></strong><p>With the Angular Router.</p></li><li><strong>Replace <code>angular-resource</code></strong><p>With <code>HttpClient</code>.</p></li><li><strong>Replace <code>angular-animate</code></strong><p>With CSS transitions, or <code>@angular/animations</code>.</p></li><li><strong>Replace <code>angular-sanitize</code></strong><p>With Angular&#39;s built-in sanitization.</p></li><li><strong>Replace <code>angular-translate</code></strong><p>With <code>@ngx-translate/core</code>, or <code>@angular/localize</code>.</p></li><li><strong>Replace <code>angular-strap</code></strong><p>With <code>@ng-bootstrap/ng-bootstrap</code> or <code>ngx-bootstrap</code>.</p></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">4</span><strong>Remove AngularJS</strong></div>
+        <p class="requirements">One framework, one build, one change detection.</p>
+        <ul class="plan-items"><li><strong>Move the last routes to the Angular router</strong> <span class="count">25</span></li><li><strong>Remove the downgrade and upgrade wrappers</strong> <span class="count">30</span><p>Nothing on the AngularJS side uses them any more.</p></li><li><strong>Bootstrap Angular alone and uninstall AngularJS</strong><code class="command">npm uninstall angular @angular/upgrade angular-animate angular-resource angular-route angular-sanitize angular-translate angular-strap</code><p>Drop <code>UpgradeModule</code> and the AngularJS bootstrap; the bundle loses AngularJS and the second change detection.</p></li></ul>
+      </li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="plan-title">
+    <h2 id="plan-title" class="section-title">Upgrade plan: Angular 4 → 22</h2>
+    <p class="check-summary">18 steps, one major at a time, as <code>ng update</code> requires. Requirements come from each version's published package metadata.</p>
+    <div class="finding step before"><div class="finding-head"><span class="chip sev-medium">First</span><strong>Before you start</strong></div><ul class="plan-items"><li><strong>Fix angular2-tag-input: version 1.2.3 does not accept Angular 4</strong><p>It declares @angular/core 2.2.4.</p></li><li><strong>Fix ng2-bs3-modal: version 0.10.4 does not accept Angular 4</strong><code class="command">npm install ng2-bs3-modal@0.11.5</code><p>Version 0.11.5 does.</p></li><li><strong>Fix ng2-select2: version 1.0.0-beta.10 does not accept Angular 4</strong><p>It declares @angular/core ^2.2.0.</p></li><li><strong>Fix ng2-tag-input: version 0.8.8 does not accept Angular 4</strong><code class="command">npm install ng2-tag-input@1.0.2</code><p>Version 1.0.2 does.</p></li></ul></div>
+    <ol class="steps">
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 5</span><strong>Angular 5.2.11</strong></div>
+        <code class="command">ng update @angular/core@5 @angular/cli@5</code>
+        <p class="requirements"><span class="req">TypeScript &gt;=2.4.2 &lt;2.7</span><span class="req">RxJS ^5.5.0</span><span class="req req-move">zone.js ^0.8.4 (now 0.7.8)</span></p>
+        <ul class="plan-items"><li><strong>ng2-codemirror has no release for Angular 5</strong><p>Replace it before this step, or stop the upgrade at the last major it supports.</p></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 6</span><strong>Angular 6.1.10</strong></div>
+        <code class="command">ng update @angular/core@6 @angular/cli@6</code>
+        <p class="requirements"><span class="req req-move">TypeScript &gt;=2.7.2 &lt;2.10 (now 2.5.3)</span><span class="req req-move">RxJS ^6.0.0 (now 5.5.2)</span><span class="req">zone.js ~0.8.26</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 7</span><strong>Angular 7.2.15</strong></div>
+        <code class="command">ng update @angular/core@7 @angular/cli@7</code>
+        <p class="requirements"><span class="req">TypeScript &gt;=3.1.1 &lt;3.3</span><span class="req">RxJS ^6.0.0</span><span class="req">zone.js ~0.8.26</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 8</span><strong>Angular 8.2.14</strong></div>
+        <code class="command">ng update @angular/core@8 @angular/cli@8</code>
+        <p class="requirements"><span class="req">TypeScript &gt;=3.4 &lt;3.6</span><span class="req">RxJS ^6.4.0</span><span class="req">zone.js ~0.9.1</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 9</span><strong>Angular 9.1.13</strong></div>
+        <code class="command">ng update @angular/core@9 @angular/cli@9</code>
+        <p class="requirements"><span class="req">TypeScript &gt;=3.6 &lt;3.9</span><span class="req">RxJS ^6.5.3</span><span class="req">zone.js ~0.10.3</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 10</span><strong>Angular 10.2.5</strong></div>
+        <code class="command">ng update @angular/core@10 @angular/cli@10</code>
+        <p class="requirements"><span class="req">TypeScript &gt;=3.9 &lt;4.1</span><span class="req">RxJS ^6.5.3</span><span class="req">zone.js ~0.10.3</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 11</span><strong>Angular 11.2.14</strong></div>
+        <code class="command">ng update @angular/core@11 @angular/cli@11</code>
+        <p class="requirements"><span class="req">TypeScript &gt;=4.0 &lt;4.2</span><span class="req">RxJS ^6.5.3</span><span class="req">zone.js ^0.10.2 || ^0.11.3</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 12</span><strong>Angular 12.2.17</strong></div>
+        <code class="command">ng update @angular/core@12 @angular/cli@12</code>
+        <p class="requirements"><span class="req">Node.js ^12.14.1 || &gt;=14.0.0</span><span class="req">TypeScript &gt;=4.2.3 &lt;4.4</span><span class="req">RxJS ^6.5.3 || ^7.0.0</span><span class="req">zone.js ~0.11.4</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 13</span><strong>Angular 13.4.0</strong></div>
+        <code class="command">ng update @angular/core@13 @angular/cli@13</code>
+        <p class="requirements"><span class="req">Node.js ^12.20.0 || ^14.15.0 || &gt;=16.10.0</span><span class="req">TypeScript &gt;=4.4.2 &lt;4.7</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.11.4</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 14</span><strong>Angular 14.3.0</strong></div>
+        <code class="command">ng update @angular/core@14 @angular/cli@14</code>
+        <p class="requirements"><span class="req">Node.js ^14.15.0 || &gt;=16.10.0</span><span class="req">TypeScript &gt;=4.6.2 &lt;4.9</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.11.4 || ~0.12.0</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 15</span><strong>Angular 15.2.10</strong></div>
+        <code class="command">ng update @angular/core@15 @angular/cli@15</code>
+        <p class="requirements"><span class="req">Node.js ^14.20.0 || ^16.13.0 || &gt;=18.10.0</span><span class="req">TypeScript &gt;=4.8.2 &lt;5.0</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.11.4 || ~0.12.0 || ~0.13.0</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 16</span><strong>Angular 16.2.12</strong></div>
+        <code class="command">ng update @angular/core@16 @angular/cli@16</code>
+        <p class="requirements"><span class="req">Node.js ^16.14.0 || &gt;=18.10.0</span><span class="req">TypeScript &gt;=4.9.3 &lt;5.2</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.13.0</span></p>
+        <ul class="plan-items"><li><strong>Convert NgModule components to standalone</strong> <span class="count">61</span><code class="command">ng generate @angular/core:standalone</code><p>Three passes: convert declarations, remove unneeded NgModules, switch to standalone bootstrap.</p></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 17</span><strong>Angular 17.3.12</strong></div>
+        <code class="command">ng update @angular/core@17 @angular/cli@17</code>
+        <p class="requirements"><span class="req">Node.js ^18.13.0 || &gt;=20.9.0</span><span class="req">TypeScript &gt;=5.2 &lt;5.5</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.14.0</span></p>
+        <ul class="plan-items"><li><strong>Move templates to built-in control flow</strong> <span class="count">249</span><code class="command">ng generate @angular/core:control-flow</code></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 18</span><strong>Angular 18.2.14</strong></div>
+        <code class="command">ng update @angular/core@18 @angular/cli@18</code>
+        <p class="requirements"><span class="req">Node.js ^18.19.1 || ^20.11.1 || &gt;=22.0.0</span><span class="req">TypeScript &gt;=5.4 &lt;5.6</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.14.10</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 19</span><strong>Angular 19.2.25</strong></div>
+        <code class="command">ng update @angular/core@19 @angular/cli@19</code>
+        <p class="requirements"><span class="req">Node.js ^18.19.1 || ^20.11.1 || &gt;=22.0.0</span><span class="req">TypeScript &gt;=5.5 &lt;5.9</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0</span></p>
+        <ul class="plan-items"><li><strong>Convert @Input() and @Output() to signal inputs and outputs</strong> <span class="count">103</span><code class="command">ng generate @angular/core:signal-input-migration &amp;&amp; ng generate @angular/core:output-migration</code></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 20</span><strong>Angular 20.3.34</strong></div>
+        <code class="command">ng update @angular/core@20 @angular/cli@20</code>
+        <p class="requirements"><span class="req">Node.js ^20.19.0 || ^22.12.0 || &gt;=24.0.0</span><span class="req">TypeScript &gt;=5.8 &lt;6.0</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0</span></p>
+        
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 21</span><strong>Angular 21.2.25</strong></div>
+        <code class="command">ng update @angular/core@21 @angular/cli@21</code>
+        <p class="requirements"><span class="req">Node.js ^20.19.0 || ^22.12.0 || &gt;=24.0.0</span><span class="req">TypeScript &gt;=5.9 &lt;6.1</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0 || ~0.16.0</span></p>
+        <ul class="plan-items"><li><strong>Move unit tests from Karma to Vitest</strong><p>Vitest is the Angular CLI default from 21 (@angular/build:unit-test). Jasmine-specific calls (spyOn, jasmine.*) need rewriting.</p></li><li><strong>Prepare for zoneless: move components to OnPush, then drop zone.js</strong> <span class="count">61</span><p>Upgraded apps keep zone.js through provideZoneChangeDetection() until it is removed.</p></li></ul>
+      </li>
+      <li class="finding step">
+        <div class="finding-head"><span class="chip sev-low">→ 22</span><strong>Angular 22.2.3</strong></div>
+        <code class="command">ng update @angular/core@22 @angular/cli@22</code>
+        <p class="requirements"><span class="req">Node.js ^22.22.3 || ^24.15.0 || &gt;=26.0.0</span><span class="req">TypeScript &gt;=6.0 &lt;6.1</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0 || ~0.16.0</span></p>
+        
+      </li>
+    </ol>
+  </section>
+
+  <section class="check" id="angularjs" aria-labelledby="angularjs-title">
+    <div class="check-head">
+      <h2 id="angularjs-title">AngularJS migration</h2>
+      <span class="pill grade-poor">Poor</span>
+    </div>
+    <p class="check-summary">Hybrid AngularJS 1.5.9 and Angular 4: 35% of components on Angular, 115 AngularJS components left.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>AngularJS</dt><dd>1.5.9</dd><dd class="hint">node_modules or lockfile</dd></div>
+      <div class="metric"><dt>Mode</dt><dd>Hybrid (UpgradeModule)</dd></div>
+      <div class="metric"><dt>Components left</dt><dd>115</dd><dd class="hint">4 components, 23 directives, 88 controllers</dd></div>
+      <div class="metric"><dt>Services left</dt><dd>33</dd><dd class="hint">and 16 filters</dd></div>
+      <div class="metric"><dt>Templates</dt><dd>178</dd><dd class="hint">with AngularJS syntax</dd></div>
+      <div class="metric"><dt>Migrated</dt><dd>35%</dd><dd class="hint">61 of 176 components on Angular</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong>AngularJS 1.5.9 is end of life since January 2022</strong></div>
+        <p>Google ended AngularJS support on 31 December 2021: no security fixes, no fixes for new browsers, only paid third-party extended support. Nothing in AngularJS carries over to Angular; every controller, directive, service and template is rewritten or wrapped, which is why the migration goes piece by piece, with both frameworks running side by side in between.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>Move to AngularJS 1.8 before anything else (now 1.5.9)</strong></div>
+        <p>1.8 is the last release. The steps from 1.5 are small and remove the deprecated behaviour (such as <code>$http</code> success/error callbacks) that the migration would otherwise carry along.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>88 controllers registered with <code>.controller()</code>, 83 bound with <code>ng-controller</code></strong></div>
+        <p>A controller lives in a template or a route, and ngUpgrade bridges neither: only components and component-like directives can be upgraded to Angular or downgraded from it. Turning each controller into a <code>.component()</code> with explicit bindings is the first step of every migration path, and it ships on AngularJS alone.</p>
+        <ul class="files"><li>src/controllers/aside-controller.js:7</li><li>src/controllers/aside-controller.js:13</li><li>src/controllers/configuration-controller.js:20</li><li>src/controllers/configuration-controller.js:68</li><li>src/controllers/configuration-controller.js:180</li><li class="more">and 83 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>5 directives use <code>compile</code>, <code>replace</code> or <code>terminal</code></strong></div>
+        <p><code>UpgradeComponent</code> refuses these features (it throws &quot;unsupported feature&quot;), so these directives cannot be wrapped for use in Angular; they are rewritten, or reshaped as components first. <code>replace: true</code> has been deprecated since AngularJS 1.3.</p>
+        <ul class="files"><li>src/directives/tabset.js:7</li><li>src/directives/tabset.js:54</li><li>src/directives/ui-codemirror.js:28</li><li>src/directives/widget.js:433</li><li>src/directives/widget.js:525</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong><code>$scope</code> in 20 files</strong></div>
+        <p>Angular has no scope. State kept on <code>$scope</code> moves to the controller (<code>controllerAs</code>, <code>bindToController</code>) and to component bindings first, still on AngularJS; what remains is what the Angular version of each file has to redesign.</p>
+        <ul class="files"><li>src/components/schema/classesList.js:9</li><li>src/components/schema/edge/newEdgeModal.js:4</li><li>src/components/schema/generic/newGenericModal.js:4</li><li>src/components/schema/vertex/newVertexModal.js:4</li><li>src/controllers/aside-controller.js:7</li><li class="more">and 15 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>64 scope events (<code>$broadcast</code>, <code>$emit</code>, <code>$rootScope.$on</code>) used as a message bus</strong></div>
+        <p>An event reaches whatever listens anywhere in the scope tree, invisible to the code that sends it, and in a hybrid app it stops at the framework border. A shared service with an RxJS <code>Subject</code>, made available to AngularJS with <code>downgradeInjectable</code>, carries the same messages to both sides.</p>
+        <ul class="files"><li>src/app-legacy.js:185</li><li>src/app.config.js:162</li><li>src/controllers/aside-controller.js:16</li><li>src/controllers/database-controller.js:754</li><li>src/controllers/document-controller.js:165</li><li class="more">and 10 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>4 runtime <code>$compile</code> calls</strong></div>
+        <p>Templates compiled at runtime have no direct Angular equivalent, since Angular compiles ahead of time and needs its components known at build time. These usually become dynamic components (<code>ViewContainerRef.createComponent</code>), or a redesign.</p>
+        <ul class="files"><li>src/directives/graph.js:148</li><li>src/directives/widget.js:157</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>85 <code>$watch</code> calls</strong></div>
+        <p>Each becomes a <code>computed</code> signal, an <code>effect</code>, or an input that reacts to change. A deep watch (<code>$watch(…, true)</code>) usually points at shared mutable state, which is worth untangling before the move rather than during it.</p>
+        <ul class="files"><li>src/controllers/configuration-controller.js:77</li><li>src/controllers/database-controller.js:86</li><li>src/controllers/ee-controller.js:154</li><li>src/controllers/function-controller.js:145</li><li>src/controllers/graph-controller.js:542</li><li class="more">and 7 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong><code>ng-include</code> in 25 templates</strong></div>
+        <p>A template pulled in at runtime shares the scope of its parent, so its real inputs are whatever it happens to read. Each becomes a component with explicit inputs.</p>
+        <ul class="files"><li>src/index.html</li><li>src/views/database/auditing.html</li><li>src/views/database/browse.html</li><li>src/views/database/config/configuration.html</li><li>src/views/database/configuration.html</li><li class="more">and 20 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>6 AngularJS packages to replace</strong></div>
+        <p><code>angular-route</code>: the Angular Router; <code>angular-resource</code>: <code>HttpClient</code>; <code>angular-animate</code>: CSS transitions, or <code>@angular/animations</code>; <code>angular-sanitize</code>: Angular&#39;s built-in sanitization; <code>angular-translate</code>: <code>@ngx-translate/core</code>, or <code>@angular/localize</code>; <code>angular-strap</code>: <code>@ng-bootstrap/ng-bootstrap</code> or <code>ngx-bootstrap</code>.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-info">Note</span><strong>Hybrid app on <code>UpgradeModule</code>: 35% of components on Angular</strong></div>
+        <p>61 Angular components and 115 AngularJS components, directives and controllers. Across the border: 14 downgraded and 0 upgraded components, 16 downgraded and 0 upgraded services.</p>
+        
+      </li>
+    </ul>
+  </section>
+  <section class="check" id="version" aria-labelledby="version-title">
+    <div class="check-head">
+      <h2 id="version-title">Angular version &amp; tooling</h2>
+      <span class="pill grade-poor">Poor</span>
+    </div>
+    <p class="check-summary">Angular 4.4.6, 18 majors behind 22.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Installed</dt><dd>4.4.6</dd><dd class="hint">package-lock.json</dd></div>
+      <div class="metric"><dt>Latest</dt><dd>22</dd><dd class="hint">npm registry</dd></div>
+      <div class="metric"><dt>Majors behind</dt><dd>18</dd></div>
+      <div class="metric"><dt>Build system</dt><dd>unknown</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong>Angular 4 is 18 majors behind 22 and out of support</strong></div>
+        <p>Angular supports each major for 18 months, so only the newest three get fixes; 4 receives no security patches. <code>ng update</code> moves one major at a time, which makes this 18 sequential upgrade steps, each with its own migrations to review.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong><code>@angular/http</code> is end of life</strong></div>
+        <p>Removed in Angular 8. Replaced by <code>HttpClient</code> from <code>@angular/common/http</code>.</p>
+        
+      </li>
+    </ul>
+  </section>
+  <section class="check" id="deprecated-apis" aria-labelledby="deprecated-apis-title">
+    <div class="check-head">
+      <h2 id="deprecated-apis-title">Deprecated APIs</h2>
+      <span class="pill grade-good">Good</span>
+    </div>
+    <p class="check-summary">Nothing deprecated as of Angular 4 is in use; APIs deprecated in later versions surface at each upgrade step.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Deprecated symbols</dt><dd>0</dd></div>
+      <div class="metric"><dt>Files affected</dt><dd>0</dd></div>
+      <div class="metric"><dt>Legacy template directives</dt><dd>249</dd><dd class="hint">not deprecated in this version</dd></div>
+    </dl>
+    
+  </section>
+  <section class="check" id="dependencies" aria-labelledby="dependencies-title">
+    <div class="check-head">
+      <h2 id="dependencies-title">Third-party compatibility</h2>
+      <span class="pill grade-poor">Poor</span>
+    </div>
+    <p class="check-summary">6 packages depend on Angular: 1 blocking the upgrade to 22, 4 not accepting the current version.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Depend on Angular</dt><dd>6</dd><dd class="hint">third-party packages</dd></div>
+      <div class="metric"><dt>Block the upgrade</dt><dd>1</dd><dd class="hint">to Angular 22</dd></div>
+      <div class="metric"><dt>Peer mismatches</dt><dd>4</dd><dd class="hint">with Angular 4</dd></div>
+      <div class="metric"><dt>Deprecated on npm</dt><dd>2</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong><code>angular2-tag-input</code> 1.2.3 does not accept Angular 4</strong></div>
+        <p>It declares <code>@angular/core</code> 2.2.4, so it was installed with --force, --legacy-peer-deps or an override, and it may fail at runtime in ways no build catches. No release accepts Angular 4 yet (latest 1.2.3).</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong><code>ng2-bs3-modal</code> 0.10.4 does not accept Angular 4</strong></div>
+        <p>It declares <code>@angular/core</code> ^2.0.0, so it was installed with --force, --legacy-peer-deps or an override, and it may fail at runtime in ways no build catches. Version 0.11.5 supports Angular 4.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong><code>ng2-select2</code> 1.0.0-beta.10 does not accept Angular 4</strong></div>
+        <p>It declares <code>@angular/core</code> ^2.2.0, so it was installed with --force, --legacy-peer-deps or an override, and it may fail at runtime in ways no build catches. No release accepts Angular 4 yet (latest 1.0.0-beta.16).</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong><code>ng2-tag-input</code> 0.8.8 does not accept Angular 4</strong></div>
+        <p>It declares <code>@angular/core</code> ^2.4.0, so it was installed with --force, --legacy-peer-deps or an override, and it may fail at runtime in ways no build catches. Version 1.0.2 supports Angular 4.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong><code>ng2-codemirror</code> 1.1.3 supports Angular up to 4: it blocks the step to 5</strong></div>
+        <p>It declares <code>@angular/core</code> ^2.1.0 || ^4.0.0. No release supports Angular 22 yet (latest 1.1.3): plan to replace it, or to stop at the last major it supports.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong><code>ng2-bootstrap</code> is deprecated on npm</strong></div>
+        <p>ng2-bootstrap is renamed to ngx-bootstrap, please do npm i ngx-bootstrap -S</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong><code>ng2-tag-input</code> is deprecated on npm</strong></div>
+        <p>This package has been renamed to &#39;ngx-chips&#39;. Please install it instead.</p>
+        
+      </li>
+    </ul>
+  </section>
+  <section class="check" id="change-detection" aria-labelledby="change-detection-title">
+    <div class="check-head">
+      <h2 id="change-detection-title">Change detection &amp; zoneless readiness</h2>
+      <span class="pill grade-poor">Poor</span>
+    </div>
+    <p class="check-summary">Runs on zone.js; 0% of 61 components use OnPush.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Mode</dt><dd>zone.js</dd></div>
+      <div class="metric"><dt>OnPush</dt><dd>0%</dd><dd class="hint">0 of 61 components</dd></div>
+      <div class="metric"><dt>Files injecting NgZone</dt><dd>28</dd></div>
+      <div class="metric"><dt>Zone test helpers</dt><dd>0</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-info">Note</span><strong>Zoneless change detection needs Angular 20.2 or newer</strong></div>
+        <p>Upgrade first; OnPush coverage is the preparation that pays off now.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>61 components use eager change detection (100%)</strong></div>
+        <p>Without <code>changeDetection: ChangeDetectionStrategy.OnPush</code> a component is checked on every change detection cycle and usually relies on zone.js to notice mutations. These are the components to review before going zoneless.</p>
+        <ul class="files"><li>src/app/administration/dashboard.component.ts:43</li><li>src/app/administration/etl/etl.component.ts:12</li><li>src/app/administration/importmanager/importmanager.component.ts:10</li><li>src/app/administration/neo4jimporter/neo4jimporter.component.ts:11</li><li>src/app/administration/newsbox/newsbox.component.ts:11</li><li class="more">and 56 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>28 files inject <code>NgZone</code></strong></div>
+        <p>Zoneless, <code>NgZone</code> is still injectable but <code>run()</code> no longer triggers change detection and <code>runOutsideAngular()</code> no longer saves any. Code that relied on either needs a signal or an explicit <code>markForCheck()</code> instead.</p>
+        <ul class="files"><li>src/app/administration/dashboard.component.ts:1</li><li>src/app/administration/etl/etl.component.ts:2</li><li>src/app/administration/neo4jimporter/neo4jimporter.component.ts:1</li><li>src/app/administration/stats/backup/backup.component.ts:1</li><li>src/app/administration/stats/backup/calendar.component.ts:1</li><li class="more">and 23 more</li></ul>
+      </li>
+    </ul>
+  </section>
+  <section class="check" id="components" aria-labelledby="components-title">
+    <div class="check-head">
+      <h2 id="components-title">Components &amp; templates</h2>
+      <span class="pill grade-poor">Poor</span>
+    </div>
+    <p class="check-summary">61 components: 0% standalone, 0% signal inputs, 0% built-in control flow.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Components</dt><dd>61</dd></div>
+      <div class="metric"><dt>Standalone</dt><dd>0%</dd><dd class="hint">1 NgModules</dd></div>
+      <div class="metric"><dt>Signal inputs</dt><dd>0%</dd><dd class="hint">0 of 90</dd></div>
+      <div class="metric"><dt>Signal outputs</dt><dd>0%</dd><dd class="hint">0 of 13</dd></div>
+      <div class="metric"><dt>Built-in control flow</dt><dd>0%</dd><dd class="hint">0 of 249 blocks</dd></div>
+      <div class="metric"><dt>@defer blocks</dt><dd>0</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>61 components still declared in NgModules (1 NgModule in total)</strong></div>
+        <p>Standalone components are the default since Angular 19 and what every new API assumes. <code>ng generate @angular/core:standalone</code> converts declarations, removes the emptied NgModules and switches bootstrapping, in three passes that can be reviewed one at a time.</p>
+        <ul class="files"><li>src/app/administration/dashboard.component.ts:43</li><li>src/app/administration/etl/etl.component.ts:12</li><li>src/app/administration/importmanager/importmanager.component.ts:10</li><li>src/app/administration/neo4jimporter/neo4jimporter.component.ts:11</li><li>src/app/administration/newsbox/newsbox.component.ts:11</li><li class="more">and 56 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>90 <code>@Input()</code> decorators and 13 <code>@Output()</code> decorators left</strong></div>
+        <p>Signal inputs (<code>input()</code>) make inputs readable in <code>computed()</code> and effects without <code>ngOnChanges</code>, and are what zoneless change detection tracks. <code>ng generate @angular/core:signal-input-migration</code> and <code>ng generate @angular/core:output-migration</code> convert most of them; the rest are usually inputs written to from inside the component.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>249 uses of <code>*ngIf</code>, <code>*ngFor</code> and <code>[ngSwitch]</code></strong></div>
+        <p>Built-in control flow (<code>@if</code>, <code>@for</code>, <code>@switch</code>) is available from Angular 17. <code>ng generate @angular/core:control-flow</code> migrates most templates automatically.</p>
+        
+      </li>
+    </ul>
+  </section>
+  <section class="check" id="state" aria-labelledby="state-title">
+    <div class="check-head">
+      <h2 id="state-title">State management</h2>
+      <span class="pill grade-info">Info</span>
+    </div>
+    <p class="check-summary">No state-management library or signal usage found.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Classic NgRx files</dt><dd>0</dd></div>
+      <div class="metric"><dt>Signal store files</dt><dd>0</dd></div>
+      <div class="metric"><dt>signal() / computed()</dt><dd>0</dd><dd class="hint">0 toSignal()</dd></div>
+      <div class="metric"><dt>BehaviorSubject services</dt><dd>0</dd></div>
+    </dl>
+    
+  </section>
+  <section class="check" id="architecture" aria-labelledby="architecture-title">
+    <div class="check-head">
+      <h2 id="architecture-title">Architecture</h2>
+      <span class="pill grade-fair">Fair</span>
+    </div>
+    <p class="check-summary">No routes found, 3 files over 500 lines, 66 classes with constructor injection.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Lazy routes</dt><dd>0%</dd><dd class="hint">0 of 0</dd></div>
+      <div class="metric"><dt>Large files</dt><dd>3</dd><dd class="hint">over 500 lines</dd></div>
+      <div class="metric"><dt>Constructor injection</dt><dd>66</dd><dd class="hint">classes; 0 inject() calls</dd></div>
+      <div class="metric"><dt>Class guards</dt><dd>0</dd><dd class="hint">and interceptors</dd></div>
+      <div class="metric"><dt>Hotspots</dt><dd>-</dd><dd class="hint">shallow clone: no history (fetch-depth: 0)</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>3 files over 500 lines, 1 over 1 000</strong></div>
+        <p>The largest: etl.component.ts (1 665), OGraph.ts (805), detailpanel.component.ts (609). Files this size usually hold several responsibilities; they are where changes collide and where a refactor pays back first.</p>
+        <ul class="files"><li>src/app/administration/etl/etl.component.ts</li><li>src/app/util/graph/d3-graph/OGraph.ts</li><li>src/app/administration/teleporter/detailpanel/detailpanel.component.ts</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>66 classes inject through the constructor</strong></div>
+        <p><code>inject()</code> is the current default (0 calls already in the code). It works in field initialisers and functions, and it is what signal-based code expects. <code>ng generate @angular/core:inject</code> migrates constructors automatically.</p>
+        <ul class="files"><li>src/app/administration/dashboard.component.ts:57</li><li>src/app/administration/etl/etl.component.ts:77</li><li>src/app/administration/importmanager/importmanager.component.ts:35</li><li>src/app/administration/neo4jimporter/neo4jimporter.component.ts:35</li><li>src/app/administration/newsbox/newsbox.component.ts:31</li><li class="more">and 61 more</li></ul>
+      </li>
+    </ul>
+  </section>
+  <section class="check" id="testing" aria-labelledby="testing-title">
+    <div class="check-head">
+      <h2 id="testing-title">Testing</h2>
+      <span class="pill grade-poor">Poor</span>
+    </div>
+    <p class="check-summary">Karma, 0 spec files, 0% of components and services with a spec.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Unit-test runner</dt><dd>Karma</dd></div>
+      <div class="metric"><dt>Spec files</dt><dd>0</dd></div>
+      <div class="metric"><dt>With a spec</dt><dd>0%</dd><dd class="hint">0 of 80 component/service files</dd></div>
+      <div class="metric"><dt>End-to-end</dt><dd>none</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong>Unit tests run on Karma, which is deprecated</strong></div>
+        <p>Karma was deprecated in 2023 and receives no further development. Vitest is the Angular CLI&#39;s default runner since v21 (<code>@angular/build:unit-test</code>). With no specs written yet, moving costs only the configuration, and the first specs can be written for Vitest directly.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong>No unit tests found</strong></div>
+        <p>80 component and service files without a single spec. Every refactoring and upgrade step is verified by hand.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-info">Note</span><strong>No end-to-end test setup found</strong></div>
+        <p>Neither Playwright nor Cypress is a dependency. A handful of smoke tests over the main flows is the cheapest safety net for an upgrade.</p>
+        
+      </li>
+    </ul>
+  </section>
+  <section class="check" id="type-safety" aria-labelledby="type-safety-title">
+    <div class="check-head">
+      <h2 id="type-safety-title">Type safety</h2>
+      <span class="pill grade-poor">Poor</span>
+    </div>
+    <p class="check-summary">strictNullChecks off, strictTemplates off, 201 explicit any.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>strictNullChecks</dt><dd>off</dd></div>
+      <div class="metric"><dt>strictTemplates</dt><dd>off</dd><dd class="hint">default in Angular 4</dd></div>
+      <div class="metric"><dt>noImplicitAny</dt><dd>off</dd><dd class="hint">default in TypeScript 2</dd></div>
+      <div class="metric"><dt>Explicit any</dt><dd>201</dd><dd class="hint">20.1 per 1 000 lines</dd></div>
+      <div class="metric"><dt>Non-null assertions</dt><dd>0</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong><code>strictNullChecks</code> is off</strong></div>
+        <p>Every value that may be <code>null</code> or <code>undefined</code> is typed as if it never is, so the most common runtime error in an Angular app is invisible to the compiler. In a large codebase switching it on is staged: a separate tsconfig that checks one folder at a time, with a count that may only go down.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong><code>strictTemplates</code> is off</strong></div>
+        <p>Template bindings are only loosely type-checked: a wrong input type, a misspelled output payload or a possibly-undefined value passed to a component compiles and fails at runtime. Turning it on typically surfaces a batch of real bugs alongside the type noise.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong><code>noImplicitAny</code> is off</strong></div>
+        <p>An unannotated parameter silently becomes <code>any</code>, and no lint rule that counts the word <code>any</code> can see it.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>201 explicit <code>any</code> in application code (20.1 per 1 000 lines)</strong></div>
+        <p>Files with the most are listed first. Each <code>any</code> switches type checking off for everything that flows through it.</p>
+        <ul class="files"><li>src/app/util/dual-list/dual-list.component.ts:4</li><li>src/app/administration/etl/etl.component.ts:10</li><li>src/app/administration/stats/cluster/overview/clusterstats.component.ts:37</li><li>src/app/administration/stats/security/ldap/ldapimporter.component.ts:16</li><li>src/app/administration/stats/security/auditing/auditingcfg.component.ts:10</li><li class="more">and 75 more</li></ul>
+      </li>
+    </ul>
+  </section>
+  <section class="check" id="security" aria-labelledby="security-title">
+    <div class="check-head">
+      <h2 id="security-title">Security</h2>
+      <span class="pill grade-poor">Poor</span>
+    </div>
+    <p class="check-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 141 files; 3 sanitized [innerHTML] bindings; 62 known vulnerabilities in dependencies.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Direct DOM HTML writes</dt><dd>0</dd><dd class="hint">innerHTML =, insertAdjacentHTML</dd></div>
+      <div class="metric"><dt>Sanitizer bypasses</dt><dd>0</dd><dd class="hint">bypassSecurityTrust*</dd></div>
+      <div class="metric"><dt>eval / new Function</dt><dd>0</dd></div>
+      <div class="metric"><dt>[innerHTML] bindings</dt><dd>3</dd><dd class="hint">sanitized by Angular</dd></div>
+      <div class="metric"><dt>Known vulnerabilities</dt><dd>62</dd><dd class="hint">in 92 direct dependencies checked</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong>62 known vulnerabilities in 13 dependencies (27 high or critical)</strong></div>
+        <p><code>lodash</code> 4.17.4: 10 advisories (CVE-2020-28500, CVE-2021-23337, CVE-2018-16487, …), all fixed by 4.18.0; <code>underscore</code> 1.8.3: 2 advisories (CVE-2021-23358, CVE-2026-27601), all fixed by 1.13.8; <code>@angular/common</code> 4.4.6: 8 advisories (CVE-2026-54266, CVE-2026-54268, CVE-2025-66035, …), all fixed by 20.3.34; <code>@angular/compiler</code> 4.4.6: 6 advisories (CVE-2026-54265, CVE-2026-50557, CVE-2026-88057, …), all fixed by 20.3.28; <code>@angular/core</code> 4.4.6: 8 advisories (CVE-2026-52725, CVE-2021-4231, CVE-2026-50557, …), all fixed by 20.3.28; <code>angular</code> 1.5.9: 13 advisories (CVE-2023-26117, CVE-2023-26116, CVE-2024-21490, …), some without a fixed version; and 7 more dependencies. Direct dependencies at their exact versions, from the advisories in osv.dev; the full dependency tree is <code>npm audit</code>&#39;s job.</p>
+        
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>3 <code>[innerHTML]</code> bindings in 2 templates</strong></div>
+        <p>Angular sanitizes these, so they are safe on their own: scripts and event handlers are stripped. They become a hole only when the bound value went through <code>bypassSecurityTrustHtml</code>, which is worth checking for each one.</p>
+        <ul class="files"><li>src/app/administration/importmanager/importmanager.component.html</li><li>src/app/administration/newsbox/newsbox.component.html</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>14 known vulnerabilities in development tooling</strong></div>
+        <p><code>webpack-dev-server</code> 2.3.0, <code>bootstrap</code> 3.3.7. Not shipped to users, but they run on developer machines and in CI.</p>
+        
+      </li>
+    </ul>
+  </section>
+  <section class="check" id="circular-deps" aria-labelledby="circular-deps-title">
+    <div class="check-head">
+      <h2 id="circular-deps-title">Circular dependencies</h2>
+      <span class="pill grade-good">Good</span>
+    </div>
+    <p class="check-summary">No import cycles between application files.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Tangles</dt><dd>0</dd><dd class="hint">groups of files in a loop</dd></div>
+      <div class="metric"><dt>Files involved</dt><dd>0</dd></div>
+      <div class="metric"><dt>Largest tangle</dt><dd>0</dd><dd class="hint">files</dd></div>
+    </dl>
+    
+  </section>
+  <section class="check" id="bundle" aria-labelledby="bundle-title">
+    <div class="check-head">
+      <h2 id="bundle-title">Bundle size</h2>
+      <span class="pill grade-info">Info</span>
+    </div>
+    <p class="check-summary">No build stats found, so the bundle size is not part of this report.</p>
+    
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-info">Note</span><strong>Run <code>ng build --stats-json</code> (or <code>nx build &lt;app&gt; --stats-json</code>) and re-run to include the bundle size</strong></div>
+        
+        
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Score: Average of the graded areas: good counts 100, fair 60, poor 20. Areas marked info are not counted. File counts are static and need no build; deprecations come from the installed packages' own <code>@deprecated</code> tags.</p>
+    <p>Generated by ng-checkup 1.0.0 in 3.8 s.</p>
+  </footer>
+</main>
+</body>
+</html>

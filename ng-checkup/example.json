@@ -1,9 +1,9 @@
 {
   "tool": {
     "name": "ng-checkup",
-    "version": "0.5.1"
+    "version": "1.0.1"
   },
-  "generatedAt": "2026-10-20T11:27:21.660Z",
+  "generatedAt": "2026-10-23T08:38:26.605Z",
   "root": "github.com/gothinkster/angular-realworld-example-app @ 57eeb6a (Angular 12)",
   "project": {
     "name": "ang2-conduit",
@@ -11,7 +11,7 @@
     "angularVersion": "12.2.17",
     "sourceFiles": 71,
     "templateFiles": 19,
-    "linesOfCode": 1609
+    "linesOfCode": 1589
   },
   "checks": [
     {
@@ -23,7 +23,7 @@
         {
           "label": "Installed",
           "value": "12.2.17",
-          "hint": "node_modules"
+          "hint": "package-lock.json"
         },
         {
           "label": "Latest",
@@ -108,7 +108,7 @@
       "measures": [
         {
           "id": "deprecated-usages",
-          "label": "Deprecated API uses (symbol \u00d7 file)",
+          "label": "Deprecated API uses (symbol × file)",
           "value": 0
         },
         {
@@ -416,6 +416,11 @@
           "label": "Class guards",
           "value": "7",
           "hint": "and interceptors"
+        },
+        {
+          "label": "Hotspots",
+          "value": "-",
+          "hint": "shallow clone: no history (fetch-depth: 0)"
         }
       ],
       "findings": [
@@ -572,7 +577,7 @@
         {
           "label": "Explicit any",
           "value": "13",
-          "hint": "8.1 per 1 000 lines"
+          "hint": "8.2 per 1 000 lines"
         },
         {
           "label": "Non-null assertions",
@@ -597,7 +602,7 @@
         },
         {
           "severity": "medium",
-          "message": "13 explicit `any` in application code (8.1 per 1 000 lines)",
+          "message": "13 explicit `any` in application code (8.2 per 1 000 lines)",
           "detail": "Files with the most are listed first. Each `any` switches type checking off for everything that flows through it.",
           "files": [
             {
@@ -665,8 +670,8 @@
     {
       "id": "security",
       "title": "Security",
-      "grade": "good",
-      "summary": "No sanitizer bypasses, direct DOM HTML writes or eval in 71 files; 1 sanitized [innerHTML] binding.",
+      "grade": "poor",
+      "summary": "No sanitizer bypasses, direct DOM HTML writes or eval in 69 files; 1 sanitized [innerHTML] binding; 23 known vulnerabilities in dependencies.",
       "metrics": [
         {
           "label": "Direct DOM HTML writes",
@@ -686,9 +691,19 @@
           "label": "[innerHTML] bindings",
           "value": "1",
           "hint": "sanitized by Angular"
+        },
+        {
+          "label": "Known vulnerabilities",
+          "value": "23",
+          "hint": "in 35 direct dependencies checked"
         }
       ],
       "findings": [
+        {
+          "severity": "high",
+          "message": "23 known vulnerabilities in 4 dependencies (15 high or critical)",
+          "detail": "`@angular/common` 12.2.17: 8 advisories (CVE-2026-54266, CVE-2026-54268, CVE-2025-66035, …), all fixed by 20.3.34; `@angular/compiler` 12.2.17: 6 advisories (CVE-2026-54265, CVE-2026-50557, CVE-2026-88057, …), all fixed by 20.3.28; `@angular/core` 12.2.17: 7 advisories (CVE-2026-52725, CVE-2026-50557, CVE-2026-88057, …), all fixed by 20.3.28; `@angular/router` 12.2.17: 2 advisories (CVE-2026-111752, CVE-2026-101896), all fixed by 20.3.33. Direct dependencies at their exact versions, from the advisories in osv.dev; the full dependency tree is `npm audit`'s job."
+        },
         {
           "severity": "low",
           "message": "1 `[innerHTML]` binding in 1 template",
@@ -768,7 +783,7 @@
       ]
     }
   ],
-  "durationMs": 567,
+  "durationMs": 2085,
   "plan": {
     "from": 12,
     "to": 22,

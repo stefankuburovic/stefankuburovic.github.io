@@ -119,6 +119,19 @@ h2 { margin: 0 0 12px; font-size: clamp(26px, 3.4vw, 34px); line-height: 1.15; l
 .text-link { color: var(--accent); font-size: 14.5px; font-weight: 600; text-decoration: none; }
 .text-link:hover { text-decoration: underline; }
 
+.projects + .projects { margin-top: 20px; }
+
+/* form field illustrations: what the user sees, and what the form gets */
+.mock-field { display: grid; gap: 6px; padding: 20px 22px; border-radius: 12px; background: var(--bg); border: 1px solid var(--border); }
+.mock-label { font-size: 12.5px; color: var(--muted); }
+.mock-input { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2px solid var(--accent); border-radius: 8px; background: var(--surface); font-size: 17px; font-variant-numeric: tabular-nums; }
+.mock-caret { width: 2px; height: 1.2em; margin-left: -8px; background: var(--accent); animation: mock-blink 1.1s steps(1) infinite; }
+@keyframes mock-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .mock-caret { animation: none; } }
+.mock-country { padding-right: 10px; border-right: 1px solid var(--border); color: var(--muted); font-size: 15px; white-space: nowrap; }
+.mock-value { font-size: 13px; color: var(--muted); }
+.mock-value code { color: var(--text); }
+
 /* ng-toast illustration, in the library's default colors */
 .toast-stack { display: grid; gap: 8px; padding: 22px; border-radius: 12px; background: var(--bg); border: 1px solid var(--border); }
 .mock-toast { position: relative; overflow: hidden; display: flex; align-items: center; gap: 12px; max-width: 320px; margin-left: auto; padding: 11px 14px; border-radius: 4px; color: #fff; font-size: 13.5px; line-height: 1.35; box-shadow: 0 0 10px rgba(0, 0, 0, 0.18); }
@@ -266,7 +279,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
     <div class="wrap">
       <p class="eyebrow">Projects</p>
       <h2>Open source I build and maintain</h2>
-      <p class="section-lead">Tools I needed on the job and then published, both on npm and MIT licensed.</p>
+      <p class="section-lead">Tools I needed on the job and then published, all on npm and MIT licensed.</p>
       <div class="projects">
         <article class="project">
           <div class="project-head">
@@ -326,6 +339,44 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
             <a class="button small" href="ng-toast/">Live demo</a>
             <a class="text-link" href="https://github.com/stefankuburovic/ng-toast">GitHub</a>
             <a class="text-link" href="https://www.npmjs.com/package/@stefankuburovic/ng-toast">npm</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="projects">
+        <article class="project">
+          <div class="project-head">
+            <h3>ng-number-input</h3>
+            <span class="downloads" data-npm="@stefankuburovic/ng-number-input" hidden></span>
+          </div>
+          <p class="project-tagline">Number and currency inputs for Angular forms.</p>
+          <div class="mock-field" aria-hidden="true">
+            <span class="mock-label">Price</span>
+            <span class="mock-input">1.234,50 €<span class="mock-caret"></span></span>
+            <span class="mock-value">form value <code>1234.5</code></span>
+          </div>
+          <p>Thousand separators, decimal marker, prefix and suffix appear as the user types, the caret stays where it belongs, and the form control gets a plain <code>number</code>. The separators follow <code>LOCALE_ID</code> through <code>Intl</code>. Reactive forms, <code>ngModel</code> and <code>matInput</code>, in 2.7 kB with no dependencies.</p>
+          <div class="project-links">
+            <a class="text-link" href="https://github.com/stefankuburovic/ng-number-input">GitHub</a>
+            <a class="text-link" href="https://www.npmjs.com/package/@stefankuburovic/ng-number-input">npm</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3>ng-tel-input</h3>
+            <span class="downloads" data-npm="@stefankuburovic/ng-tel-input" hidden></span>
+          </div>
+          <p class="project-tagline">A phone number input for Angular forms.</p>
+          <div class="mock-field" aria-hidden="true">
+            <span class="mock-label">Phone</span>
+            <span class="mock-input"><span class="mock-country">🇩🇪 +49 ▾</span>030 1234567</span>
+            <span class="mock-value">form value <code>+49 30 1234567</code></span>
+          </div>
+          <p>The field shows the number nationally next to its flag, the form control holds it internationally, and a number typed with its calling code picks its own country. The picker is the browser's own <code>&lt;select&gt;</code>, named through <code>Intl.DisplayNames</code>; validation is built in and Angular Material optional. 2.8 kB on top of libphonenumber-js.</p>
+          <div class="project-links">
+            <a class="text-link" href="https://github.com/stefankuburovic/ng-tel-input">GitHub</a>
+            <a class="text-link" href="https://www.npmjs.com/package/@stefankuburovic/ng-tel-input">npm</a>
           </div>
         </article>
       </div>

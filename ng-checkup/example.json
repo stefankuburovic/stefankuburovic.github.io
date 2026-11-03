@@ -1,9 +1,9 @@
 {
   "tool": {
     "name": "ng-checkup",
-    "version": "1.0.1"
+    "version": "2.0.1"
   },
-  "generatedAt": "2026-10-23T08:38:26.605Z",
+  "generatedAt": "2026-11-03T21:57:05.061Z",
   "root": "github.com/gothinkster/angular-realworld-example-app @ 57eeb6a (Angular 12)",
   "project": {
     "name": "ang2-conduit",
@@ -11,7 +11,7 @@
     "angularVersion": "12.2.17",
     "sourceFiles": 71,
     "templateFiles": 19,
-    "linesOfCode": 1589
+    "linesOfCode": 1483
   },
   "checks": [
     {
@@ -102,6 +102,11 @@
           "label": "Legacy template directives",
           "value": "13",
           "hint": "not deprecated in this version"
+        },
+        {
+          "label": "Angular 13",
+          "value": "0 removed, 0 deprecated",
+          "hint": "imports, compared with 13.4.0"
         }
       ],
       "findings": [],
@@ -273,6 +278,11 @@
         {
           "label": "@defer blocks",
           "value": "0"
+        },
+        {
+          "label": "Manual .subscribe()",
+          "value": "22",
+          "hint": "22 not tied to the lifetime"
         }
       ],
       "findings": [
@@ -315,6 +325,62 @@
           "message": "13 uses of `*ngIf`, `*ngFor` and `[ngSwitch]`",
           "detail": "Built-in control flow (`@if`, `@for`, `@switch`) is available from Angular 17. `ng generate @angular/core:control-flow` migrates most templates automatically.",
           "count": 13
+        },
+        {
+          "severity": "low",
+          "message": "22 manual `.subscribe()` calls in components and directives, 22 not tied to the component's lifetime",
+          "detail": "Each one moves state by hand: `toSignal()` or the `async` pipe let Angular own the subscription, and a signal is what OnPush and zoneless change detection track. \"Tied to the lifetime\" means `takeUntilDestroyed`, `takeUntil`, `take` or `first` in the chain; the others end only through an explicit `unsubscribe()`, or never.",
+          "files": [
+            {
+              "path": "src/app/article/article.component.ts",
+              "line": 38
+            },
+            {
+              "path": "src/app/auth/auth.component.ts",
+              "line": 35
+            },
+            {
+              "path": "src/app/editor/editor.component.ts",
+              "line": 40
+            },
+            {
+              "path": "src/app/home/home.component.ts",
+              "line": 27
+            },
+            {
+              "path": "src/app/article/article-comment.component.ts",
+              "line": 24
+            }
+          ],
+          "count": 14
+        },
+        {
+          "severity": "low",
+          "message": "9 `.subscribe()` calls in components and directives that nothing ever ends",
+          "detail": "No `takeUntilDestroyed`, `takeUntil`, `take` or `first` in the chain, and no cleanup anywhere in the class (`ngOnDestroy`, `unsubscribe()`, `DestroyRef`). When the source outlives the component (a service, a store, `router.events`, `interval`, `fromEvent(window)`), the subscription keeps the destroyed component in memory and its callback keeps running, once more each time the component is created. Calls to `HttpClient`, `ActivatedRoute`, a form's `valueChanges`, a dialog's close event and the component's own subjects are left out, since those complete or die with the component. A service call that completes after one value (a GraphQL query, a notification) cannot be told apart from the code and is counted; for those `take(1)` documents it. `takeUntilDestroyed()` or `toSignal()` fixes the rest.",
+          "files": [
+            {
+              "path": "src/app/auth/auth.component.ts",
+              "line": 52
+            },
+            {
+              "path": "src/app/editor/editor.component.ts",
+              "line": 73
+            },
+            {
+              "path": "src/app/home/home.component.ts",
+              "line": 37
+            },
+            {
+              "path": "src/app/settings/settings.component.ts",
+              "line": 52
+            },
+            {
+              "path": "src/app/shared/article-helpers/article-list.component.ts",
+              "line": 45
+            }
+          ],
+          "count": 9
         }
       ],
       "measures": [
@@ -332,6 +398,21 @@
           "id": "legacy-control-flow",
           "label": "*ngIf / *ngFor / [ngSwitch] uses",
           "value": 13
+        },
+        {
+          "id": "manual-subscriptions",
+          "label": "Manual .subscribe() in components and directives",
+          "value": 22
+        },
+        {
+          "id": "hardcoded-colors",
+          "label": "Colour literals outside the design tokens",
+          "value": 0
+        },
+        {
+          "id": "unended-subscriptions",
+          "label": ".subscribe() in components and directives that nothing ends",
+          "value": 9
         }
       ]
     },
@@ -418,6 +499,11 @@
           "hint": "and interceptors"
         },
         {
+          "label": "Unused files",
+          "value": "0",
+          "hint": "and 0 unused components and pipes"
+        },
+        {
           "label": "Hotspots",
           "value": "-",
           "hint": "shallow clone: no history (fetch-depth: 0)"
@@ -501,6 +587,21 @@
           "id": "class-guards",
           "label": "Class-based guards and interceptors",
           "value": 7
+        },
+        {
+          "id": "unused-files",
+          "label": "Files nothing imports",
+          "value": 0
+        },
+        {
+          "id": "unused-components",
+          "label": "Components no template uses",
+          "value": 0
+        },
+        {
+          "id": "unused-pipes",
+          "label": "Pipes no template uses",
+          "value": 0
         }
       ]
     },
@@ -550,6 +651,21 @@
           "id": "untested-files",
           "label": "Components and services without a spec",
           "value": 32
+        },
+        {
+          "id": "tests-without-assertions",
+          "label": "Tests that assert nothing",
+          "value": 0
+        },
+        {
+          "id": "unawaited-subscribe-assertions",
+          "label": "Assertions in a subscribe the test does not wait for",
+          "value": 0
+        },
+        {
+          "id": "schema-suppressed-specs",
+          "label": "Spec files with NO_ERRORS_SCHEMA or CUSTOM_ELEMENTS_SCHEMA",
+          "value": 0
         }
       ]
     },
@@ -577,7 +693,7 @@
         {
           "label": "Explicit any",
           "value": "13",
-          "hint": "8.2 per 1 000 lines"
+          "hint": "8.8 per 1 000 lines"
         },
         {
           "label": "Non-null assertions",
@@ -588,21 +704,36 @@
         {
           "severity": "high",
           "message": "`strictNullChecks` is off",
+          "files": [
+            {
+              "path": "src/tsconfig.app.json"
+            }
+          ],
           "detail": "Every value that may be `null` or `undefined` is typed as if it never is, so the most common runtime error in an Angular app is invisible to the compiler. In a large codebase switching it on is staged: a separate tsconfig that checks one folder at a time, with a count that may only go down."
         },
         {
           "severity": "high",
           "message": "`strictTemplates` is off",
+          "files": [
+            {
+              "path": "src/tsconfig.app.json"
+            }
+          ],
           "detail": "Template bindings are only loosely type-checked: a wrong input type, a misspelled output payload or a possibly-undefined value passed to a component compiles and fails at runtime. Turning it on typically surfaces a batch of real bugs alongside the type noise."
         },
         {
           "severity": "medium",
           "message": "`noImplicitAny` is off",
-          "detail": "An unannotated parameter silently becomes `any`, and no lint rule that counts the word `any` can see it."
+          "detail": "An unannotated parameter silently becomes `any`, and no lint rule that counts the word `any` can see it.",
+          "files": [
+            {
+              "path": "src/tsconfig.app.json"
+            }
+          ]
         },
         {
           "severity": "medium",
-          "message": "13 explicit `any` in application code (8.2 per 1 000 lines)",
+          "message": "13 explicit `any` in application code (8.8 per 1 000 lines)",
           "detail": "Files with the most are listed first. Each `any` switches type checking off for everything that flows through it.",
           "files": [
             {
@@ -740,6 +871,111 @@
       ]
     },
     {
+      "id": "translations",
+      "title": "Translations",
+      "grade": "info",
+      "summary": "No ngx-translate or Transloco bundle found to check translation keys against.",
+      "metrics": [],
+      "findings": []
+    },
+    {
+      "id": "accessibility",
+      "title": "Accessibility",
+      "grade": "info",
+      "summary": "7 accessibility defects in 6 templates.",
+      "metrics": [
+        {
+          "label": "Form controls without a label",
+          "value": "0"
+        },
+        {
+          "label": "Buttons without a name",
+          "value": "0"
+        },
+        {
+          "label": "Click handlers on non-interactive elements without a key handler",
+          "value": "2"
+        },
+        {
+          "label": "Images without alt",
+          "value": "5"
+        }
+      ],
+      "findings": [
+        {
+          "severity": "medium",
+          "message": "2 `(click)` handlers on a `div`, `span` or similar with no key handler",
+          "detail": "Mouse-only controls: a keyboard user cannot focus the element or trigger it. A `<button>` (or an `<a>` with `href` / `routerLink`) gets focus, Enter and Space for free; otherwise the element needs `tabindex=\"0\"`, a `role` and a `(keydown.enter)` handler. WCAG 2.1.1, level A.",
+          "files": [
+            {
+              "path": "src/app/article/article-comment.component.html",
+              "line": 19
+            },
+            {
+              "path": "src/app/editor/editor.component.html",
+              "line": 28
+            }
+          ],
+          "count": 2
+        },
+        {
+          "severity": "medium",
+          "message": "5 images without `alt`",
+          "detail": "A screen reader reads the file name instead. Give every `<img>` an `alt`, and an empty `alt=\"\"` to one that is only decoration. WCAG 1.1.1, level A.",
+          "files": [
+            {
+              "path": "src/app/article/article-comment.component.html",
+              "line": 9
+            },
+            {
+              "path": "src/app/article/article.component.html",
+              "line": 88
+            },
+            {
+              "path": "src/app/profile/profile.component.html",
+              "line": 8
+            },
+            {
+              "path": "src/app/shared/article-helpers/article-meta.component.html",
+              "line": 3
+            },
+            {
+              "path": "src/app/shared/layout/header.component.html",
+              "line": 67
+            }
+          ],
+          "count": 5
+        }
+      ],
+      "measures": [
+        {
+          "id": "unlabelled-controls",
+          "label": "Form controls without a label",
+          "value": 0
+        },
+        {
+          "id": "unnamed-buttons",
+          "label": "Buttons without a name",
+          "value": 0
+        },
+        {
+          "id": "click-without-keyboard",
+          "label": "Click handlers on non-interactive elements without a key handler",
+          "value": 2
+        },
+        {
+          "id": "images-without-alt",
+          "label": "Images without alt",
+          "value": 5
+        },
+        {
+          "id": "positive-tabindex",
+          "label": "tabindex above 0",
+          "value": 0
+        }
+      ]
+    },
+    {
       "id": "circular-deps",
       "title": "Circular dependencies",
       "grade": "good",
@@ -783,7 +1019,7 @@
       ]
     }
   ],
-  "durationMs": 2085,
+  "durationMs": 3124,
   "plan": {
     "from": 12,
     "to": 22,
@@ -1014,7 +1250,7 @@
       },
       {
         "to": 20,
-        "version": "20.3.34",
+        "version": "20.3.35",
         "command": "ng update @angular/core@20 @angular/cli@20",
         "requirements": [
           {
@@ -1040,7 +1276,7 @@
       },
       {
         "to": 21,
-        "version": "21.2.25",
+        "version": "21.2.26",
         "command": "ng update @angular/core@21 @angular/cli@21",
         "requirements": [
           {
@@ -1076,7 +1312,7 @@
       },
       {
         "to": 22,
-        "version": "22.2.3",
+        "version": "22.2.4",
         "command": "ng update @angular/core@22 @angular/cli@22",
         "requirements": [
           {

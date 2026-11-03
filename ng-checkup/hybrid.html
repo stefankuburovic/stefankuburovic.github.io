@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="ng-checkup 1.0.1">
+<meta name="generator" content="ng-checkup 2.0.1">
 <title>Angular checkup: orientdbstudio</title>
 <style>
 :root {
@@ -116,15 +116,16 @@ footer p { margin: 4px 0; }
     <div>
       <p class="eyebrow">Angular checkup</p>
       <h1>orientdbstudio</h1>
-      <p class="meta">AngularJS and Angular hybrid · Angular 4.4.6 · 141 TypeScript files, 35 JavaScript files · 254 templates · 22 992 lines of code</p>
-      <p class="meta">Generated 2026-10-23</p>
+      <p class="meta">AngularJS and Angular hybrid · Angular 4.4.6 · 141 TypeScript files, 35 JavaScript files · 254 templates · 22 300 lines of code</p>
+      <p class="meta">Generated 2026-11-03</p>
+      
     </div>
-    <figure class="score" aria-label="Score 38 out of 100">
+    <figure class="score" aria-label="Score 31 out of 100">
       <svg viewBox="0 0 100 100" width="112" height="112" aria-hidden="true">
         <circle cx="50" cy="50" r="42" class="ring-track"/>
-        <circle cx="50" cy="50" r="42" class="ring-value grade-poor" stroke-dasharray="100.3 263.9" transform="rotate(-90 50 50)"/>
+        <circle cx="50" cy="50" r="42" class="ring-value grade-poor" stroke-dasharray="81.8 263.9" transform="rotate(-90 50 50)"/>
       </svg>
-      <figcaption><span class="score-value">38</span><span class="score-unit">/100</span></figcaption>
+      <figcaption><span class="score-value">31</span><span class="score-unit">/100</span></figcaption>
     </figure>
   </header>
 
@@ -133,15 +134,17 @@ footer p { margin: 4px 0; }
     <div class="cards">
       <a class="card" href="#angularjs"><span class="pill grade-poor">Poor</span><strong>AngularJS migration</strong><span class="card-summary">Hybrid AngularJS 1.5.9 and Angular 4: 35% of components on Angular, 115 AngularJS components left.</span></a>
       <a class="card" href="#version"><span class="pill grade-poor">Poor</span><strong>Angular version &amp; tooling</strong><span class="card-summary">Angular 4.4.6, 18 majors behind 22.</span></a>
-      <a class="card" href="#deprecated-apis"><span class="pill grade-good">Good</span><strong>Deprecated APIs</strong><span class="card-summary">Nothing deprecated as of Angular 4 is in use; APIs deprecated in later versions surface at each upgrade step.</span></a>
+      <a class="card" href="#deprecated-apis"><span class="pill grade-poor">Poor</span><strong>Deprecated APIs</strong><span class="card-summary">1 import removed in Angular 5.</span></a>
       <a class="card" href="#dependencies"><span class="pill grade-poor">Poor</span><strong>Third-party compatibility</strong><span class="card-summary">6 packages depend on Angular: 1 blocking the upgrade to 22, 4 not accepting the current version.</span></a>
       <a class="card" href="#change-detection"><span class="pill grade-poor">Poor</span><strong>Change detection &amp; zoneless readiness</strong><span class="card-summary">Runs on zone.js; 0% of 61 components use OnPush.</span></a>
       <a class="card" href="#components"><span class="pill grade-poor">Poor</span><strong>Components &amp; templates</strong><span class="card-summary">61 components: 0% standalone, 0% signal inputs, 0% built-in control flow.</span></a>
       <a class="card" href="#state"><span class="pill grade-info">Info</span><strong>State management</strong><span class="card-summary">No state-management library or signal usage found.</span></a>
-      <a class="card" href="#architecture"><span class="pill grade-fair">Fair</span><strong>Architecture</strong><span class="card-summary">No routes found, 3 files over 500 lines, 66 classes with constructor injection.</span></a>
+      <a class="card" href="#architecture"><span class="pill grade-fair">Fair</span><strong>Architecture</strong><span class="card-summary">No routes found, 2 files over 500 lines, 66 classes with constructor injection.</span></a>
       <a class="card" href="#testing"><span class="pill grade-poor">Poor</span><strong>Testing</strong><span class="card-summary">Karma, 0 spec files, 0% of components and services with a spec.</span></a>
       <a class="card" href="#type-safety"><span class="pill grade-poor">Poor</span><strong>Type safety</strong><span class="card-summary">strictNullChecks off, strictTemplates off, 201 explicit any.</span></a>
-      <a class="card" href="#security"><span class="pill grade-poor">Poor</span><strong>Security</strong><span class="card-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 141 files; 3 sanitized [innerHTML] bindings; 62 known vulnerabilities in dependencies.</span></a>
+      <a class="card" href="#security"><span class="pill grade-poor">Poor</span><strong>Security</strong><span class="card-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 141 files; 3 sanitized [innerHTML] bindings; 61 known vulnerabilities in dependencies.</span></a>
+      <a class="card" href="#translations"><span class="pill grade-info">Info</span><strong>Translations</strong><span class="card-summary">No ngx-translate or Transloco bundle found to check translation keys against.</span></a>
+      <a class="card" href="#accessibility"><span class="pill grade-info">Info</span><strong>Accessibility</strong><span class="card-summary">587 accessibility defects in 141 templates.</span></a>
       <a class="card" href="#circular-deps"><span class="pill grade-good">Good</span><strong>Circular dependencies</strong><span class="card-summary">No import cycles between application files.</span></a>
       <a class="card" href="#bundle"><span class="pill grade-info">Info</span><strong>Bundle size</strong><span class="card-summary">No build stats found, so the bundle size is not part of this report.</span></a>
     </div>
@@ -153,8 +156,8 @@ footer p { margin: 4px 0; }
       <li><span class="chip sev-high">High</span><span><strong>AngularJS 1.5.9 is end of life since January 2022</strong> <a href="#angularjs" class="area">AngularJS migration</a></span></li>
       <li><span class="chip sev-high">High</span><span><strong>Angular 4 is 18 majors behind 22 and out of support</strong> <a href="#version" class="area">Angular version &amp; tooling</a></span></li>
       <li><span class="chip sev-high">High</span><span><strong><code>@angular/http</code> is end of life</strong> <a href="#version" class="area">Angular version &amp; tooling</a></span></li>
+      <li><span class="chip sev-high">High</span><span><strong>1 imported API removed in Angular 5, imported in 1 file</strong> <a href="#deprecated-apis" class="area">Deprecated APIs</a></span></li>
       <li><span class="chip sev-high">High</span><span><strong><code>angular2-tag-input</code> 1.2.3 does not accept Angular 4</strong> <a href="#dependencies" class="area">Third-party compatibility</a></span></li>
-      <li><span class="chip sev-high">High</span><span><strong><code>ng2-bs3-modal</code> 0.10.4 does not accept Angular 4</strong> <a href="#dependencies" class="area">Third-party compatibility</a></span></li>
     </ol>
   </section>
 
@@ -192,13 +195,13 @@ footer p { margin: 4px 0; }
   <section aria-labelledby="plan-title">
     <h2 id="plan-title" class="section-title">Upgrade plan: Angular 4 → 22</h2>
     <p class="check-summary">18 steps, one major at a time, as <code>ng update</code> requires. Requirements come from each version's published package metadata.</p>
-    <div class="finding step before"><div class="finding-head"><span class="chip sev-medium">First</span><strong>Before you start</strong></div><ul class="plan-items"><li><strong>Fix angular2-tag-input: version 1.2.3 does not accept Angular 4</strong><p>It declares @angular/core 2.2.4.</p></li><li><strong>Fix ng2-bs3-modal: version 0.10.4 does not accept Angular 4</strong><code class="command">npm install ng2-bs3-modal@0.11.5</code><p>Version 0.11.5 does.</p></li><li><strong>Fix ng2-select2: version 1.0.0-beta.10 does not accept Angular 4</strong><p>It declares @angular/core ^2.2.0.</p></li><li><strong>Fix ng2-tag-input: version 0.8.8 does not accept Angular 4</strong><code class="command">npm install ng2-tag-input@1.0.2</code><p>Version 1.0.2 does.</p></li></ul></div>
+    <div class="finding step before"><div class="finding-head"><span class="chip sev-medium">First</span><strong>Before you start</strong></div><ul class="plan-items"><li><strong>Replace APIs deprecated two or more majors ago</strong> <span class="count">1</span><p>Any of the next steps may remove them. The deprecated-APIs section lists each one with its replacement.</p></li><li><strong>Fix angular2-tag-input: version 1.2.3 does not accept Angular 4</strong><p>It declares @angular/core 2.2.4.</p></li><li><strong>Fix ng2-bs3-modal: version 0.10.4 does not accept Angular 4</strong><code class="command">npm install ng2-bs3-modal@0.11.5</code><p>Version 0.11.5 does.</p></li><li><strong>Fix ng2-select2: version 1.0.0-beta.10 does not accept Angular 4</strong><p>It declares @angular/core ^2.2.0.</p></li><li><strong>Fix ng2-tag-input: version 0.8.8 does not accept Angular 4</strong><code class="command">npm install ng2-tag-input@1.0.2</code><p>Version 1.0.2 does.</p></li></ul></div>
     <ol class="steps">
       <li class="finding step">
         <div class="finding-head"><span class="chip sev-low">→ 5</span><strong>Angular 5.2.11</strong></div>
         <code class="command">ng update @angular/core@5 @angular/cli@5</code>
         <p class="requirements"><span class="req">TypeScript &gt;=2.4.2 &lt;2.7</span><span class="req">RxJS ^5.5.0</span><span class="req req-move">zone.js ^0.8.4 (now 0.7.8)</span></p>
-        <ul class="plan-items"><li><strong>ng2-codemirror has no release for Angular 5</strong><p>Replace it before this step, or stop the upgrade at the last major it supports.</p></li></ul>
+        <ul class="plan-items"><li><strong>ng2-codemirror has no release for Angular 5</strong><p>Replace it before this step, or stop the upgrade at the last major it supports.</p></li><li><strong>Replace the import Angular 5 removes</strong> <span class="count">1</span><p>Class from @angular/core. The 5 typings no longer export them; the deprecated-APIs section lists the files.</p></li></ul>
       </li>
       <li class="finding step">
         <div class="finding-head"><span class="chip sev-low">→ 6</span><strong>Angular 6.1.10</strong></div>
@@ -285,19 +288,19 @@ footer p { margin: 4px 0; }
         <ul class="plan-items"><li><strong>Convert @Input() and @Output() to signal inputs and outputs</strong> <span class="count">103</span><code class="command">ng generate @angular/core:signal-input-migration &amp;&amp; ng generate @angular/core:output-migration</code></li></ul>
       </li>
       <li class="finding step">
-        <div class="finding-head"><span class="chip sev-low">→ 20</span><strong>Angular 20.3.34</strong></div>
+        <div class="finding-head"><span class="chip sev-low">→ 20</span><strong>Angular 20.3.35</strong></div>
         <code class="command">ng update @angular/core@20 @angular/cli@20</code>
         <p class="requirements"><span class="req">Node.js ^20.19.0 || ^22.12.0 || &gt;=24.0.0</span><span class="req">TypeScript &gt;=5.8 &lt;6.0</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0</span></p>
         
       </li>
       <li class="finding step">
-        <div class="finding-head"><span class="chip sev-low">→ 21</span><strong>Angular 21.2.25</strong></div>
+        <div class="finding-head"><span class="chip sev-low">→ 21</span><strong>Angular 21.2.26</strong></div>
         <code class="command">ng update @angular/core@21 @angular/cli@21</code>
         <p class="requirements"><span class="req">Node.js ^20.19.0 || ^22.12.0 || &gt;=24.0.0</span><span class="req">TypeScript &gt;=5.9 &lt;6.1</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0 || ~0.16.0</span></p>
         <ul class="plan-items"><li><strong>Move unit tests from Karma to Vitest</strong><p>Vitest is the Angular CLI default from 21 (@angular/build:unit-test). Jasmine-specific calls (spyOn, jasmine.*) need rewriting.</p></li><li><strong>Prepare for zoneless: move components to OnPush, then drop zone.js</strong> <span class="count">61</span><p>Upgraded apps keep zone.js through provideZoneChangeDetection() until it is removed.</p></li></ul>
       </li>
       <li class="finding step">
-        <div class="finding-head"><span class="chip sev-low">→ 22</span><strong>Angular 22.2.3</strong></div>
+        <div class="finding-head"><span class="chip sev-low">→ 22</span><strong>Angular 22.2.4</strong></div>
         <code class="command">ng update @angular/core@22 @angular/cli@22</code>
         <p class="requirements"><span class="req">Node.js ^22.22.3 || ^24.15.0 || &gt;=26.0.0</span><span class="req">TypeScript &gt;=6.0 &lt;6.1</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0 || ~0.16.0</span></p>
         
@@ -405,15 +408,27 @@ footer p { margin: 4px 0; }
   <section class="check" id="deprecated-apis" aria-labelledby="deprecated-apis-title">
     <div class="check-head">
       <h2 id="deprecated-apis-title">Deprecated APIs</h2>
-      <span class="pill grade-good">Good</span>
+      <span class="pill grade-poor">Poor</span>
     </div>
-    <p class="check-summary">Nothing deprecated as of Angular 4 is in use; APIs deprecated in later versions surface at each upgrade step.</p>
+    <p class="check-summary">1 import removed in Angular 5.</p>
     <dl class="metrics">
       <div class="metric"><dt>Deprecated symbols</dt><dd>0</dd></div>
       <div class="metric"><dt>Files affected</dt><dd>0</dd></div>
       <div class="metric"><dt>Legacy template directives</dt><dd>249</dd><dd class="hint">not deprecated in this version</dd></div>
+      <div class="metric"><dt>Angular 5</dt><dd>1 removed, 5 deprecated</dd><dd class="hint">imports, compared with 5.2.11</dd></div>
     </dl>
-    
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-high">High</span><strong>1 imported API removed in Angular 5, imported in 1 file</strong></div>
+        <p><code>Class</code> from @angular/core (1 file). The 5 type definitions no longer export it, so the import stops compiling after <code>ng update</code>; replace it before that step. Read from the published typings of 5.2.11.</p>
+        <ul class="files"><li>src/app/core/services/graph.service.ts:1</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>5 imported APIs deprecated in Angular 5</strong></div>
+        <p><code>Http</code> from @angular/http (14 files); <code>Headers</code> from @angular/http (13 files); <code>BaseRequestOptions</code> from @angular/http (1 file); <code>HttpModule</code> from @angular/http (1 file); <code>RequestOptions</code> from @angular/http (1 file). Not deprecated in the installed version yet, so nothing above flags them; they still work after the upgrade and go away two majors later.</p>
+        <ul class="files"><li>src/app/core/services/agent.service.ts:2</li><li>src/app/core/services/auditing.service.ts:2</li><li>src/app/core/services/backup.service.ts:2</li><li>src/app/core/services/command.service.ts:2</li><li>src/app/core/services/database.service.ts:3</li><li class="more">and 12 more</li></ul>
+      </li>
+    </ul>
   </section>
   <section class="check" id="dependencies" aria-labelledby="dependencies-title">
     <div class="check-head">
@@ -508,6 +523,7 @@ footer p { margin: 4px 0; }
       <div class="metric"><dt>Signal outputs</dt><dd>0%</dd><dd class="hint">0 of 13</dd></div>
       <div class="metric"><dt>Built-in control flow</dt><dd>0%</dd><dd class="hint">0 of 249 blocks</dd></div>
       <div class="metric"><dt>@defer blocks</dt><dd>0</dd></div>
+      <div class="metric"><dt>Manual .subscribe()</dt><dd>2</dd><dd class="hint">2 not tied to the lifetime</dd></div>
     </dl>
     <ul class="findings">
       <li class="finding">
@@ -524,6 +540,21 @@ footer p { margin: 4px 0; }
         <div class="finding-head"><span class="chip sev-low">Low</span><strong>249 uses of <code>*ngIf</code>, <code>*ngFor</code> and <code>[ngSwitch]</code></strong></div>
         <p>Built-in control flow (<code>@if</code>, <code>@for</code>, <code>@switch</code>) is available from Angular 17. <code>ng generate @angular/core:control-flow</code> migrates most templates automatically.</p>
         
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>2 manual <code>.subscribe()</code> calls in components and directives, 2 not tied to the component&#39;s lifetime</strong></div>
+        <p>Each one moves state by hand: <code>toSignal()</code> or the <code>async</code> pipe let Angular own the subscription, and a signal is what OnPush and zoneless change detection track. &quot;Tied to the lifetime&quot; means <code>takeUntilDestroyed</code>, <code>takeUntil</code>, <code>take</code> or <code>first</code> in the chain; the others end only through an explicit <code>unsubscribe()</code>, or never.</p>
+        <ul class="files"><li>src/app/administration/stats/backup/singlebackup.component.ts:119</li><li>src/app/administration/teleporter/graphmodelpanel/graphmodelpanel.component.ts:73</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>1 <code>.subscribe()</code> call in components and directives that nothing ever ends</strong></div>
+        <p>No <code>takeUntilDestroyed</code>, <code>takeUntil</code>, <code>take</code> or <code>first</code> in the chain, and no cleanup anywhere in the class (<code>ngOnDestroy</code>, <code>unsubscribe()</code>, <code>DestroyRef</code>). When the source outlives the component (a service, a store, <code>router.events</code>, <code>interval</code>, <code>fromEvent(window)</code>), the subscription keeps the destroyed component in memory and its callback keeps running, once more each time the component is created. Calls to <code>HttpClient</code>, <code>ActivatedRoute</code>, a form&#39;s <code>valueChanges</code>, a dialog&#39;s close event and the component&#39;s own subjects are left out, since those complete or die with the component. A service call that completes after one value (a GraphQL query, a notification) cannot be told apart from the code and is counted; for those <code>take(1)</code> documents it. <code>takeUntilDestroyed()</code> or <code>toSignal()</code> fixes the rest.</p>
+        <ul class="files"><li>src/app/administration/teleporter/graphmodelpanel/graphmodelpanel.component.ts:73</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>309 colour literals outside the design tokens</strong></div>
+        <p>A theme (dark mode, a brand per customer, high contrast) changes the tokens: CSS custom properties, SCSS or Less variables. A colour written straight into a rule (<code>color: #fff</code>, <code>rgba(0, 0, 0, .1)</code>, <code>white</code>) or an inline <code>style</code> does not change with them and shows up wrong in the other theme. A value given to a custom property or a variable is a token definition and not counted, and files named for the tokens (<code>_tokens.scss</code>, <code>variables.less</code>, <code>theme.css</code>, <code>palette.scss</code>, <code>colors.scss</code>) are skipped. Replace each with <code>var(--token)</code> or the variable.</p>
+        <ul class="files"><li>src/styles/layout.css:7</li><li>src/styles/main.css:8</li><li>src/styles/orientdb-graphviz.css:13</li><li>src/styles/record-picker.css:4</li><li>src/app/administration/etl/etl.component.html:461</li><li class="more">and 4 more</li></ul>
       </li>
     </ul>
   </section>
@@ -546,19 +577,19 @@ footer p { margin: 4px 0; }
       <h2 id="architecture-title">Architecture</h2>
       <span class="pill grade-fair">Fair</span>
     </div>
-    <p class="check-summary">No routes found, 3 files over 500 lines, 66 classes with constructor injection.</p>
+    <p class="check-summary">No routes found, 2 files over 500 lines, 66 classes with constructor injection.</p>
     <dl class="metrics">
       <div class="metric"><dt>Lazy routes</dt><dd>0%</dd><dd class="hint">0 of 0</dd></div>
-      <div class="metric"><dt>Large files</dt><dd>3</dd><dd class="hint">over 500 lines</dd></div>
+      <div class="metric"><dt>Large files</dt><dd>2</dd><dd class="hint">over 500 lines</dd></div>
       <div class="metric"><dt>Constructor injection</dt><dd>66</dd><dd class="hint">classes; 0 inject() calls</dd></div>
       <div class="metric"><dt>Class guards</dt><dd>0</dd><dd class="hint">and interceptors</dd></div>
       <div class="metric"><dt>Hotspots</dt><dd>-</dd><dd class="hint">shallow clone: no history (fetch-depth: 0)</dd></div>
     </dl>
     <ul class="findings">
       <li class="finding">
-        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>3 files over 500 lines, 1 over 1 000</strong></div>
-        <p>The largest: etl.component.ts (1 665), OGraph.ts (805), detailpanel.component.ts (609). Files this size usually hold several responsibilities; they are where changes collide and where a refactor pays back first.</p>
-        <ul class="files"><li>src/app/administration/etl/etl.component.ts</li><li>src/app/util/graph/d3-graph/OGraph.ts</li><li>src/app/administration/teleporter/detailpanel/detailpanel.component.ts</li></ul>
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>2 files over 500 lines, 1 over 1 000</strong></div>
+        <p>The largest: etl.component.ts (1 599), OGraph.ts (659). Files this size usually hold several responsibilities; they are where changes collide and where a refactor pays back first.</p>
+        <ul class="files"><li>src/app/administration/etl/etl.component.ts</li><li>src/app/util/graph/d3-graph/OGraph.ts</li></ul>
       </li>
       <li class="finding">
         <div class="finding-head"><span class="chip sev-low">Low</span><strong>66 classes inject through the constructor</strong></div>
@@ -607,27 +638,27 @@ footer p { margin: 4px 0; }
       <div class="metric"><dt>strictNullChecks</dt><dd>off</dd></div>
       <div class="metric"><dt>strictTemplates</dt><dd>off</dd><dd class="hint">default in Angular 4</dd></div>
       <div class="metric"><dt>noImplicitAny</dt><dd>off</dd><dd class="hint">default in TypeScript 2</dd></div>
-      <div class="metric"><dt>Explicit any</dt><dd>201</dd><dd class="hint">20.1 per 1 000 lines</dd></div>
+      <div class="metric"><dt>Explicit any</dt><dd>201</dd><dd class="hint">21.5 per 1 000 lines</dd></div>
       <div class="metric"><dt>Non-null assertions</dt><dd>0</dd></div>
     </dl>
     <ul class="findings">
       <li class="finding">
         <div class="finding-head"><span class="chip sev-high">High</span><strong><code>strictNullChecks</code> is off</strong></div>
         <p>Every value that may be <code>null</code> or <code>undefined</code> is typed as if it never is, so the most common runtime error in an Angular app is invisible to the compiler. In a large codebase switching it on is staged: a separate tsconfig that checks one folder at a time, with a count that may only go down.</p>
-        
+        <ul class="files"><li>tsconfig.json:11</li></ul>
       </li>
       <li class="finding">
         <div class="finding-head"><span class="chip sev-high">High</span><strong><code>strictTemplates</code> is off</strong></div>
         <p>Template bindings are only loosely type-checked: a wrong input type, a misspelled output payload or a possibly-undefined value passed to a component compiles and fails at runtime. Turning it on typically surfaces a batch of real bugs alongside the type noise.</p>
-        
+        <ul class="files"><li>tsconfig.json</li></ul>
       </li>
       <li class="finding">
         <div class="finding-head"><span class="chip sev-medium">Medium</span><strong><code>noImplicitAny</code> is off</strong></div>
         <p>An unannotated parameter silently becomes <code>any</code>, and no lint rule that counts the word <code>any</code> can see it.</p>
-        
+        <ul class="files"><li>tsconfig.json</li></ul>
       </li>
       <li class="finding">
-        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>201 explicit <code>any</code> in application code (20.1 per 1 000 lines)</strong></div>
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>201 explicit <code>any</code> in application code (21.5 per 1 000 lines)</strong></div>
         <p>Files with the most are listed first. Each <code>any</code> switches type checking off for everything that flows through it.</p>
         <ul class="files"><li>src/app/util/dual-list/dual-list.component.ts:4</li><li>src/app/administration/etl/etl.component.ts:10</li><li>src/app/administration/stats/cluster/overview/clusterstats.component.ts:37</li><li>src/app/administration/stats/security/ldap/ldapimporter.component.ts:16</li><li>src/app/administration/stats/security/auditing/auditingcfg.component.ts:10</li><li class="more">and 75 more</li></ul>
       </li>
@@ -638,18 +669,18 @@ footer p { margin: 4px 0; }
       <h2 id="security-title">Security</h2>
       <span class="pill grade-poor">Poor</span>
     </div>
-    <p class="check-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 141 files; 3 sanitized [innerHTML] bindings; 62 known vulnerabilities in dependencies.</p>
+    <p class="check-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 141 files; 3 sanitized [innerHTML] bindings; 61 known vulnerabilities in dependencies.</p>
     <dl class="metrics">
       <div class="metric"><dt>Direct DOM HTML writes</dt><dd>0</dd><dd class="hint">innerHTML =, insertAdjacentHTML</dd></div>
       <div class="metric"><dt>Sanitizer bypasses</dt><dd>0</dd><dd class="hint">bypassSecurityTrust*</dd></div>
       <div class="metric"><dt>eval / new Function</dt><dd>0</dd></div>
       <div class="metric"><dt>[innerHTML] bindings</dt><dd>3</dd><dd class="hint">sanitized by Angular</dd></div>
-      <div class="metric"><dt>Known vulnerabilities</dt><dd>62</dd><dd class="hint">in 92 direct dependencies checked</dd></div>
+      <div class="metric"><dt>Known vulnerabilities</dt><dd>61</dd><dd class="hint">in 92 direct dependencies checked</dd></div>
     </dl>
     <ul class="findings">
       <li class="finding">
-        <div class="finding-head"><span class="chip sev-high">High</span><strong>62 known vulnerabilities in 13 dependencies (27 high or critical)</strong></div>
-        <p><code>lodash</code> 4.17.4: 10 advisories (CVE-2020-28500, CVE-2021-23337, CVE-2018-16487, …), all fixed by 4.18.0; <code>underscore</code> 1.8.3: 2 advisories (CVE-2021-23358, CVE-2026-27601), all fixed by 1.13.8; <code>@angular/common</code> 4.4.6: 8 advisories (CVE-2026-54266, CVE-2026-54268, CVE-2025-66035, …), all fixed by 20.3.34; <code>@angular/compiler</code> 4.4.6: 6 advisories (CVE-2026-54265, CVE-2026-50557, CVE-2026-88057, …), all fixed by 20.3.28; <code>@angular/core</code> 4.4.6: 8 advisories (CVE-2026-52725, CVE-2021-4231, CVE-2026-50557, …), all fixed by 20.3.28; <code>angular</code> 1.5.9: 13 advisories (CVE-2023-26117, CVE-2023-26116, CVE-2024-21490, …), some without a fixed version; and 7 more dependencies. Direct dependencies at their exact versions, from the advisories in osv.dev; the full dependency tree is <code>npm audit</code>&#39;s job.</p>
+        <div class="finding-head"><span class="chip sev-high">High</span><strong>61 known vulnerabilities in 13 dependencies (27 high or critical)</strong></div>
+        <p><code>lodash</code> 4.17.4: 9 advisories (CVE-2020-28500, CVE-2021-23337, CVE-2018-16487, …), all fixed by 4.18.0; <code>underscore</code> 1.8.3: 2 advisories (CVE-2021-23358, CVE-2026-27601), all fixed by 1.13.8; <code>@angular/common</code> 4.4.6: 8 advisories (CVE-2026-54266, CVE-2026-54268, CVE-2025-66035, …), all fixed by 20.3.34; <code>@angular/compiler</code> 4.4.6: 6 advisories (CVE-2026-54265, CVE-2026-50557, CVE-2026-88057, …), all fixed by 20.3.28; <code>@angular/core</code> 4.4.6: 8 advisories (CVE-2026-52725, CVE-2021-4231, CVE-2026-50557, …), all fixed by 20.3.28; <code>angular</code> 1.5.9: 13 advisories (CVE-2023-26117, CVE-2023-26116, CVE-2024-21490, …), some without a fixed version; and 7 more dependencies. Direct dependencies at their exact versions, from the advisories in osv.dev; the full dependency tree is <code>npm audit</code>&#39;s job.</p>
         
       </li>
       <li class="finding">
@@ -661,6 +692,55 @@ footer p { margin: 4px 0; }
         <div class="finding-head"><span class="chip sev-low">Low</span><strong>14 known vulnerabilities in development tooling</strong></div>
         <p><code>webpack-dev-server</code> 2.3.0, <code>bootstrap</code> 3.3.7. Not shipped to users, but they run on developer machines and in CI.</p>
         
+      </li>
+    </ul>
+  </section>
+  <section class="check" id="translations" aria-labelledby="translations-title">
+    <div class="check-head">
+      <h2 id="translations-title">Translations</h2>
+      <span class="pill grade-info">Info</span>
+    </div>
+    <p class="check-summary">No ngx-translate or Transloco bundle found to check translation keys against.</p>
+    
+    
+  </section>
+  <section class="check" id="accessibility" aria-labelledby="accessibility-title">
+    <div class="check-head">
+      <h2 id="accessibility-title">Accessibility</h2>
+      <span class="pill grade-info">Info</span>
+    </div>
+    <p class="check-summary">587 accessibility defects in 141 templates.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Form controls without a label</dt><dd>351</dd></div>
+      <div class="metric"><dt>Buttons without a name</dt><dd>116</dd></div>
+      <div class="metric"><dt>Click handlers on non-interactive elements without a key handler</dt><dd>35</dd></div>
+      <div class="metric"><dt>Images without alt</dt><dd>6</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>351 form controls without a label</strong></div>
+        <p>An <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> or <code>&lt;textarea&gt;</code> with no <code>&lt;label for&gt;</code>, no wrapping <code>&lt;label&gt;</code> or form-field component (<code>mat-form-field</code>, <code>*-form-field</code>), and no <code>aria-label</code>, <code>aria-labelledby</code>, <code>title</code> or <code>placeholder</code>. A screen reader announces &quot;edit text&quot; and nothing else. WCAG 1.3.1 and 4.1.2, level A.</p>
+        <ul class="files"><li>src/app/administration/etl/etl.component.html:80</li><li>src/app/administration/neo4jimporter/neo4jimporter.component.html:107</li><li>src/app/administration/profiler/query/queryprofiler.component.html:15</li><li>src/app/administration/servercommands/servercommands.component.html:8</li><li>src/app/administration/settings/metrics/metricsettings.component.html:25</li><li class="more">and 104 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>116 buttons without a name</strong></div>
+        <p>A <code>&lt;button&gt;</code> with no text, no image with <code>alt</code>, no projected content and no <code>aria-label</code>, <code>aria-labelledby</code> or <code>title</code>: an icon drawn by CSS or an SVG, announced as &quot;button&quot;. WCAG 4.1.2, level A. An icon ligature (<code>&lt;mat-icon&gt;delete&lt;/mat-icon&gt;</code>) counts as text here, although &quot;delete&quot; read aloud is a poor name.</p>
+        <ul class="files"><li>src/app/administration/etl/etl.component.html:137</li><li>src/app/administration/profiler/query/querystats.component.html:10</li><li>src/app/administration/profiler/query/runningqueryprofiler.component.html:10</li><li>src/app/administration/settings/metrics/metricsettings.component.html:73</li><li>src/app/administration/settings/metrics/metricslist.component.html:17</li><li class="more">and 39 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>35 <code>(click)</code> handlers on a <code>div</code>, <code>span</code> or similar with no key handler</strong></div>
+        <p>Mouse-only controls: a keyboard user cannot focus the element or trigger it. A <code>&lt;button&gt;</code> (or an <code>&lt;a&gt;</code> with <code>href</code> / <code>routerLink</code>) gets focus, Enter and Space for free; otherwise the element needs <code>tabindex=&quot;0&quot;</code>, a <code>role</code> and a <code>(keydown.enter)</code> handler. WCAG 2.1.1, level A.</p>
+        <ul class="files"><li>src/app/administration/importmanager/importmanager.component.html:34</li><li>src/app/administration/profiler/profiler.component.html:5</li><li>src/app/administration/profiler/query/queryprofiler.component.html:3</li><li>src/app/administration/settings/settings.component.html:5</li><li>src/app/administration/stats/backup/singlebackup.component.html:80</li><li class="more">and 9 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>6 images without <code>alt</code></strong></div>
+        <p>A screen reader reads the file name instead. Give every <code>&lt;img&gt;</code> an <code>alt</code>, and an empty <code>alt=&quot;&quot;</code> to one that is only decoration. WCAG 1.1.1, level A.</p>
+        <ul class="files"><li>src/app/administration/etl/etl.component.html:14</li><li>src/app/administration/importmanager/importmanager.component.html:34</li><li>src/views/database/config/uml.html:12</li><li>src/views/spinner.html:3</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>79 <code>tabindex</code> above 0s</strong></div>
+        <p>A positive <code>tabindex</code> moves the element ahead of everything else in the tab order, so keyboard focus jumps around the page. Use <code>0</code> (in the order of the markup) or <code>-1</code> (focusable by script only). WCAG 2.4.3, level A.</p>
+        <ul class="files"><li>src/app/administration/servercommands/servercommands.component.html:18</li><li>src/app/administration/stats/cluster/overview/clusterdatabase.component.html:50</li><li>src/components/schema/classesList.html:28</li><li>src/views/database/browse.html:70</li><li>src/views/database/config/configuration.html:26</li><li class="more">and 20 more</li></ul>
       </li>
     </ul>
   </section>
@@ -695,7 +775,7 @@ footer p { margin: 4px 0; }
 
   <footer>
     <p>Score: Average of the graded areas: good counts 100, fair 60, poor 20. Areas marked info are not counted. File counts are static and need no build; deprecations come from the installed packages' own <code>@deprecated</code> tags.</p>
-    <p>Generated by ng-checkup 1.0.1 in 4.1 s.</p>
+    <p>Generated by ng-checkup 2.0.1 in 6.3 s.</p>
   </footer>
 </main>
 </body>

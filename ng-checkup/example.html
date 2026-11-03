@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="ng-checkup 1.0.1">
+<meta name="generator" content="ng-checkup 2.0.1">
 <title>Angular checkup: ang2-conduit</title>
 <style>
 :root {
@@ -116,8 +116,9 @@ footer p { margin: 4px 0; }
     <div>
       <p class="eyebrow">Angular checkup</p>
       <h1>ang2-conduit</h1>
-      <p class="meta">Angular CLI · Angular 12.2.17 · 71 TypeScript files · 19 templates · 1 589 lines of code</p>
-      <p class="meta">Generated 2026-10-23</p>
+      <p class="meta">Angular CLI · Angular 12.2.17 · 71 TypeScript files · 19 templates · 1 483 lines of code</p>
+      <p class="meta">Generated 2026-11-03</p>
+      
     </div>
     <figure class="score" aria-label="Score 53 out of 100">
       <svg viewBox="0 0 100 100" width="112" height="112" aria-hidden="true">
@@ -141,6 +142,8 @@ footer p { margin: 4px 0; }
       <a class="card" href="#testing"><span class="pill grade-poor">Poor</span><strong>Testing</strong><span class="card-summary">Karma, 0 spec files, 0% of components and services with a spec.</span></a>
       <a class="card" href="#type-safety"><span class="pill grade-poor">Poor</span><strong>Type safety</strong><span class="card-summary">strictNullChecks off, strictTemplates off, 13 explicit any.</span></a>
       <a class="card" href="#security"><span class="pill grade-poor">Poor</span><strong>Security</strong><span class="card-summary">No sanitizer bypasses, direct DOM HTML writes or eval in 69 files; 1 sanitized [innerHTML] binding; 23 known vulnerabilities in dependencies.</span></a>
+      <a class="card" href="#translations"><span class="pill grade-info">Info</span><strong>Translations</strong><span class="card-summary">No ngx-translate or Transloco bundle found to check translation keys against.</span></a>
+      <a class="card" href="#accessibility"><span class="pill grade-info">Info</span><strong>Accessibility</strong><span class="card-summary">7 accessibility defects in 6 templates.</span></a>
       <a class="card" href="#circular-deps"><span class="pill grade-good">Good</span><strong>Circular dependencies</strong><span class="card-summary">No import cycles between application files.</span></a>
       <a class="card" href="#bundle"><span class="pill grade-info">Info</span><strong>Bundle size</strong><span class="card-summary">No build stats found, so the bundle size is not part of this report.</span></a>
     </div>
@@ -211,19 +214,19 @@ footer p { margin: 4px 0; }
         <ul class="plan-items"><li><strong>Convert @Input() and @Output() to signal inputs and outputs</strong> <span class="count">12</span><code class="command">ng generate @angular/core:signal-input-migration &amp;&amp; ng generate @angular/core:output-migration</code></li></ul>
       </li>
       <li class="finding step">
-        <div class="finding-head"><span class="chip sev-low">→ 20</span><strong>Angular 20.3.34</strong></div>
+        <div class="finding-head"><span class="chip sev-low">→ 20</span><strong>Angular 20.3.35</strong></div>
         <code class="command">ng update @angular/core@20 @angular/cli@20</code>
         <p class="requirements"><span class="req">Node.js ^20.19.0 || ^22.12.0 || &gt;=24.0.0</span><span class="req">TypeScript &gt;=5.8 &lt;6.0</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0</span></p>
         
       </li>
       <li class="finding step">
-        <div class="finding-head"><span class="chip sev-low">→ 21</span><strong>Angular 21.2.25</strong></div>
+        <div class="finding-head"><span class="chip sev-low">→ 21</span><strong>Angular 21.2.26</strong></div>
         <code class="command">ng update @angular/core@21 @angular/cli@21</code>
         <p class="requirements"><span class="req">Node.js ^20.19.0 || ^22.12.0 || &gt;=24.0.0</span><span class="req">TypeScript &gt;=5.9 &lt;6.1</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0 || ~0.16.0</span></p>
         <ul class="plan-items"><li><strong>Move unit tests from Karma to Vitest</strong><p>Vitest is the Angular CLI default from 21 (@angular/build:unit-test). Jasmine-specific calls (spyOn, jasmine.*) need rewriting.</p></li><li><strong>Prepare for zoneless: move components to OnPush, then drop zone.js</strong> <span class="count">18</span><p>Upgraded apps keep zone.js through provideZoneChangeDetection() until it is removed.</p></li></ul>
       </li>
       <li class="finding step">
-        <div class="finding-head"><span class="chip sev-low">→ 22</span><strong>Angular 22.2.3</strong></div>
+        <div class="finding-head"><span class="chip sev-low">→ 22</span><strong>Angular 22.2.4</strong></div>
         <code class="command">ng update @angular/core@22 @angular/cli@22</code>
         <p class="requirements"><span class="req">Node.js ^22.22.3 || ^24.15.0 || &gt;=26.0.0</span><span class="req">TypeScript &gt;=6.0 &lt;6.1</span><span class="req">RxJS ^6.5.3 || ^7.4.0</span><span class="req">zone.js ~0.15.0 || ~0.16.0</span></p>
         
@@ -281,6 +284,7 @@ footer p { margin: 4px 0; }
       <div class="metric"><dt>Deprecated symbols</dt><dd>0</dd></div>
       <div class="metric"><dt>Files affected</dt><dd>0</dd></div>
       <div class="metric"><dt>Legacy template directives</dt><dd>13</dd><dd class="hint">not deprecated in this version</dd></div>
+      <div class="metric"><dt>Angular 13</dt><dd>0 removed, 0 deprecated</dd><dd class="hint">imports, compared with 13.4.0</dd></div>
     </dl>
     
   </section>
@@ -336,6 +340,7 @@ footer p { margin: 4px 0; }
       <div class="metric"><dt>Signal outputs</dt><dd>0%</dd><dd class="hint">0 of 3</dd></div>
       <div class="metric"><dt>Built-in control flow</dt><dd>0%</dd><dd class="hint">0 of 13 blocks</dd></div>
       <div class="metric"><dt>@defer blocks</dt><dd>0</dd></div>
+      <div class="metric"><dt>Manual .subscribe()</dt><dd>22</dd><dd class="hint">22 not tied to the lifetime</dd></div>
     </dl>
     <ul class="findings">
       <li class="finding">
@@ -352,6 +357,16 @@ footer p { margin: 4px 0; }
         <div class="finding-head"><span class="chip sev-low">Low</span><strong>13 uses of <code>*ngIf</code>, <code>*ngFor</code> and <code>[ngSwitch]</code></strong></div>
         <p>Built-in control flow (<code>@if</code>, <code>@for</code>, <code>@switch</code>) is available from Angular 17. <code>ng generate @angular/core:control-flow</code> migrates most templates automatically.</p>
         
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>22 manual <code>.subscribe()</code> calls in components and directives, 22 not tied to the component&#39;s lifetime</strong></div>
+        <p>Each one moves state by hand: <code>toSignal()</code> or the <code>async</code> pipe let Angular own the subscription, and a signal is what OnPush and zoneless change detection track. &quot;Tied to the lifetime&quot; means <code>takeUntilDestroyed</code>, <code>takeUntil</code>, <code>take</code> or <code>first</code> in the chain; the others end only through an explicit <code>unsubscribe()</code>, or never.</p>
+        <ul class="files"><li>src/app/article/article.component.ts:38</li><li>src/app/auth/auth.component.ts:35</li><li>src/app/editor/editor.component.ts:40</li><li>src/app/home/home.component.ts:27</li><li>src/app/article/article-comment.component.ts:24</li><li class="more">and 9 more</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-low">Low</span><strong>9 <code>.subscribe()</code> calls in components and directives that nothing ever ends</strong></div>
+        <p>No <code>takeUntilDestroyed</code>, <code>takeUntil</code>, <code>take</code> or <code>first</code> in the chain, and no cleanup anywhere in the class (<code>ngOnDestroy</code>, <code>unsubscribe()</code>, <code>DestroyRef</code>). When the source outlives the component (a service, a store, <code>router.events</code>, <code>interval</code>, <code>fromEvent(window)</code>), the subscription keeps the destroyed component in memory and its callback keeps running, once more each time the component is created. Calls to <code>HttpClient</code>, <code>ActivatedRoute</code>, a form&#39;s <code>valueChanges</code>, a dialog&#39;s close event and the component&#39;s own subjects are left out, since those complete or die with the component. A service call that completes after one value (a GraphQL query, a notification) cannot be told apart from the code and is counted; for those <code>take(1)</code> documents it. <code>takeUntilDestroyed()</code> or <code>toSignal()</code> fixes the rest.</p>
+        <ul class="files"><li>src/app/auth/auth.component.ts:52</li><li>src/app/editor/editor.component.ts:73</li><li>src/app/home/home.component.ts:37</li><li>src/app/settings/settings.component.ts:52</li><li>src/app/shared/article-helpers/article-list.component.ts:45</li><li class="more">and 4 more</li></ul>
       </li>
     </ul>
   </section>
@@ -386,6 +401,7 @@ footer p { margin: 4px 0; }
       <div class="metric"><dt>Large files</dt><dd>0</dd><dd class="hint">over 500 lines</dd></div>
       <div class="metric"><dt>Constructor injection</dt><dd>28</dd><dd class="hint">classes; 0 inject() calls</dd></div>
       <div class="metric"><dt>Class guards</dt><dd>7</dd><dd class="hint">and interceptors</dd></div>
+      <div class="metric"><dt>Unused files</dt><dd>0</dd><dd class="hint">and 0 unused components and pipes</dd></div>
       <div class="metric"><dt>Hotspots</dt><dd>-</dd><dd class="hint">shallow clone: no history (fetch-depth: 0)</dd></div>
     </dl>
     <ul class="findings">
@@ -441,27 +457,27 @@ footer p { margin: 4px 0; }
       <div class="metric"><dt>strictNullChecks</dt><dd>off</dd><dd class="hint">default in TypeScript 4</dd></div>
       <div class="metric"><dt>strictTemplates</dt><dd>off</dd><dd class="hint">default in Angular 12</dd></div>
       <div class="metric"><dt>noImplicitAny</dt><dd>off</dd><dd class="hint">default in TypeScript 4</dd></div>
-      <div class="metric"><dt>Explicit any</dt><dd>13</dd><dd class="hint">8.2 per 1 000 lines</dd></div>
+      <div class="metric"><dt>Explicit any</dt><dd>13</dd><dd class="hint">8.8 per 1 000 lines</dd></div>
       <div class="metric"><dt>Non-null assertions</dt><dd>0</dd></div>
     </dl>
     <ul class="findings">
       <li class="finding">
         <div class="finding-head"><span class="chip sev-high">High</span><strong><code>strictNullChecks</code> is off</strong></div>
         <p>Every value that may be <code>null</code> or <code>undefined</code> is typed as if it never is, so the most common runtime error in an Angular app is invisible to the compiler. In a large codebase switching it on is staged: a separate tsconfig that checks one folder at a time, with a count that may only go down.</p>
-        
+        <ul class="files"><li>src/tsconfig.app.json</li></ul>
       </li>
       <li class="finding">
         <div class="finding-head"><span class="chip sev-high">High</span><strong><code>strictTemplates</code> is off</strong></div>
         <p>Template bindings are only loosely type-checked: a wrong input type, a misspelled output payload or a possibly-undefined value passed to a component compiles and fails at runtime. Turning it on typically surfaces a batch of real bugs alongside the type noise.</p>
-        
+        <ul class="files"><li>src/tsconfig.app.json</li></ul>
       </li>
       <li class="finding">
         <div class="finding-head"><span class="chip sev-medium">Medium</span><strong><code>noImplicitAny</code> is off</strong></div>
         <p>An unannotated parameter silently becomes <code>any</code>, and no lint rule that counts the word <code>any</code> can see it.</p>
-        
+        <ul class="files"><li>src/tsconfig.app.json</li></ul>
       </li>
       <li class="finding">
-        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>13 explicit <code>any</code> in application code (8.2 per 1 000 lines)</strong></div>
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>13 explicit <code>any</code> in application code (8.8 per 1 000 lines)</strong></div>
         <p>Files with the most are listed first. Each <code>any</code> switches type checking off for everything that flows through it.</p>
         <ul class="files"><li>src/app/core/services/api.service.ts:14</li><li>src/app/core/interceptors/http.token.interceptor.ts:11</li><li>src/test.ts:16</li><li>src/app/article/article-resolver.service.ts:18</li><li>src/app/editor/editable-article-resolver.service.ts:19</li><li class="more">and 2 more</li></ul>
       </li>
@@ -498,6 +514,40 @@ footer p { margin: 4px 0; }
       </li>
     </ul>
   </section>
+  <section class="check" id="translations" aria-labelledby="translations-title">
+    <div class="check-head">
+      <h2 id="translations-title">Translations</h2>
+      <span class="pill grade-info">Info</span>
+    </div>
+    <p class="check-summary">No ngx-translate or Transloco bundle found to check translation keys against.</p>
+    
+    
+  </section>
+  <section class="check" id="accessibility" aria-labelledby="accessibility-title">
+    <div class="check-head">
+      <h2 id="accessibility-title">Accessibility</h2>
+      <span class="pill grade-info">Info</span>
+    </div>
+    <p class="check-summary">7 accessibility defects in 6 templates.</p>
+    <dl class="metrics">
+      <div class="metric"><dt>Form controls without a label</dt><dd>0</dd></div>
+      <div class="metric"><dt>Buttons without a name</dt><dd>0</dd></div>
+      <div class="metric"><dt>Click handlers on non-interactive elements without a key handler</dt><dd>2</dd></div>
+      <div class="metric"><dt>Images without alt</dt><dd>5</dd></div>
+    </dl>
+    <ul class="findings">
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>2 <code>(click)</code> handlers on a <code>div</code>, <code>span</code> or similar with no key handler</strong></div>
+        <p>Mouse-only controls: a keyboard user cannot focus the element or trigger it. A <code>&lt;button&gt;</code> (or an <code>&lt;a&gt;</code> with <code>href</code> / <code>routerLink</code>) gets focus, Enter and Space for free; otherwise the element needs <code>tabindex=&quot;0&quot;</code>, a <code>role</code> and a <code>(keydown.enter)</code> handler. WCAG 2.1.1, level A.</p>
+        <ul class="files"><li>src/app/article/article-comment.component.html:19</li><li>src/app/editor/editor.component.html:28</li></ul>
+      </li>
+      <li class="finding">
+        <div class="finding-head"><span class="chip sev-medium">Medium</span><strong>5 images without <code>alt</code></strong></div>
+        <p>A screen reader reads the file name instead. Give every <code>&lt;img&gt;</code> an <code>alt</code>, and an empty <code>alt=&quot;&quot;</code> to one that is only decoration. WCAG 1.1.1, level A.</p>
+        <ul class="files"><li>src/app/article/article-comment.component.html:9</li><li>src/app/article/article.component.html:88</li><li>src/app/profile/profile.component.html:8</li><li>src/app/shared/article-helpers/article-meta.component.html:3</li><li>src/app/shared/layout/header.component.html:67</li></ul>
+      </li>
+    </ul>
+  </section>
   <section class="check" id="circular-deps" aria-labelledby="circular-deps-title">
     <div class="check-head">
       <h2 id="circular-deps-title">Circular dependencies</h2>
@@ -529,7 +579,7 @@ footer p { margin: 4px 0; }
 
   <footer>
     <p>Score: Average of the graded areas: good counts 100, fair 60, poor 20. Areas marked info are not counted. File counts are static and need no build; deprecations come from the installed packages' own <code>@deprecated</code> tags.</p>
-    <p>Generated by ng-checkup 1.0.1 in 2.1 s.</p>
+    <p>Generated by ng-checkup 2.0.1 in 3.1 s.</p>
   </footer>
 </main>
 </body>

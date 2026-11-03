@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Stefan Kuburovic · Frontend engineer, Angular</title>
-<meta name="description" content="Stefan Kuburovic, frontend engineer from Serbia. Open-source Angular tools (ng-checkup, ng-toast) and modernization of large Angular codebases: upgrades, zoneless, signals, Vitest and strict typing.">
+<meta name="description" content="Stefan Kuburovic, frontend engineer from Serbia. Open-source Angular tools (ng-checkup, ng-signal-toast) and modernization of large Angular codebases: upgrades, zoneless, signals, Vitest and strict typing.">
 <meta property="og:title" content="Stefan Kuburovic · Frontend engineer, Angular">
-<meta property="og:description" content="Open-source Angular tools, ng-checkup and ng-toast, and modernization of large Angular codebases, starting with a free Angular Health Check.">
+<meta property="og:description" content="Open-source Angular tools, ng-checkup and ng-signal-toast, and modernization of large Angular codebases, starting with a free Angular Health Check.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://stefankuburovic.github.io/">
 <meta property="og:image" content="https://stefankuburovic.github.io/og-image.png">
@@ -284,7 +284,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
         <article class="project">
           <div class="project-head">
             <h3>ng-checkup</h3>
-            <span class="downloads" data-npm="ng-checkup" hidden></span>
+            <span class="downloads" data-npm="ng-checkup-cli" hidden></span>
           </div>
           <p class="project-tagline">A one-minute modernization report for any Angular codebase.</p>
           <figure class="preview" aria-label="Example ng-checkup report">
@@ -309,24 +309,25 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
         </ul>
             <figcaption class="preview-caption">Excerpt of ng-checkup 0.4 output on the codebase from the case study below.</figcaption>
           </figure>
-          <p>Point it at a repository and it grades twelve areas, from the Angular version gap and deprecated APIs to zoneless readiness, signals adoption, security and bundle size, and names the files behind every finding. It also recognises AngularJS and hybrid apps, and plans their migration.</p>
+          <p>Point it at a repository and it grades twelve areas, from the Angular version gap and deprecated APIs to zoneless readiness, signals adoption, security and bundle size, and names the files behind every finding. It lists translation keys that resolve to nothing and accessibility defects beside them, and it also recognises AngularJS and hybrid apps, and plans their migration.</p>
           <ul class="project-where">
-            <li><strong>CLI</strong> <code>npx ng-checkup</code>, HTML, JSON and SARIF reports</li>
-            <li><strong>CI</strong> <a href="https://github.com/marketplace/actions/ng-checkup">GitHub Action</a> and <a href="https://gitlab.com/explore/catalog/stefankuburovic/ng-checkup">GitLab component</a></li>
+            <li><strong>CLI</strong> <code>npx ng-checkup-cli</code>, HTML, JSON and SARIF reports</li>
+            <li><strong>CI</strong> <a href="https://github.com/marketplace/actions/ng-checkup">GitHub Action</a> and <a href="https://gitlab.com/explore/catalog/stefankuburovic/ng-checkup">GitLab component</a>, pipelines for Azure DevOps and Bitbucket</li>
             <li><strong>Editor</strong> <a href="https://marketplace.visualstudio.com/items?itemName=stefankuburovic.ng-checkup-vscode">VS Code extension</a>, also on <a href="https://open-vsx.org/extension/stefankuburovic/ng-checkup-vscode">Open VSX</a></li>
+            <li><strong>Agents</strong> an MCP server for Claude Code, Cursor and Copilot: <code>npx -y ng-checkup-cli mcp</code></li>
           </ul>
           <div class="project-links">
             <a class="button small" href="#ng-checkup">Try it</a>
             <a class="button small secondary" href="#examples">Example reports</a>
             <a class="text-link" href="https://github.com/stefankuburovic/ng-checkup">GitHub</a>
-            <a class="text-link" href="https://www.npmjs.com/package/ng-checkup">npm</a>
+            <a class="text-link" href="https://www.npmjs.com/package/ng-checkup-cli">npm</a>
           </div>
         </article>
 
         <article class="project">
           <div class="project-head">
-            <h3>ng-toast</h3>
-            <span class="downloads" data-npm="@stefankuburovic/ng-toast" hidden></span>
+            <h3>ng-signal-toast</h3>
+            <span class="downloads" data-npm="ng-signal-toast" hidden></span>
           </div>
           <p class="project-tagline">Toast notifications for Angular that stay small.</p>
           <div class="toast-stack" aria-hidden="true">
@@ -338,7 +339,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <div class="project-links">
             <a class="button small" href="ng-toast/">Live demo</a>
             <a class="text-link" href="https://github.com/stefankuburovic/ng-toast">GitHub</a>
-            <a class="text-link" href="https://www.npmjs.com/package/@stefankuburovic/ng-toast">npm</a>
+            <a class="text-link" href="https://www.npmjs.com/package/ng-signal-toast">npm</a>
           </div>
         </article>
       </div>
@@ -346,8 +347,8 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <div class="projects">
         <article class="project">
           <div class="project-head">
-            <h3>ng-number-input</h3>
-            <span class="downloads" data-npm="@stefankuburovic/ng-number-input" hidden></span>
+            <h3>ng-number-field</h3>
+            <span class="downloads" data-npm="ng-number-field" hidden></span>
           </div>
           <p class="project-tagline">Number and currency inputs for Angular forms.</p>
           <div class="mock-field" aria-hidden="true">
@@ -358,14 +359,14 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <p>Thousand separators, decimal marker, prefix and suffix appear as the user types, the caret stays where it belongs, and the form control gets a plain <code>number</code>. The separators follow <code>LOCALE_ID</code> through <code>Intl</code>. Reactive forms, <code>ngModel</code> and <code>matInput</code>, in 2.7 kB with no dependencies.</p>
           <div class="project-links">
             <a class="text-link" href="https://github.com/stefankuburovic/ng-number-input">GitHub</a>
-            <a class="text-link" href="https://www.npmjs.com/package/@stefankuburovic/ng-number-input">npm</a>
+            <a class="text-link" href="https://www.npmjs.com/package/ng-number-field">npm</a>
           </div>
         </article>
 
         <article class="project">
           <div class="project-head">
-            <h3>ng-tel-input</h3>
-            <span class="downloads" data-npm="@stefankuburovic/ng-tel-input" hidden></span>
+            <h3>ng-phone-input</h3>
+            <span class="downloads" data-npm="ng-phone-input" hidden></span>
           </div>
           <p class="project-tagline">A phone number input for Angular forms.</p>
           <div class="mock-field" aria-hidden="true">
@@ -376,7 +377,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <p>The field shows the number nationally next to its flag, the form control holds it internationally, and a number typed with its calling code picks its own country. The picker is the browser's own <code>&lt;select&gt;</code>, named through <code>Intl.DisplayNames</code>; validation is built in and Angular Material optional. 2.8 kB on top of libphonenumber-js.</p>
           <div class="project-links">
             <a class="text-link" href="https://github.com/stefankuburovic/ng-tel-input">GitHub</a>
-            <a class="text-link" href="https://www.npmjs.com/package/@stefankuburovic/ng-tel-input">npm</a>
+            <a class="text-link" href="https://www.npmjs.com/package/ng-phone-input">npm</a>
           </div>
         </article>
       </div>
@@ -495,7 +496,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       </div>
       <div>
         <div class="command">
-          <pre><code id="command">npx ng-checkup --report checkup.html</code></pre>
+          <pre><code id="command">npx ng-checkup-cli --report checkup.html</code></pre>
           <button class="copy" type="button" data-copy="command">Copy</button>
         </div>
         <ul class="checklist">
@@ -514,7 +515,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
         <h3>Which framework runs on a site</h3>
         <p>No repository needed: <code>ng-checkup url</code> reads what any browser downloads from a public web app and names AngularJS or Angular with the version, zone.js, React, Vue, Next.js and Nuxt.</p>
         <div class="command">
-          <pre><code id="command-url">npx ng-checkup url https://angularjs.org</code></pre>
+          <pre><code id="command-url">npx ng-checkup-cli url https://angularjs.org</code></pre>
           <button class="copy" type="button" data-copy="command-url">Copy</button>
         </div>
 <pre class="terminal" aria-label="Example output of ng-checkup url"><code>Read the page and 9 scripts (0.3 MB) from angularjs.org
@@ -528,7 +529,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
         <h3>How the code moved over time</h3>
         <p><code>ng-checkup history</code> runs the checkup on one commit per month from git and draws the score and the measures that moved most. Your checkout is never touched.</p>
         <div class="command">
-          <pre><code id="command-history">npx ng-checkup history --report history.html</code></pre>
+          <pre><code id="command-history">npx ng-checkup-cli history --report history.html</code></pre>
           <button class="copy" type="button" data-copy="command-history">Copy</button>
         </div>
 <pre class="terminal" aria-label="Example output of ng-checkup history"><code><span class="dim">date        Angular   score</span>

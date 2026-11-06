@@ -1,9 +1,9 @@
 {
   "tool": {
     "name": "ng-checkup",
-    "version": "2.1.0"
+    "version": "2.2.0"
   },
-  "generatedAt": "2026-11-06T13:31:14.737Z",
+  "generatedAt": "2026-11-06T20:04:36.871Z",
   "root": "github.com/gothinkster/angular-realworld-example-app @ 57eeb6a (Angular 12)",
   "project": {
     "name": "ang2-conduit",
@@ -922,7 +922,7 @@
       "id": "translations",
       "title": "Translations",
       "grade": "info",
-      "summary": "No ngx-translate or Transloco bundle found to check translation keys against.",
+      "summary": "No ngx-translate or Transloco bundle and no `i18n` locales found to check translations against.",
       "metrics": [],
       "findings": []
     },
@@ -1024,6 +1024,14 @@
       ]
     },
     {
+      "id": "ssr",
+      "title": "SSR & hydration",
+      "grade": "info",
+      "summary": "This project does not render on the server, so nothing here applies.",
+      "metrics": [],
+      "findings": []
+    },
+    {
       "id": "circular-deps",
       "title": "Circular dependencies",
       "grade": "good",
@@ -1074,7 +1082,7 @@
       ]
     }
   ],
-  "durationMs": 2765,
+  "durationMs": 2412,
   "plan": {
     "from": 12,
     "to": 22,

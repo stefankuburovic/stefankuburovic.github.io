@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ang2-conduit and angular-realworld: before and after</title>
+<style>
+:root {
+  --bg: #f7f7f5; --surface: #ffffff; --text: #1b1d21; --muted: #5d636e; --border: #e3e3df; --code-bg: #f0f0ec;
+  --good: #1f7a4d; --good-bg: #e3f3ea; --fair: #8a5a00; --fair-bg: #fbf0d9; --poor: #b42318; --poor-bg: #fde8e6; --info: #5d636e; --info-bg: #ececea;
+  --accent: #3b5bdb; --ring-track: #e7e7e3;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121316; --surface: #1b1d21; --text: #ececec; --muted: #9aa0aa; --border: #2c2f35; --code-bg: #25282e;
+    --good: #5cc98f; --good-bg: #173326; --fair: #e8b54d; --fair-bg: #3a2d10; --poor: #f17a6e; --poor-bg: #3d1a17; --info: #9aa0aa; --info-bg: #2a2c31;
+    --accent: #8ea6ff; --ring-track: #2c2f35;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+main { max-width: 960px; margin: 0 auto; padding: 40px 16px 56px; }
+code, .files { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+a { color: inherit; }
+.masthead { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.eyebrow { margin: 0 0 4px; color: var(--accent); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+h1 { margin: 0 0 8px; font-size: 32px; line-height: 1.15; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.meta { margin: 0; color: var(--muted); font-size: 14px; }
+.score { margin: 0; position: relative; width: 112px; height: 112px; flex: none; }
+.score svg { display: block; }
+.ring-track { fill: none; stroke: var(--ring-track); stroke-width: 9; }
+.ring-value { fill: none; stroke-width: 9; stroke-linecap: round; }
+.ring-value.grade-good { stroke: var(--good); } .ring-value.grade-fair { stroke: var(--fair); } .ring-value.grade-poor { stroke: var(--poor); }
+.score figcaption { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.score-value { font-size: 30px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.score-unit { color: var(--muted); font-size: 13px; margin-left: 1px; padding-top: 10px; }
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+.projects { width: 100%; border-collapse: collapse; font-size: 14px; }
+.projects th, .projects td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.projects tbody tr:last-child td { border-bottom: 0; }
+.projects th { color: var(--muted); font-weight: 600; font-size: 12.5px; }
+.projects .num { text-align: right; white-space: nowrap; }
+.projects code { color: var(--muted); font-size: 12.5px; }
+.projects .pill { margin: 0 4px 4px 0; }
+.section-title { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 36px 0 12px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.card { display: flex; flex-direction: column; gap: 6px; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; transition: border-color 0.15s; }
+.card:hover { border-color: var(--accent); }
+.card strong { font-size: 15px; }
+.card-summary { color: var(--muted); font-size: 13.5px; }
+.pill, .chip { display: inline-block; width: fit-content; border-radius: 999px; font-size: 12px; font-weight: 600; padding: 2px 10px; }
+.grade-good.pill { color: var(--good); background: var(--good-bg); } .grade-fair.pill { color: var(--fair); background: var(--fair-bg); }
+.grade-poor.pill { color: var(--poor); background: var(--poor-bg); } .grade-info.pill { color: var(--info); background: var(--info-bg); }
+.chip { flex: none; padding: 1px 8px; font-size: 11.5px; }
+.sev-high { color: var(--poor); background: var(--poor-bg); } .sev-medium { color: var(--fair); background: var(--fair-bg); }
+.sev-low, .sev-info { color: var(--info); background: var(--info-bg); }
+.sev-good { color: var(--good); background: var(--good-bg); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.step.before { margin-bottom: 10px; }
+.step code.command { display: block; margin: 8px 0 0; padding: 6px 10px; border-radius: 6px; background: var(--code-bg); overflow-x: auto; white-space: nowrap; }
+.requirements { display: flex; flex-wrap: wrap; gap: 6px; }
+.req { font-size: 12.5px; padding: 2px 8px; border-radius: 999px; background: var(--info-bg); color: var(--info); }
+.req-move { background: var(--fair-bg); color: var(--fair); }
+.plan-items { margin: 8px 0 0; padding-left: 18px; color: var(--text); font-size: 14px; }
+.plan-items li { margin: 6px 0; }
+.plan-items p { margin: 2px 0 0; }
+.plan-items .count { color: var(--muted); font-size: 13px; }
+.priorities { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; counter-reset: priority; }
+.priorities li { display: flex; gap: 10px; align-items: baseline; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+.priorities .area { color: var(--muted); font-size: 13px; margin-left: 6px; white-space: nowrap; }
+.check { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--border); }
+.check-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.check-head h2 { margin: 0; font-size: 22px; letter-spacing: -0.005em; }
+.check-summary { margin: 8px 0 16px; color: var(--muted); }
+.metrics { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 0 0 18px; }
+.metric { padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+.metric dt { color: var(--muted); font-size: 12.5px; }
+.metric dd { margin: 2px 0 0; font-size: 20px; font-weight: 650; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.metric dd.hint { font-size: 12.5px; font-weight: 400; color: var(--muted); }
+.findings { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.finding { min-width: 0; padding: 14px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; break-inside: avoid; }
+.finding-head { display: flex; gap: 10px; align-items: baseline; }
+.finding p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+.files { margin: 8px 0 0; padding: 8px 12px; list-style: none; background: var(--code-bg); border-radius: 6px; color: var(--muted); overflow-x: auto; }
+.files li { white-space: nowrap; line-height: 1.7; }
+.files .more { font-family: inherit; font-style: italic; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+footer p { margin: 4px 0; }
+@media (max-width: 600px) {
+  main { padding-top: 24px; }
+  .masthead { flex-direction: column-reverse; align-items: flex-start; }
+  h1 { font-size: 26px; }
+  .priorities li, .finding-head { flex-direction: column; gap: 6px; }
+  .priorities .area { margin-left: 0; }
+}
+@media print {
+  /* Printing from a dark-mode browser must still give black on white. */
+  :root {
+    --bg: #fff; --surface: #fff; --text: #1b1d21; --muted: #5d636e; --border: #e3e3df; --code-bg: #f0f0ec;
+    --good: #1f7a4d; --good-bg: #e3f3ea; --fair: #8a5a00; --fair-bg: #fbf0d9; --poor: #b42318; --poor-bg: #fde8e6; --info: #5d636e; --info-bg: #ececea;
+    --accent: #3b5bdb; --ring-track: #e7e7e3; color-scheme: light;
+  }
+  main { padding: 0; max-width: none; }
+  .card:hover { border-color: var(--border); }
+  .check { break-before: auto; }
+}
+h2 { margin: 36px 0 12px; font-size: 20px; }</style>
+</head>
+<body>
+<main>
+<header class="masthead"><div>
+<p class="eyebrow">ng-checkup diff</p>
+<h1>ang2-conduit and angular-realworld: score 53 → 85 (+32)</h1>
+<p class="meta">Generated 2026-11-06 by ng-checkup 2.1.0.</p>
+</div></header>
+<p><strong>Note:</strong> The reports name different projects (ang2-conduit and angular-realworld).</p>
+<div class="table-wrap"><table class="projects"><thead><tr><th></th><th>Before</th><th>After</th></tr></thead><tbody><tr><td>Date</td><td>2026-11-06</td><td>2026-11-06</td></tr><tr><td>Score</td><td><span class="pill grade-fair">53</span></td><td><span class="pill grade-good">85</span></td></tr><tr><td>Angular</td><td>12.2.17</td><td>21.2.12</td></tr><tr><td>Lines of code</td><td>1 483</td><td>1 588</td></tr><tr><td>ng-checkup</td><td>2.1.0</td><td>2.1.0</td></tr></tbody></table></div>
+<h2>Areas</h2><div class="table-wrap"><table class="projects"><thead><tr><th>Area</th><th>Before</th><th>After</th></tr></thead><tbody><tr><td>Angular version &amp; tooling</td><td><span class="pill grade-poor">poor</span></td><td><span class="pill grade-good">good</span></td></tr><tr><td>Deprecated APIs</td><td><span class="pill grade-good">good</span></td><td><span class="pill grade-fair">fair</span></td></tr><tr><td>Third-party compatibility</td><td><span class="pill grade-good">good</span></td><td><span class="pill grade-fair">fair</span></td></tr><tr><td>Change detection &amp; zoneless readiness</td><td><span class="pill grade-poor">poor</span></td><td><span class="pill grade-good">good</span></td></tr><tr><td>Components &amp; templates</td><td><span class="pill grade-poor">poor</span></td><td><span class="pill grade-fair">fair</span></td></tr><tr><td>State management</td><td><span class="pill grade-fair">fair</span></td><td><span class="pill grade-good">good</span></td></tr><tr><td>Testing</td><td><span class="pill grade-poor">poor</span></td><td><span class="pill grade-fair">fair</span></td></tr><tr><td>Type safety</td><td><span class="pill grade-poor">poor</span></td><td><span class="pill grade-good">good</span></td></tr><tr><td>Security</td><td><span class="pill grade-poor">poor</span></td><td><span class="pill grade-good">good</span></td></tr></tbody></table></div>
+<h2>Worse</h2><div class="table-wrap"><table class="projects"><thead><tr><th>Measure</th><th class="num">Before</th><th class="num">After</th><th class="num">Change</th></tr></thead><tbody><tr><td>Deprecated API uses (symbol × file)</td><td class="num">0</td><td class="num">19</td><td class="num">+19</td></tr><tr><td>@Input() / @Output() decorators</td><td class="num">12</td><td class="num">15</td><td class="num">+3</td></tr><tr><td>Non-null assertions (x!)</td><td class="num">0</td><td class="num">2</td><td class="num">+2</td></tr><tr><td>Files importing UntypedForm*</td><td class="num">0</td><td class="num">1</td><td class="num">+1</td></tr></tbody></table></div>
+<h2>Better</h2><div class="table-wrap"><table class="projects"><thead><tr><th>Measure</th><th class="num">Before</th><th class="num">After</th><th class="num">Change</th></tr></thead><tbody><tr><td>Components with eager change detection</td><td class="num">18</td><td class="num">0</td><td class="num">-18</td></tr><tr><td>Components declared in NgModules</td><td class="num">18</td><td class="num">0</td><td class="num">-18</td></tr><tr><td>Components and services without a spec</td><td class="num">32</td><td class="num">18</td><td class="num">-14</td></tr><tr><td>*ngIf / *ngFor / [ngSwitch] uses</td><td class="num">13</td><td class="num">0</td><td class="num">-13</td></tr><tr><td>Explicit any in application code</td><td class="num">13</td><td class="num">0</td><td class="num">-13</td></tr><tr><td>Classes with constructor injection</td><td class="num">28</td><td class="num">17</td><td class="num">-11</td></tr><tr><td>.subscribe() in components and directives that nothing ends</td><td class="num">9</td><td class="num">0</td><td class="num">-9</td></tr><tr><td>*ngFor without trackBy</td><td class="num">8</td><td class="num">0</td><td class="num">-8</td></tr><tr><td>Class-based guards and interceptors</td><td class="num">7</td><td class="num">0</td><td class="num">-7</td></tr><tr><td>Manual .subscribe() in components and directives</td><td class="num">22</td><td class="num">16</td><td class="num">-6</td></tr><tr><td>Eagerly loaded routes</td><td class="num">3</td><td class="num">0</td><td class="num">-3</td></tr><tr><td>strictNullChecks / strictTemplates / noImplicitAny off</td><td class="num">3</td><td class="num">0</td><td class="num">-3</td></tr><tr><td>End-of-life packages</td><td class="num">3</td><td class="num">0</td><td class="num">-3</td></tr><tr><td>Projects on the webpack builder</td><td class="num">1</td><td class="num">0</td><td class="num">-1</td></tr></tbody></table></div>
+<h2>New findings</h2><div class="table-wrap"><table class="projects"><thead><tr><th>Severity</th><th>Finding</th><th>Area</th></tr></thead><tbody><tr><td>medium</td><td><code>BrowserDynamicTestingModule</code> from @angular/platform-browser-dynamic/testing, used in 7 files (6 in tests)</td><td>Deprecated APIs</td></tr><tr><td>medium</td><td><code>platformBrowserDynamicTesting</code> from @angular/platform-browser-dynamic/testing, used in 7 files (6 in tests)</td><td>Deprecated APIs</td></tr><tr><td>medium</td><td><code>HttpClientTestingModule</code> from @angular/common/http/testing, used in 5 files (all in tests)</td><td>Deprecated APIs</td></tr><tr><td>medium</td><td><code>@rx-angular/cdk</code> 21.0.0 supports Angular up to 21: it blocks the step to 22</td><td>Third-party compatibility</td></tr><tr><td>medium</td><td><code>@rx-angular/template</code> 21.0.0 supports Angular up to 21: it blocks the step to 22</td><td>Third-party compatibility</td></tr><tr><td>medium</td><td>75% of components and services have no spec</td><td>Testing</td></tr><tr><td>low</td><td>One major behind (21 → 22)</td><td>Angular version &amp; tooling</td></tr><tr><td>low</td><td>2 non-null assertions (<code>x!</code>) in application code</td><td>Type safety</td></tr><tr><td>low</td><td>1 file imports <code>UntypedForm*</code> classes</td><td>Type safety</td></tr></tbody></table></div>
+<h2>Resolved findings</h2><div class="table-wrap"><table class="projects"><thead><tr><th>Severity</th><th>Finding</th><th>Area</th></tr></thead><tbody><tr><td>high</td><td>Angular 12 is 10 majors behind 22 and out of support</td><td>Angular version &amp; tooling</td></tr><tr><td>high</td><td>Unit tests run on Karma, which is deprecated</td><td>Testing</td></tr><tr><td>high</td><td>No unit tests found</td><td>Testing</td></tr><tr><td>high</td><td>End-to-end tests use Protractor, which is end of life</td><td>Testing</td></tr><tr><td>high</td><td><code>strictNullChecks</code> is off</td><td>Type safety</td></tr><tr><td>high</td><td><code>strictTemplates</code> is off</td><td>Type safety</td></tr><tr><td>high</td><td>23 known vulnerabilities in 4 dependencies (15 high or critical)</td><td>Security</td></tr><tr><td>medium</td><td>1 project still built with the webpack builder</td><td>Angular version &amp; tooling</td></tr><tr><td>medium</td><td><code>protractor</code> is end of life</td><td>Angular version &amp; tooling</td></tr><tr><td>medium</td><td><code>tslint</code> is end of life</td><td>Angular version &amp; tooling</td></tr><tr><td>medium</td><td><code>codelyzer</code> is end of life</td><td>Angular version &amp; tooling</td></tr><tr><td>medium</td><td>18 components use eager change detection (100%)</td><td>Change detection &amp; zoneless readiness</td></tr><tr><td>medium</td><td>18 components still declared in NgModules (16 NgModules in total)</td><td>Components &amp; templates</td></tr><tr><td>medium</td><td><code>noImplicitAny</code> is off</td><td>Type safety</td></tr><tr><td>medium</td><td>13 explicit <code>any</code> in application code (8.8 per 1 000 lines)</td><td>Type safety</td></tr><tr><td>low</td><td>13 uses of <code>*ngIf</code>, <code>*ngFor</code> and <code>[ngSwitch]</code></td><td>Components &amp; templates</td></tr><tr><td>low</td><td>9 <code>.subscribe()</code> calls in components and directives that nothing ever ends</td><td>Components &amp; templates</td></tr><tr><td>low</td><td>8 <code>*ngFor</code> loops without <code>trackBy</code></td><td>Components &amp; templates</td></tr><tr><td>low</td><td>7 class-based guards and interceptors</td><td>Architecture</td></tr></tbody></table></div>
+<p class="meta">33 measures unchanged.</p>
+
+</main>
+</body>
+</html>

@@ -1,9 +1,9 @@
 {
   "tool": {
     "name": "ng-checkup",
-    "version": "2.0.1"
+    "version": "2.1.0"
   },
-  "generatedAt": "2026-11-03T21:57:05.061Z",
+  "generatedAt": "2026-11-06T13:31:14.737Z",
   "root": "github.com/gothinkster/angular-realworld-example-app @ 57eeb6a (Angular 12)",
   "project": {
     "name": "ang2-conduit",
@@ -381,6 +381,34 @@
             }
           ],
           "count": 9
+        },
+        {
+          "severity": "low",
+          "message": "8 `*ngFor` loops without `trackBy`",
+          "detail": "Without `trackBy`, `*ngFor` follows rows by object identity. A list rebuilt from new objects, such as a fresh HTTP response, destroys and recreates every row, with its DOM and component state. Add a `trackBy` that returns a stable id, or move to `@for (...; track item.id)`. A literal array or a constant field of the class is left out. A list of strings or numbers is fine as it is, and the template cannot show that.",
+          "files": [
+            {
+              "path": "src/app/article/article.component.html",
+              "line": 41
+            },
+            {
+              "path": "src/app/shared/article-helpers/article-list.component.html",
+              "line": 2
+            },
+            {
+              "path": "src/app/editor/editor.component.html",
+              "line": 27
+            },
+            {
+              "path": "src/app/home/home.component.html",
+              "line": 46
+            },
+            {
+              "path": "src/app/shared/article-helpers/article-preview.component.html",
+              "line": 17
+            }
+          ],
+          "count": 6
         }
       ],
       "measures": [
@@ -413,6 +441,26 @@
           "id": "unended-subscriptions",
           "label": ".subscribe() in components and directives that nothing ends",
           "value": 9
+        },
+        {
+          "id": "untracked-ngfor",
+          "label": "*ngFor without trackBy",
+          "value": 8
+        },
+        {
+          "id": "track-by-index",
+          "label": "@for with track $index",
+          "value": 0
+        },
+        {
+          "id": "template-method-calls",
+          "label": "Method calls in template bindings",
+          "value": 0
+        },
+        {
+          "id": "impure-pipes",
+          "label": "Impure pipes",
+          "value": 0
         }
       ]
     },
@@ -1016,10 +1064,17 @@
           "severity": "info",
           "message": "Run `ng build --stats-json` (or `nx build <app> --stats-json`) and re-run to include the bundle size"
         }
+      ],
+      "measures": [
+        {
+          "id": "heavy-packages",
+          "label": "Heavy packages loaded at startup",
+          "value": 0
+        }
       ]
     }
   ],
-  "durationMs": 3124,
+  "durationMs": 2765,
   "plan": {
     "from": 12,
     "to": 22,
